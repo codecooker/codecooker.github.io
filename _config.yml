@@ -1,0 +1,8 @@
+permalink: pretty
+paginate: 5
+encoding: UTF-8
+highlighter: pygments
+markdown: redcarpet
+email: "codecooker@outlook.com"
+permalink: /:year/:month/:title.html
+baseurl: /codecooker.github.io

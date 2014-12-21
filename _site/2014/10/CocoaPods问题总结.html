@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+ <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
+
+    <title>Codecooker.github.io</title>
+  </head>
+
+    <body>
+
+     <!-- HEADER -->
+<header class="inner">
+          <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
+
+          <h1 id="project_title">Codecooker</h1>
+          <h2 id="project_tagline">With great power comes great responsibility</h2>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrap">
+      <div id="post" >
+	<div class="page-content">
+	<div class="wrap">
+	<div id="main_content_wrap" class="outer">
+	<section id="main_content" class="inner">
+		<p>在项目接入<strong>cocoapods</strong>后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。<br>
+这里我来总结下常见的一些问题的处理方案，方便大家在日后的项目测试中做到有的放矢。  </p>
+
+<h4>1.找不到相应的库</h4>
+
+<p>找不到相应的库的问题，我碰到的有两个原因<br>
+1.打包机器没有添加<strong>framework</strong>对应的源（如何添加源，请继续往下看）<br>
+2.本地<strong>cocoapods</strong>的版本与<strong>打包机器</strong>上<strong>cocoapods</strong>的版本不一致，这个问题通常是由于本地的版本高于MTL版本造成的</p>
+
+<h4>2.找不到相应的<strong>target</strong></h4>
+
+<p>由于工程的迁移，或者开发人员的误操作，会造成本地<strong>target</strong>的丢失。这样在命令行打包过程中，会暴找不到<strong>target</strong>的错误，这时我们只需要将针对与个人的<strong>target</strong>设置成<strong>shared</strong>即可，如下:<br>
+<img src="/images/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/Snip20141028_7.png" alt="设置target为shared"><br>
+<strong><em>重要:这里需要注意的一点是我们的更改怎么提交到git上，如果大家这样操作后会发现git并没有跟踪到任何变化，我们无所提交。其实我们只需要在git托管的目录下找到.gitignore文件(这是一个隐藏文件，如果不清楚这个文件是做什么的，自行恶补),彩票的文件内容如下</em></strong></p>
+
+<pre>
+.DS_Store
+
+build/*
+docs/*
+.svn/
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+*.xcworkspace
+xcuserdata
+*.xcscheme
+*.xccheckout
+profile
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+Pods
+.idea
+contents.xcworkspacedata
+</pre>  
+
+<p><strong><em>我们需要暂时屏蔽对</em>.xcscheme文件的过滤，然后就能看到更改，接下来commit-&gt;push</strong></p>
+
+<h4>3.本地升级cocoapods后与MTL版本不一致</h4>
+
+<p>这个问题通常<strong>不会直接抛出</strong>是由于本地<strong>cocoapods</strong>版本与打包机器<strong>cocoapods</strong>版本不一致的错误异常<br>
+通常的展现方式会以在编译的时候<strong>找不到某个库的错误</strong>暴露出来，如:<br>
+<pre>
+error: &#39;XXXFramework/XXXFramework.h&#39; file not found
+    #import &quot;XXXFramework/XXXFramework.h&quot;
+            ^
+1 error generated.
+</pre>
+在确定了已经添加相应的源且获得了相应的权限后,碰到类似诡异的问题,可以翻看<em>log</em>文件的前面,查看是否有生成<strong>podfile.lock</strong>的<strong>cocoapods</strong>版本号和打包机器的<strong>cocoapods</strong>版本号不一致的警告。<br>
+如下:<br>
+<code>[!] The version of CocoaPods used to generate the lockfile (0.34.2) is higher than the version of the current executable (0.33.1). Incompatibility issues may arise.</code><br>
+当看到如此的警告时我们可以按照如下步骤进行处理<br>
+1.删除工程内的<strong>Pods</strong>文件夹<br>
+2.删除工程内的<strong>xcworkspace</strong>的文件<br>
+3.删除<strong>Podfile.lock</strong>文件<br>
+4.打开<strong>xcodeproj</strong>,注意不是<strong>xcworkspace</strong>,在左边树形结构文件处删除<strong>Pods</strong>文件夹  </p>
+
+<p><img src="/images/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/Snip20141028_3.png" alt="pods文件夹图片"><br>
+5.删除功能内对<strong>Pod</strong>产生<strong>target</strong>的引用<br>
+6.删除<strong>Pod</strong>产生的一些配置信息如图<br>
+<img src="/images/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/Snip20141028_5.png" alt="pods文件夹图片">
+图中的<strong>第二项</strong>和<strong>最后一项</strong><br>
+7.提交代码打包</p>
+
+<h4>PS:其他涉及到的问题，大家熟悉cocoapods的话，应该都能搞定。如果还诡异问题也可以和我沟通，相信以后大家都能搞定摩天轮打包失败的问题了，哈哈！</h4>
+
+<h4>注:cocoapods常见低级问题解答</h4>
+
+<h6>1.如何添加源</h6>
+
+<p><code>pod repo add [source_name] [source_path];</code>  </p>
+
+<p>其中source<em>name指为源起的名称，可以根据自己的喜好，但是不要和本地源重名。source</em>path为我们真是源的一个git地址，注意源的git权限通常需要设置为<strong>public</strong><br>
+升级cocoapods到最新版后，我们也可以这样使用<br>
+在podfile里添加如下代码指定该podfile内涉及的库从哪些源里获取  </p>
+
+<p><code>source [source_path];</code></p>
+
+<h6>2.是否需要提交Podfile.lock</h6>
+
+<p>这是CocoaPods创建的最重要的文件之一。它记录了需要被安装的pod的每个已安装的版本。如果你想知道已安装的pod是哪个版本，可以查看这个文件。推荐将Podfile.lock文件加入到版本控制中，这有助于整个团队的一致性。 </p>
+
+<h6>3.Manifest.lock是干什么的,为什么一致报错</h6>
+
+<p>这是每次运行pod install时创建的Podfile.lock文件的副本。如果大家遇到过这个错误：</p>
+
+<p><code>diff: /../Podfile.lock: No such file or directory diff: /Manifest.lock: No such file or directory error: The sandbox is not in sync with the Podfile.lock. Run &#39;pod install&#39; or update your CocoaPods installation.</code>  </p>
+
+<p>由于Pods所在的目录并不总在版本控制之下，这样可以保证开发者运行app之前都能更新他们的pods，否则app可能会crash，或者在一些不太明显的地方编译失败.</p>
+
+	</section>
+	</div>
+	</div>
+	</div>
+</div>
+
+      </div>
+    </div>
+
+    <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a> &nbsp&nbsp&nbsp&nbsp<a href="mailto:codecooker@outlook.com">Contact me</a></p>
+ </footer>
+
+  </body>
+</body>
+
+
