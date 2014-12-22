@@ -24,8 +24,8 @@
     <div class="page-content">
       <div class="wrap">
       <div id="post" >
-	<div class="page-content">
-	<div class="wrap">
+	<!-- <div class="page-content"> -->
+	<!-- <div class="wrap"> -->
 	<div id="main_content_wrap" class="outer">
 	<section id="main_content" class="inner">
 		<p>在项目接入<strong>cocoapods</strong>后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。<br>
@@ -124,15 +124,10 @@ error: &#39;XXXFramework/XXXFramework.h&#39; file not found
 
 <p>由于Pods所在的目录并不总在版本控制之下，这样可以保证开发者运行app之前都能更新他们的pods，否则app可能会crash，或者在一些不太明显的地方编译失败.</p>
 
-	</section>
-	</div>
-	<div id="disqus_thread"></div>
-	</div>
-	</div>
-</div>
-
-<!-- 评论模块 -->
-	<script type="text/javascript">
+		<!-- 评论模块 -->
+		<div id="disqus_thread_content_wrap" class="outer">
+<section id="disqus_thread" class="inner">
+    <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'codecooker'; // required: replace example with your forum shortname
 
@@ -144,6 +139,13 @@ error: &#39;XXXFramework/XXXFramework.h&#39; file not found
         })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+</div>
+	</section>
+	</div>
+	<!-- </div> -->
+	<!-- </div> -->
+</div>
 
 
 

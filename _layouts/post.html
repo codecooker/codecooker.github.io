@@ -2,19 +2,17 @@
 layout: default
 ---
 <div id="post" >
-	<div class="page-content">
-	<div class="wrap">
+	<!-- <div class="page-content"> -->
+	<!-- <div class="wrap"> -->
 	<div id="main_content_wrap" class="outer">
 	<section id="main_content" class="inner">
 		{{ content }}
+		<!-- 评论模块 -->
+		{% include disqus.html %}
 	</section>
 	</div>
-	<div id="disqus_thread"></div>
-	</div>
-	</div>
+	<!-- </div> -->
+	<!-- </div> -->
 </div>
-
-<!-- 评论模块 -->
-{% include disqus.html %}
 
 
