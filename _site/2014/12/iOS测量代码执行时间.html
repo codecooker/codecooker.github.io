@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+ <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
+
+    <title>Codecooker.github.io</title>
+  </head>
+
+    <body>
+
+     <!-- HEADER -->
+<header class="inner">
+          <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
+
+          <h1 id="project_title">Codecooker</h1>
+          <h2 id="project_tagline">With great power comes great responsibility</h2>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrap">
+      <div id="post" >
+	<!-- <div class="page-content"> -->
+	<!-- <div class="wrap"> -->
+	<div id="main_content_wrap" class="outer">
+	<section id="main_content" class="inner">
+		<p>iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间</p>
+
+<h4>涉及的API</h4>
+
+<p>先来认识几个API，他们被包含在<code>&lt;mach/mach_time.h&gt;</code>中<br>
+在使用前我们需要先<br>
+<code>#import &lt;mach/mach_time.h&gt;</code><br>
+进入mach<em>time.h文件，我们可以看到如下内容 
+<pre>
+struct mach</em>timebase<em>info {
+    uint32</em>t    numer;
+    uint32<em>t    denom;
+};
+typedef struct mach</em>timebase<em>info   *mach</em>timebase<em>info</em>t;
+typedef struct mach<em>timebase</em>info   mach<em>timebase</em>info<em>data</em>t;</p>
+
+<p>_<em>BEGIN</em>DECLS
+kern<em>return</em>t       mach<em>timebase</em>info(mach<em>timebase</em>info<em>t    info);
+kern</em>return<em>t       mach</em>wait<em>until(uint64</em>t        deadline);
+uint64<em>t            mach</em>absolute<em>time(void);
+uint64</em>t            mach<em>approximate</em>time(void);
+_<em>END</em>DECLS
+</pre>
+首先定义了一个mach<em>timebase</em>info的结构体，用来存储CPU的一些执行信息,改结构体包含两个成员<br>
+1. numer 直译为分子<br>
+2. denom直译为分母
+具体用法后边会有所描述，各位看官可以先继续往下看<br>
+<code>mach_timebase_info(mach_timebase_info_t    info)</code>方法用来初始化一个mach<em>timebase</em>info的对象<br>
+<code>mach_wait_until(uint64_t        deadline);</code>用来挂起线程等待deadline时唤醒<br>
+<code>mach_absolute_time(void)</code>获取当前的绝对时间
+<code>mach_approximate_time(void)</code>获取当前的大概时间，如果可以忍受一点误差就可以选用该方法，后边会有对比  </p>
+
+<h4>如何使用</h4>
+
+<pre>
+mach_timebase_info_data_t timebase_info;
+mach_timebase_info(&timebase_info);
+uint64_t startTime = mach_absolute_time();
+for (int i = 0; i < 10000; ++i) {
+    NSLog(@"Hello world");
+}
+uint64_t endTime = mach_absolute_time();
+NSLog(@"消耗时间%lld",endTime - startTime);
+</pre>
+
+<p>结果显示为：<em>消耗时间4822588154</em><br>
+当然这个时间不是实际消耗时间，而是CPU的运行周期数，我们要获取实际运行时间，还需要做一些处理  </p>
+
+<h5>numer 、denom怎么用</h5>
+
+<p>举个例子吧，假设numer = 100；denom = 10；则表示一个CPU时钟周期为100/10=10（单位为纳秒）<br>
+所以要得到准确时间，我们需要添加如下代码：<br>
+<pre>
+        uint64<em>t tureTime = (endTime - startTime) * timebase</em>info.numer / timebase_info.denom;
+        NSLog(@&quot;消耗时间%lld&quot;,tureTime);
+</pre>
+结果显示为：<em>消耗时间5087630559</em>  ,注意这里单位为<strong><em>纳秒</em></strong>，即正确时间为5.08秒.    </p>
+
+<h5><code>mach_approximate_time的返回结果</code></h5>
+
+<p>结果显示为:<em>消耗时间6939457729</em>,即6.9秒</p>
+
+		<!-- 评论模块 -->
+		<div id="disqus_thread_content_wrap" class="outer">
+<section id="disqus_thread" class="inner">
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'codecooker'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+</div>
+	</section>
+	</div>
+	<!-- </div> -->
+	<!-- </div> -->
+</div>
+
+
+
+      </div>
+    </div>
+
+    <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a> &nbsp&nbsp&nbsp&nbsp<a href="mailto:codecooker@outlook.com">Contact me</a></p>
+ </footer>
+
+  </body>
+</body>
+
+
