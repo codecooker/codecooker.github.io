@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+ <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
+
+    <title>Codecooker.github.io</title>
+  </head>
+
+    <body>
+
+     <!-- HEADER -->
+<header class="inner">
+          <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
+
+          <h1 id="project_title">Codecooker</h1>
+          <h2 id="project_tagline">With great power comes great responsibility</h2>
+
+</header>
+
+    <div class="page-content">
+      <div class="wrap">
+      <div id="post" >
+	<!-- <div class="page-content"> -->
+	<!-- <div class="wrap"> -->
+	<div id="main_content_wrap" class="outer">
+	<section id="main_content" class="inner">
+		<p>由于最近要做iPhone6和iPhone6+的适配工作，所以难免会需要对设备型号进行判断，就借此机会总结下判断设备的方法</p>
+
+<h2>获取iOS设备信息</h2>
+
+<p>1.根据屏幕宽度大小进行判断</p>
+
+<pre>
+    #define iPhone6    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
+    #define iPhone6Plus    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
+</pre>
+
+<p>2.读取设备信息进行判断</p>
+
+<pre>
+    #import "sys/utsname.h"
+
+    - (NSString *)deviceModel
+    {
+        struct utsname systemInfo;
+        uname(&systemInfo);
+        return [NSString stringWithCString:systemInfo.machine
+                                   encoding:NSUTF8StringEncoding];
+    }
+</pre>
+
+<p>3.简单的读取设备model</p>
+
+<pre>
+    [UIDevice currentDevice].model;
+</pre>
+
+<p>其中第三种方法是调用上层API，比较推荐使用。如果需要比较详细的设备制式信息，推荐第二种方法，关于对照表如下：
+<pre>
+    @&quot;i386&quot;      :@&quot;Simulator&quot;,
+    @&quot;iPod1,1&quot;   :@&quot;iPod Touch&quot;,      // (Original)
+    @&quot;iPod2,1&quot;   :@&quot;iPod Touch&quot;,      // (Second Generation)
+    @&quot;iPod3,1&quot;   :@&quot;iPod Touch&quot;,      // (Third Generation)
+    @&quot;iPod4,1&quot;   :@&quot;iPod Touch&quot;,      // (Fourth Generation)
+    @&quot;iPhone1,1&quot; :@&quot;iPhone&quot;,          // (Original)
+    @&quot;iPhone1,2&quot; :@&quot;iPhone&quot;,          // (3G)
+    @&quot;iPhone2,1&quot; :@&quot;iPhone&quot;,          // (3GS)
+    @&quot;iPad1,1&quot;   :@&quot;iPad&quot;,            // (Original)
+    @&quot;iPad2,1&quot;   :@&quot;iPad 2&quot;,          //
+    @&quot;iPad3,1&quot;   :@&quot;iPad&quot;,            // (3rd Generation)
+    @&quot;iPhone3,1&quot; :@&quot;iPhone 4&quot;,        //
+    @&quot;iPhone4,1&quot; :@&quot;iPhone 4S&quot;,       //
+    @&quot;iPhone5,1&quot; :@&quot;iPhone 5&quot;,        // (model A1428, AT&amp;T/Canada)
+    @&quot;iPhone5,2&quot; :@&quot;iPhone 5&quot;,        // (model A1429, everything else)
+    @&quot;iPad3,4&quot;   :@&quot;iPad&quot;,            // (4th Generation)
+    @&quot;iPad2,5&quot;   :@&quot;iPad Mini&quot;,       // (Original)
+    @&quot;iPhone5,3&quot; :@&quot;iPhone 5c&quot;,       // (model A1456, A1532 | GSM)
+    @&quot;iPhone5,4&quot; :@&quot;iPhone 5c&quot;,       // (model A1507, A1516, A1526 (China), A1529 | Global)
+    @&quot;iPhone6,1&quot; :@&quot;iPhone 5s&quot;,       // (model A1433, A1533 | GSM)
+    @&quot;iPhone6,2&quot; :@&quot;iPhone 5s&quot;,       // (model A1457, A1518, A1528 (China), A1530 | Global)
+    @&quot;iPad4,1&quot;   :@&quot;iPad Air&quot;,        // 5th Generation iPad (iPad Air) - Wifi
+    @&quot;iPad4,2&quot;   :@&quot;iPad Air&quot;,        // 5th Generation iPad (iPad Air) - Cellular
+    @&quot;iPad4,4&quot;   :@&quot;iPad Mini&quot;,       // (2nd Generation iPad Mini - Wifi)
+    @&quot;iPad4,5&quot;   :@&quot;iPad Mini&quot;        // (2nd Generation iPad Mini - Cellular)
+</pre></p>
+
+<p>详细可以参见<a href="https://theiphonewiki.com/wiki/Models">设备制式对照表</a></p>
+
+		<!-- 评论模块 -->
+		<div id="disqus_thread_content_wrap" class="outer">
+<section id="disqus_thread" class="inner">
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'codecooker'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+</div>
+	</section>
+	</div>
+	<!-- </div> -->
+	<!-- </div> -->
+</div>
+
+
+
+      </div>
+    </div>
+
+    <footer class="inner">
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a> &nbsp&nbsp&nbsp&nbsp<a href="mailto:codecooker@outlook.com">Contact me</a></p>
+ </footer>
+
+  </body>
+</body>
+
+
