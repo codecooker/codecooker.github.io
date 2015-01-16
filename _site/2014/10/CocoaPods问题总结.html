@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
  <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
 
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-
+    <link rel="shortcut icon" href="/images/site_shortcut.ico"/>
     <title>Codecooker.github.io</title>
-  </head>
+ </head>
 
-    <body>
+    <body onload="myPrettyPrint()">
 
      <!-- HEADER -->
 <header class="inner">
           <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
-
           <h1 id="project_title">Codecooker</h1>
           <h2 id="project_tagline">With great power comes great responsibility</h2>
 
@@ -43,46 +43,45 @@
 <img src="/images/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93/Snip20141028_7.png" alt="设置target为shared"><br>
 <strong><em>重要:这里需要注意的一点是我们的更改怎么提交到git上，如果大家这样操作后会发现git并没有跟踪到任何变化，我们无所提交。其实我们只需要在git托管的目录下找到.gitignore文件(这是一个隐藏文件，如果不清楚这个文件是做什么的，自行恶补),彩票的文件内容如下</em></strong></p>
 
-<pre>
-.DS_Store
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="p">.</span><span class="n">DS_Store</span>
 
-build/*
-docs/*
-.svn/
+<span class="n">build</span><span class="o">/*</span>
+<span class="n">docs</span><span class="o">/*</span>
+<span class="p">.</span><span class="n">svn</span><span class="o">/</span>
 
-# Xcode
-*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-*.xcuserstate
-*.xcworkspace
-xcuserdata
-*.xcscheme
-*.xccheckout
-profile
-*.moved-aside
-DerivedData
-*.hmap
-*.ipa
-Pods
-.idea
-contents.xcworkspacedata
-</pre>  
+<span class="cp"># Xcode</span>
+<span class="o">*</span><span class="p">.</span><span class="n">pbxuser</span>
+<span class="o">*</span><span class="p">.</span><span class="n">mode1v3</span>
+<span class="o">*</span><span class="p">.</span><span class="n">mode2v3</span>
+<span class="o">*</span><span class="p">.</span><span class="n">perspectivev3</span>
+<span class="o">*</span><span class="p">.</span><span class="n">xcuserstate</span>
+<span class="o">*</span><span class="p">.</span><span class="n">xcworkspace</span>
+<span class="n">xcuserdata</span>
+<span class="o">*</span><span class="p">.</span><span class="n">xcscheme</span>
+<span class="o">*</span><span class="p">.</span><span class="n">xccheckout</span>
+<span class="n">profile</span>
+<span class="o">*</span><span class="p">.</span><span class="n">moved</span><span class="o">-</span><span class="n">aside</span>
+<span class="n">DerivedData</span>
+<span class="o">*</span><span class="p">.</span><span class="n">hmap</span>
+<span class="o">*</span><span class="p">.</span><span class="n">ipa</span>
+<span class="n">Pods</span>
+<span class="p">.</span><span class="n">idea</span>
+<span class="n">contents</span><span class="p">.</span><span class="n">xcworkspacedata</span></code></pre></div>
+  
 
 <p><strong><em>我们需要暂时屏蔽对</em>.xcscheme文件的过滤，然后就能看到更改，接下来commit-&gt;push</strong></p>
 
 <h4>3.本地升级cocoapods后与MTL版本不一致</h4>
 
 <p>这个问题通常<strong>不会直接抛出</strong>是由于本地<strong>cocoapods</strong>版本与打包机器<strong>cocoapods</strong>版本不一致的错误异常<br>
-通常的展现方式会以在编译的时候<strong>找不到某个库的错误</strong>暴露出来，如:<br>
-<pre>
-error: &#39;XXXFramework/XXXFramework.h&#39; file not found
-    #import &quot;XXXFramework/XXXFramework.h&quot;
-            ^
-1 error generated.
-</pre>
-在确定了已经添加相应的源且获得了相应的权限后,碰到类似诡异的问题,可以翻看<em>log</em>文件的前面,查看是否有生成<strong>podfile.lock</strong>的<strong>cocoapods</strong>版本号和打包机器的<strong>cocoapods</strong>版本号不一致的警告。<br>
+通常的展现方式会以在编译的时候<strong>找不到某个库的错误</strong>暴露出来，如:  </p>
+
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="nl">error</span><span class="p">:</span> <span class="err">&#39;</span><span class="n">XXXFramework</span><span class="o">/</span><span class="n">XXXFramework</span><span class="p">.</span><span class="n">h</span><span class="err">&#39;</span> <span class="n">file</span> <span class="n">not</span> <span class="n">found</span>
+    <span class="cp">#import &quot;XXXFramework/XXXFramework.h&quot;</span>
+            <span class="o">^</span>
+<span class="mi">1</span> <span class="n">error</span> <span class="n">generated</span><span class="p">.</span></code></pre></div>
+
+<p>在确定了已经添加相应的源且获得了相应的权限后,碰到类似诡异的问题,可以翻看<em>log</em>文件的前面,查看是否有生成<strong>podfile.lock</strong>的<strong>cocoapods</strong>版本号和打包机器的<strong>cocoapods</strong>版本号不一致的警告。<br>
 如下:<br>
 <code>[!] The version of CocoaPods used to generate the lockfile (0.34.2) is higher than the version of the current executable (0.33.1). Incompatibility issues may arise.</code><br>
 当看到如此的警告时我们可以按照如下步骤进行处理<br>

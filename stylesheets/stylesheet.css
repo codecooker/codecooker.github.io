@@ -103,7 +103,7 @@ footer p {
 
 a {
   text-decoration: none;
-  color: #007edf;
+  color: #2251A4;
   text-shadow: none;
 
   transition: color 0.5s ease;
@@ -160,7 +160,7 @@ p img {
 pre, code {
   width: 100%;
   color: #ffffff;
-  background-color: #0D333E;
+  background-color: #202020;
 
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
   font-size: 14px;

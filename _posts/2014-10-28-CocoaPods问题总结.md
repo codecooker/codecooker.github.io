@@ -17,7 +17,7 @@ title: CocoaPods问题总结
 ![设置target为shared]({{ site.url }}/images/{{page.title}}/Snip20141028_7.png)  
 ***重要:这里需要注意的一点是我们的更改怎么提交到git上，如果大家这样操作后会发现git并没有跟踪到任何变化，我们无所提交。其实我们只需要在git托管的目录下找到.gitignore文件(这是一个隐藏文件，如果不清楚这个文件是做什么的，自行恶补),彩票的文件内容如下***
 
-<pre>
+{% highlight objective-c%}
 .DS_Store
 
 build/*
@@ -42,18 +42,18 @@ DerivedData
 Pods
 .idea
 contents.xcworkspacedata
-</pre>  
+{% endhighlight %}  
 ***我们需要暂时屏蔽对*.xcscheme文件的过滤，然后就能看到更改，接下来commit->push**
 
 ####3.本地升级cocoapods后与MTL版本不一致#
 这个问题通常**不会直接抛出**是由于本地**cocoapods**版本与打包机器**cocoapods**版本不一致的错误异常  
 通常的展现方式会以在编译的时候**找不到某个库的错误**暴露出来，如:  
-<pre>
+{% highlight objective-c%}
 error: 'XXXFramework/XXXFramework.h' file not found
     #import "XXXFramework/XXXFramework.h"
             ^
 1 error generated.
-</pre>
+{% endhighlight %}
 在确定了已经添加相应的源且获得了相应的权限后,碰到类似诡异的问题,可以翻看*log*文件的前面,查看是否有生成**podfile.lock**的**cocoapods**版本号和打包机器的**cocoapods**版本号不一致的警告。  
 如下:  
 `[!] The version of CocoaPods used to generate the lockfile (0.34.2) is higher than the version of the current executable (0.33.1). Incompatibility issues may arise.`  

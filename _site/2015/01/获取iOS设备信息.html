@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
  <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
 
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-
+    <link rel="shortcut icon" href="/images/site_shortcut.ico"/>
     <title>Codecooker.github.io</title>
-  </head>
+ </head>
 
-    <body>
+    <body onload="myPrettyPrint()">
 
      <!-- HEADER -->
 <header class="inner">
           <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
-
           <h1 id="project_title">Codecooker</h1>
           <h2 id="project_tagline">With great power comes great responsibility</h2>
 
@@ -34,59 +34,52 @@
 
 <p>1.根据屏幕宽度大小进行判断</p>
 
-<pre>
-    #define iPhone6    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)
-    #define iPhone6Plus    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)
-</pre>
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="cp">#define iPhone6    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)</span>
+<span class="cp">#define iPhone6Plus    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)</span></code></pre></div>
 
 <p>2.读取设备信息进行判断</p>
 
-<pre>
-    #import "sys/utsname.h"
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="cp">#import &quot;sys/utsname.h&quot;</span>
 
-    - (NSString *)deviceModel
-    {
-        struct utsname systemInfo;
-        uname(&systemInfo);
-        return [NSString stringWithCString:systemInfo.machine
-                                   encoding:NSUTF8StringEncoding];
-    }
-</pre>
+<span class="p">-</span> <span class="p">(</span><span class="bp">NSString</span> <span class="o">*</span><span class="p">)</span><span class="nf">deviceModel</span>
+<span class="p">{</span>
+    <span class="k">struct</span> <span class="n">utsname</span> <span class="n">systemInfo</span><span class="p">;</span>
+    <span class="n">uname</span><span class="p">(</span><span class="o">&amp;</span><span class="n">systemInfo</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">[</span><span class="bp">NSString</span> <span class="nl">stringWithCString</span><span class="p">:</span><span class="n">systemInfo</span><span class="p">.</span><span class="n">machine</span>
+                               <span class="nl">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
+<span class="p">}</span></code></pre></div>
 
 <p>3.简单的读取设备model</p>
 
-<pre>
-    [UIDevice currentDevice].model;
-</pre>
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="p">[</span><span class="bp">UIDevice</span> <span class="n">currentDevice</span><span class="p">].</span><span class="n">model</span><span class="p">;</span></code></pre></div>
 
-<p>其中第三种方法是调用上层API，比较推荐使用。如果需要比较详细的设备制式信息，推荐第二种方法，关于对照表如下：
-<pre>
-    @&quot;i386&quot;      :@&quot;Simulator&quot;,
-    @&quot;iPod1,1&quot;   :@&quot;iPod Touch&quot;,      // (Original)
-    @&quot;iPod2,1&quot;   :@&quot;iPod Touch&quot;,      // (Second Generation)
-    @&quot;iPod3,1&quot;   :@&quot;iPod Touch&quot;,      // (Third Generation)
-    @&quot;iPod4,1&quot;   :@&quot;iPod Touch&quot;,      // (Fourth Generation)
-    @&quot;iPhone1,1&quot; :@&quot;iPhone&quot;,          // (Original)
-    @&quot;iPhone1,2&quot; :@&quot;iPhone&quot;,          // (3G)
-    @&quot;iPhone2,1&quot; :@&quot;iPhone&quot;,          // (3GS)
-    @&quot;iPad1,1&quot;   :@&quot;iPad&quot;,            // (Original)
-    @&quot;iPad2,1&quot;   :@&quot;iPad 2&quot;,          //
-    @&quot;iPad3,1&quot;   :@&quot;iPad&quot;,            // (3rd Generation)
-    @&quot;iPhone3,1&quot; :@&quot;iPhone 4&quot;,        //
-    @&quot;iPhone4,1&quot; :@&quot;iPhone 4S&quot;,       //
-    @&quot;iPhone5,1&quot; :@&quot;iPhone 5&quot;,        // (model A1428, AT&amp;T/Canada)
-    @&quot;iPhone5,2&quot; :@&quot;iPhone 5&quot;,        // (model A1429, everything else)
-    @&quot;iPad3,4&quot;   :@&quot;iPad&quot;,            // (4th Generation)
-    @&quot;iPad2,5&quot;   :@&quot;iPad Mini&quot;,       // (Original)
-    @&quot;iPhone5,3&quot; :@&quot;iPhone 5c&quot;,       // (model A1456, A1532 | GSM)
-    @&quot;iPhone5,4&quot; :@&quot;iPhone 5c&quot;,       // (model A1507, A1516, A1526 (China), A1529 | Global)
-    @&quot;iPhone6,1&quot; :@&quot;iPhone 5s&quot;,       // (model A1433, A1533 | GSM)
-    @&quot;iPhone6,2&quot; :@&quot;iPhone 5s&quot;,       // (model A1457, A1518, A1528 (China), A1530 | Global)
-    @&quot;iPad4,1&quot;   :@&quot;iPad Air&quot;,        // 5th Generation iPad (iPad Air) - Wifi
-    @&quot;iPad4,2&quot;   :@&quot;iPad Air&quot;,        // 5th Generation iPad (iPad Air) - Cellular
-    @&quot;iPad4,4&quot;   :@&quot;iPad Mini&quot;,       // (2nd Generation iPad Mini - Wifi)
-    @&quot;iPad4,5&quot;   :@&quot;iPad Mini&quot;        // (2nd Generation iPad Mini - Cellular)
-</pre></p>
+<p>其中第三种方法是调用上层API，比较推荐使用。如果需要比较详细的设备制式信息，推荐第二种方法，关于对照表如下：</p>
+
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="s">@&quot;i386&quot;</span>      <span class="o">:</span><span class="s">@&quot;Simulator&quot;</span><span class="p">,</span>
+<span class="s">@&quot;iPod1,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPod Touch&quot;</span><span class="p">,</span>      <span class="c1">// (Original)</span>
+<span class="s">@&quot;iPod2,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPod Touch&quot;</span><span class="p">,</span>      <span class="c1">// (Second Generation)</span>
+<span class="s">@&quot;iPod3,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPod Touch&quot;</span><span class="p">,</span>      <span class="c1">// (Third Generation)</span>
+<span class="s">@&quot;iPod4,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPod Touch&quot;</span><span class="p">,</span>      <span class="c1">// (Fourth Generation)</span>
+<span class="s">@&quot;iPhone1,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone&quot;</span><span class="p">,</span>          <span class="c1">// (Original)</span>
+<span class="s">@&quot;iPhone1,2&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone&quot;</span><span class="p">,</span>          <span class="c1">// (3G)</span>
+<span class="s">@&quot;iPhone2,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone&quot;</span><span class="p">,</span>          <span class="c1">// (3GS)</span>
+<span class="s">@&quot;iPad1,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad&quot;</span><span class="p">,</span>            <span class="c1">// (Original)</span>
+<span class="s">@&quot;iPad2,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad 2&quot;</span><span class="p">,</span>          <span class="c1">//</span>
+<span class="s">@&quot;iPad3,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad&quot;</span><span class="p">,</span>            <span class="c1">// (3rd Generation)</span>
+<span class="s">@&quot;iPhone3,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 4&quot;</span><span class="p">,</span>        <span class="c1">//</span>
+<span class="s">@&quot;iPhone4,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 4S&quot;</span><span class="p">,</span>       <span class="c1">//</span>
+<span class="s">@&quot;iPhone5,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5&quot;</span><span class="p">,</span>        <span class="c1">// (model A1428, AT&amp;T/Canada)</span>
+<span class="s">@&quot;iPhone5,2&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5&quot;</span><span class="p">,</span>        <span class="c1">// (model A1429, everything else)</span>
+<span class="s">@&quot;iPad3,4&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad&quot;</span><span class="p">,</span>            <span class="c1">// (4th Generation)</span>
+<span class="s">@&quot;iPad2,5&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Mini&quot;</span><span class="p">,</span>       <span class="c1">// (Original)</span>
+<span class="s">@&quot;iPhone5,3&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5c&quot;</span><span class="p">,</span>       <span class="c1">// (model A1456, A1532 | GSM)</span>
+<span class="s">@&quot;iPhone5,4&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5c&quot;</span><span class="p">,</span>       <span class="c1">// (model A1507, A1516, A1526 (China), A1529 | Global)</span>
+<span class="s">@&quot;iPhone6,1&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5s&quot;</span><span class="p">,</span>       <span class="c1">// (model A1433, A1533 | GSM)</span>
+<span class="s">@&quot;iPhone6,2&quot;</span> <span class="o">:</span><span class="s">@&quot;iPhone 5s&quot;</span><span class="p">,</span>       <span class="c1">// (model A1457, A1518, A1528 (China), A1530 | Global)</span>
+<span class="s">@&quot;iPad4,1&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Air&quot;</span><span class="p">,</span>        <span class="c1">// 5th Generation iPad (iPad Air) - Wifi</span>
+<span class="s">@&quot;iPad4,2&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Air&quot;</span><span class="p">,</span>        <span class="c1">// 5th Generation iPad (iPad Air) - Cellular</span>
+<span class="s">@&quot;iPad4,4&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Mini&quot;</span><span class="p">,</span>       <span class="c1">// (2nd Generation iPad Mini - Wifi)</span>
+<span class="s">@&quot;iPad4,5&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Mini&quot;</span>        <span class="c1">// (2nd Generation iPad Mini - Cellular)</span></code></pre></div>
 
 <p>详细可以参见<a href="https://theiphonewiki.com/wiki/Models">设备制式对照表</a></p>
 

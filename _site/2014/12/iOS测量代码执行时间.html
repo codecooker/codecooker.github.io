@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+
  <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
 
     <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-
+    <link rel="shortcut icon" href="/images/site_shortcut.ico"/>
     <title>Codecooker.github.io</title>
-  </head>
+ </head>
 
-    <body>
+    <body onload="myPrettyPrint()">
 
      <!-- HEADER -->
 <header class="inner">
           <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
-
           <h1 id="project_title">Codecooker</h1>
           <h2 id="project_tagline">With great power comes great responsibility</h2>
 
@@ -35,23 +35,23 @@
 <p>先来认识几个API，他们被包含在<code>&lt;mach/mach_time.h&gt;</code>中<br>
 在使用前我们需要先<br>
 <code>#import &lt;mach/mach_time.h&gt;</code><br>
-进入mach<em>time.h文件，我们可以看到如下内容 
-<pre>
-struct mach</em>timebase<em>info {
-    uint32</em>t    numer;
-    uint32<em>t    denom;
-};
-typedef struct mach</em>timebase<em>info   *mach</em>timebase<em>info</em>t;
-typedef struct mach<em>timebase</em>info   mach<em>timebase</em>info<em>data</em>t;</p>
+进入mach_time.h文件，我们可以看到如下内容 </p>
 
-<p>_<em>BEGIN</em>DECLS
-kern<em>return</em>t       mach<em>timebase</em>info(mach<em>timebase</em>info<em>t    info);
-kern</em>return<em>t       mach</em>wait<em>until(uint64</em>t        deadline);
-uint64<em>t            mach</em>absolute<em>time(void);
-uint64</em>t            mach<em>approximate</em>time(void);
-_<em>END</em>DECLS
-</pre>
-首先定义了一个mach<em>timebase</em>info的结构体，用来存储CPU的一些执行信息,改结构体包含两个成员<br>
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="k">struct</span> <span class="n">mach_timebase_info</span> <span class="p">{</span>
+<span class="kt">uint32_t</span>    <span class="n">numer</span><span class="p">;</span>
+<span class="kt">uint32_t</span>    <span class="n">denom</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">mach_timebase_info</span>   <span class="o">*</span><span class="kt">mach_timebase_info_t</span><span class="p">;</span>
+<span class="k">typedef</span> <span class="k">struct</span> <span class="n">mach_timebase_info</span>   <span class="kt">mach_timebase_info_data_t</span><span class="p">;</span>
+
+<span class="n">__BEGIN_DECLS</span>
+<span class="kt">kern_return_t</span>       <span class="nf">mach_timebase_info</span><span class="p">(</span><span class="kt">mach_timebase_info_t</span>    <span class="n">info</span><span class="p">);</span>
+<span class="kt">kern_return_t</span>       <span class="nf">mach_wait_until</span><span class="p">(</span><span class="kt">uint64_t</span>        <span class="n">deadline</span><span class="p">);</span>
+<span class="kt">uint64_t</span>            <span class="nf">mach_absolute_time</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="kt">uint64_t</span>            <span class="nf">mach_approximate_time</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+<span class="n">__END_DECLS</span></code></pre></div>
+
+<p>首先定义了一个mach<em>timebase</em>info的结构体，用来存储CPU的一些执行信息,改结构体包含两个成员<br>
 1. numer 直译为分子<br>
 2. denom直译为分母
 具体用法后边会有所描述，各位看官可以先继续往下看<br>
@@ -62,16 +62,14 @@ _<em>END</em>DECLS
 
 <h4>如何使用</h4>
 
-<pre>
-mach_timebase_info_data_t timebase_info;
-mach_timebase_info(&timebase_info);
-uint64_t startTime = mach_absolute_time();
-for (int i = 0; i < 10000; ++i) {
-    NSLog(@"Hello world");
-}
-uint64_t endTime = mach_absolute_time();
-NSLog(@"消耗时间%lld",endTime - startTime);
-</pre>
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="kt">mach_timebase_info_data_t</span> <span class="n">timebase_info</span><span class="p">;</span>
+<span class="n">mach_timebase_info</span><span class="p">(</span><span class="o">&amp;</span><span class="n">timebase_info</span><span class="p">);</span>
+<span class="kt">uint64_t</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">mach_absolute_time</span><span class="p">();</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;Hello world&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">uint64_t</span> <span class="n">endTime</span> <span class="o">=</span> <span class="n">mach_absolute_time</span><span class="p">();</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;消耗时间%lld&quot;</span><span class="p">,</span><span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="p">);</span></code></pre></div>
 
 <p>结果显示为：<em>消耗时间4822588154</em><br>
 当然这个时间不是实际消耗时间，而是CPU的运行周期数，我们要获取实际运行时间，还需要做一些处理  </p>
@@ -79,12 +77,12 @@ NSLog(@"消耗时间%lld",endTime - startTime);
 <h5>numer 、denom怎么用</h5>
 
 <p>举个例子吧，假设numer = 100；denom = 10；则表示一个CPU时钟周期为100/10=10（单位为纳秒）<br>
-所以要得到准确时间，我们需要添加如下代码：<br>
-<pre>
-        uint64<em>t tureTime = (endTime - startTime) * timebase</em>info.numer / timebase_info.denom;
-        NSLog(@&quot;消耗时间%lld&quot;,tureTime);
-</pre>
-结果显示为：<em>消耗时间5087630559</em>  ,注意这里单位为<strong><em>纳秒</em></strong>，即正确时间为5.08秒.    </p>
+所以要得到准确时间，我们需要添加如下代码：  </p>
+
+<div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="kt">uint64_t</span> <span class="n">tureTime</span> <span class="o">=</span> <span class="p">(</span><span class="n">endTime</span> <span class="o">-</span> <span class="n">startTime</span><span class="p">)</span> <span class="o">*</span> <span class="n">timebase_info</span><span class="p">.</span><span class="n">numer</span> <span class="o">/</span> <span class="n">timebase_info</span><span class="p">.</span><span class="n">denom</span><span class="p">;</span>
+<span class="n">NSLog</span><span class="p">(</span><span class="s">@&quot;消耗时间%lld&quot;</span><span class="p">,</span><span class="n">tureTime</span><span class="p">);</span></code></pre></div>
+
+<p>结果显示为：<em>消耗时间5087630559</em>  ,注意这里单位为<strong><em>纳秒</em></strong>，即正确时间为5.08秒.    </p>
 
 <h5><code>mach_approximate_time的返回结果</code></h5>
 
