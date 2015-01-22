@@ -1,6 +1,8 @@
 ---
 layout: post
 title: CocoaPods问题总结
+category: cocoaPods
+tags: [cocoaPods, iOS]
 ---
 在项目接入**cocoapods**后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。  
 这里我来总结下常见的一些问题的处理方案，方便大家在日后的项目测试中做到有的放矢。  

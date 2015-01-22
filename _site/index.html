@@ -1,81 +1,165 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="" />
+    <title>codecooker' Homepage | </title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/feed/" rel="alternate" title="" type="application/atom+xml" />
+    <link rel="stylesheet" href="/media/css/style.css">
+    <link rel="stylesheet" href="/media/css/highlight.css">
+    <script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
+  </head>
+  <script type="text/javascript">
+    function setTimeSpan(){
+    	var date = new Date();
+    	timeSpan.innerText=date.format('yyyy-MM-dd hh:mm:ss');
+    }
+    
+    Date.prototype.format = function(format)
+		{
+    var o =
+    	{
+    	    "M+" : this.getMonth()+1, //month
+    	    "d+" : this.getDate(),    //day
+    	    "h+" : this.getHours(),   //hour
+    	    "m+" : this.getMinutes(), //minute
+    	    "s+" : this.getSeconds(), //second
+    	    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+    	    "S" : this.getMilliseconds() //millisecond
+    	}
+    	if(/(y+)/.test(format))
+    	format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    	for(var k in o)
+    	if(new RegExp("("+ k +")").test(format))
+    	format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+    	return format;
+		}
+  </script>
+  <body onLoad="setInterval(setTimeSpan,1000);">
+    <div id="container">
+      <div id="main" role="main">
+        <header>
+        <h1>codecooker' Homepage</h1>
+        </header>
+        <nav>
+        <span><a title="home page" class="" href="/">Home</a></span>
+        <span><a title="categories" class="" href="/categories/">Categories</a></span>
+        <span><a title="tags" class="" href="/tags/">Tags</a></span>
+        <span><a title="about" class="" href="/about/">About</a></span>
+        <!-- <span><a title="links" class="" href="/links/">Links</a></span> -->
+        <span><a title="Github" class="" href="https://github.com/codecooker">Github</a></span>
+        </nav>
+        <article class="content">
+        <section class="post">
+<ul class="listing">
 
- <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
+  
+  
+    
+    <li class="listing-seperator">2015</li>
+  
+  <li class="listing-item">
+    <time datetime="2015-01-16">2015-01-16</time>
+    <a href="/2015/01/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html" title="获取iOS设备信息">获取iOS设备信息</a>
+  </li>
 
-    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-    <link rel="shortcut icon" href="/images/site_shortcut.ico"/>
-    <title>Codecooker.github.io</title>
- </head>
+  
+  
+    
+    <li class="listing-seperator">2014</li>
+  
+  <li class="listing-item">
+    <time datetime="2014-12-26">2014-12-26</time>
+    <a href="/2014/12/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html" title="iOS测量代码执行时间">iOS测量代码执行时间</a>
+  </li>
 
-    <body onload="myPrettyPrint()">
+  
+  
+  <li class="listing-item">
+    <time datetime="2014-10-28">2014-10-28</time>
+    <a href="/2014/10/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html" title="CocoaPods问题总结">CocoaPods问题总结</a>
+  </li>
 
-     <!-- HEADER -->
-<header class="inner">
-          <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
-          <h1 id="project_title">Codecooker</h1>
-          <h2 id="project_tagline">With great power comes great responsibility</h2>
+  
+  
+    
+    <li class="listing-seperator">2013</li>
+  
+  <li class="listing-item">
+    <time datetime="2013-04-23">2013-04-23</time>
+    <a href="/2013/04/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html" title="实现组合的C++代码">实现组合的C++代码</a>
+  </li>
 
-</header>
+  
+  
+    
+    <li class="listing-seperator">2011</li>
+  
+  <li class="listing-item">
+    <time datetime="2011-11-09">2011-11-09</time>
+    <a href="/2011/11/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html" title="GNUstep编译.m文件并连接形成可执行文件">GNUstep编译.m文件并连接形成可执行文件</a>
+  </li>
 
-    <div class="page-content">
-      <div class="wrap">
-      <!DOCTYPE html>
-<html>
-<body>
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-              <a name="welcome-to-codecooker" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>文章列表
-        </h3>
-              <ul>
-                
-                  <li>
-                    <a href="/2015/01/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html">获取iOS设备信息</a>
-                    <p><p>由于最近要做iPhone6和iPhone6+的适配工作，所以难免会需要对设备型号进行判断，就借此机会总结下判断设备的方法</p>
-</p>
-                  </li>
-                
-                  <li>
-                    <a href="/2014/12/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html">iOS测量代码执行时间</a>
-                    <p><p>iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间</p>
-</p>
-                  </li>
-                
-                  <li>
-                    <a href="/2014/11/About.html">关于 Codecooker</a>
-                    <p><p>本站旨在为作者提供一种记录学习和成长的途径。<br>
-之前也尝试过自己建站来维护自己的blog,最后还是回归的github,感谢github为大家提供的环境</p>
-</p>
-                  </li>
-                
-                  <li>
-                    <a href="/2014/10/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html">CocoaPods问题总结</a>
-                    <p><p>在项目接入<strong>cocoapods</strong>后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。<br>
-这里我来总结下常见的一些问题的处理方案，方便大家在日后的项目测试中做到有的放矢。  </p>
-</p>
-                  </li>
-                
-              </ul>
+</ul>
 
-      </section>
+<div id="post-pagination" class="paginator">
+
+  
+    <span class="previous disabled"><前页</span>
+  
+
+      
+      <span class="current-page">1</span>
+      
+
+    
+      
+      <a href="/page2">2</a>
+      
+    
+      
+      <a href="/page3">3</a>
+      
+    
+
+  
+    <a class="next" href="/page2">后页></a>
+  
+  (共11篇)
+</div>
+
+
+</section>
+
+
+        </article>
+      </div>
+
+    <footer>
+        <p><small>Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a> & <a href="http://pages.github.com">GitHub</a> | Copyright 2012 - 2015 by <a href="/about/">codecooker</a> | <span class="label label-info" id="timeSpan"></span></small></p>
+    </footer>
+
     </div>
 
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-34960818-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <!-- Baidu Button BEGIN -->
+		<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=4&amp;pos=right&amp;uid=541841" ></script>
+		<script type="text/javascript" id="bdshell_js"></script>
+		<script type="text/javascript">
+		var bds_config={"bdTop":170};
+		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+		</script>
+		<!-- Baidu Button END -->
   </body>
 </html>
-
-      </div>
-    </div>
-
-    <footer class="inner">
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a> &nbsp&nbsp&nbsp&nbsp<a href="mailto:codecooker@outlook.com">Contact me</a></p>
- </footer>
-
-  </body>
-</body>
-
-

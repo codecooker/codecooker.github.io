@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
-
- <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Codecooker.github.io : codecooker&#39;s homepage">
-
-    <link rel="stylesheet" type="text/css" media="screen" href="/stylesheets/stylesheet.css">
-    <link rel="shortcut icon" href="/images/site_shortcut.ico"/>
-    <title>Codecooker.github.io</title>
- </head>
-
-    <body onload="myPrettyPrint()">
-
-     <!-- HEADER -->
-<header class="inner">
-          <a id="forkme_banner" href="https://github.com/codecooker">View on GitHub</a>
-          <h1 id="project_title">Codecooker</h1>
-          <h2 id="project_tagline">With great power comes great responsibility</h2>
-
-</header>
-
-    <div class="page-content">
-      <div class="wrap">
-      <div id="post" >
-	<!-- <div class="page-content"> -->
-	<!-- <div class="wrap"> -->
-	<div id="main_content_wrap" class="outer">
-	<section id="main_content" class="inner">
-		<p>iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间</p>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="author" content="" />
+    <title>iOS测量代码执行时间 | </title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link href="/feed/" rel="alternate" title="" type="application/atom+xml" />
+    <link rel="stylesheet" href="/media/css/style.css">
+    <link rel="stylesheet" href="/media/css/highlight.css">
+    <script type="text/javascript" src="/media/js/jquery-1.7.1.min.js"></script>
+  </head>
+  <script type="text/javascript">
+    function setTimeSpan(){
+    	var date = new Date();
+    	timeSpan.innerText=date.format('yyyy-MM-dd hh:mm:ss');
+    }
+    
+    Date.prototype.format = function(format)
+		{
+    var o =
+    	{
+    	    "M+" : this.getMonth()+1, //month
+    	    "d+" : this.getDate(),    //day
+    	    "h+" : this.getHours(),   //hour
+    	    "m+" : this.getMinutes(), //minute
+    	    "s+" : this.getSeconds(), //second
+    	    "q+" : Math.floor((this.getMonth()+3)/3),  //quarter
+    	    "S" : this.getMilliseconds() //millisecond
+    	}
+    	if(/(y+)/.test(format))
+    	format=format.replace(RegExp.$1,(this.getFullYear()+"").substr(4 - RegExp.$1.length));
+    	for(var k in o)
+    	if(new RegExp("("+ k +")").test(format))
+    	format = format.replace(RegExp.$1,RegExp.$1.length==1 ? o[k] : ("00"+ o[k]).substr((""+ o[k]).length));
+    	return format;
+		}
+  </script>
+  <body onLoad="setInterval(setTimeSpan,1000);">
+    <div id="container">
+      <div id="main" role="main">
+        <header>
+        <h1>iOS测量代码执行时间</h1>
+        </header>
+        <nav>
+        <span><a title="home page" class="" href="/">Home</a></span>
+        <span><a title="categories" class="" href="/categories/">Categories</a></span>
+        <span><a title="tags" class="" href="/tags/">Tags</a></span>
+        <span><a title="about" class="" href="/about/">About</a></span>
+        <!-- <span><a title="links" class="" href="/links/">Links</a></span> -->
+        <span><a title="Github" class="" href="https://github.com/codecooker">Github</a></span>
+        </nav>
+        <article class="content">
+        <section class="post">
+<p>iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间</p>
 
 <h4>涉及的API</h4>
 
@@ -88,39 +112,111 @@
 
 <p>结果显示为:<em>消耗时间6939457729</em>,即6.9秒</p>
 
-		<!-- 评论模块 -->
-		<div id="disqus_thread_content_wrap" class="outer">
-<section id="disqus_thread" class="inner">
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'codecooker'; // required: replace example with your forum shortname
-
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </section>
-</div>
-	</section>
-	</div>
-	<!-- </div> -->
-	<!-- </div> -->
-</div>
+<section class="meta">
+<br/>
+<br/>
+<span>
+	<a  href="/2014/10/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html" class="pageNav"  >Previous</a>
+	&nbsp;&nbsp;&nbsp;
+	<a  href="/2015/01/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html" class="pageNav"  >Next</a>
+</span>
+<hr>
+<span class="author">
+  <a href="http://codecooker.github.com"></a>
+</span>
+<span class="time">
+  /
+  <time datetime="2014-12-26">2014-12-26</time>
+</span>
+<br />
+<span class="license">
+  Published under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">(CC) BY-NC-SA</a>
+</span>
+
+<span class="categories">
+  in categories
+  
+  <a href="/categories/#ios" title="ios">ios</a>&nbsp;
+  
+</span>
 
 
+<span class="tags">
+  tagged with 
+  
+  <a href="/tags/#time" title="time">time</a>&nbsp;
+  
+  <a href="/tags/#iOS" title="iOS">iOS</a>&nbsp;
+  
+</span>
 
+</section>
+<!-- Duoshuo Comment BEGIN -->
+    <div class="ds-thread"></div>
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"codecooker"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = 'http://static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- Duoshuo Comment END -->
+<!--
+<script type="text/javascript">
+$(function(){
+  $(document).keydown(function(e) {
+    var url = false;
+        if (e.which == 37 || e.which == 74) {  // Left arrow and J
+            
+        url = '/2014/10/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html';
+        
+        }
+        else if (e.which == 39 || e.which == 75) {  // Right arrow and K
+            
+        url = '/2015/01/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html';
+        
+        }
+        if (url) {
+            window.location = url;
+        }
+  });
+})
+</script>
+-->
+
+
+        </article>
       </div>
+
+    <footer>
+        <p><small>Powered by <a href="https://github.com/mojombo/jekyll">Jekyll</a> & <a href="http://pages.github.com">GitHub</a> | Copyright 2012 - 2015 by <a href="/about/">codecooker</a> | <span class="label label-info" id="timeSpan"></span></small></p>
+    </footer>
+
     </div>
 
-    <footer class="inner">
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a> &nbsp&nbsp&nbsp&nbsp<a href="mailto:codecooker@outlook.com">Contact me</a></p>
- </footer>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-34960818-1']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
 
+    <!-- Baidu Button BEGIN -->
+		<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=4&amp;pos=right&amp;uid=541841" ></script>
+		<script type="text/javascript" id="bdshell_js"></script>
+		<script type="text/javascript">
+		var bds_config={"bdTop":170};
+		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
+		</script>
+		<!-- Baidu Button END -->
   </body>
-</body>
-
-
+</html>
