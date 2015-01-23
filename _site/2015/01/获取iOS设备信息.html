@@ -61,6 +61,7 @@
 <div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="cp">#define iPhone6    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(750, 1334), [[UIScreen mainScreen] currentMode].size) : NO)</span>
 <span class="cp">#define iPhone6Plus    ([UIScreen instancesRespondToSelector:@selector( currentMode )] ? CGSizeEqualToSize(CGSizeMake(1242, 2208), [[UIScreen mainScreen] currentMode].size) : NO)</span></code></pre></div>
 
+
 <p>2.读取设备信息进行判断</p>
 
 <div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="cp">#import &quot;sys/utsname.h&quot;</span>
@@ -73,9 +74,11 @@
                                <span class="nl">encoding</span><span class="p">:</span><span class="n">NSUTF8StringEncoding</span><span class="p">];</span>
 <span class="p">}</span></code></pre></div>
 
+
 <p>3.简单的读取设备model</p>
 
 <div class="highlight"><pre><code class="language-objective-c" data-lang="objective-c"><span class="p">[</span><span class="bp">UIDevice</span> <span class="n">currentDevice</span><span class="p">].</span><span class="n">model</span><span class="p">;</span></code></pre></div>
+
 
 <p>其中第三种方法是调用上层API，比较推荐使用。如果需要比较详细的设备制式信息，推荐第二种方法，关于对照表如下：</p>
 
@@ -105,6 +108,7 @@
 <span class="s">@&quot;iPad4,4&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Mini&quot;</span><span class="p">,</span>       <span class="c1">// (2nd Generation iPad Mini - Wifi)</span>
 <span class="s">@&quot;iPad4,5&quot;</span>   <span class="o">:</span><span class="s">@&quot;iPad Mini&quot;</span>        <span class="c1">// (2nd Generation iPad Mini - Cellular)</span></code></pre></div>
 
+
 <p>详细可以参见<a href="https://theiphonewiki.com/wiki/Models">设备制式对照表</a></p>
 
 </section>
@@ -114,7 +118,7 @@
 <span>
 	<a  href="/2014/12/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html" class="pageNav"  >Previous</a>
 	&nbsp;&nbsp;&nbsp;
-	<a   class="pageNavInvalid"  >Next</a>
+	<a  href="/2015/01/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html" class="pageNav"  >Next</a>
 </span>
 <hr>
 <span class="author">
@@ -171,6 +175,8 @@ $(function(){
         }
         else if (e.which == 39 || e.which == 75) {  // Right arrow and K
             
+        url = '/2015/01/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html';
+        
         }
         if (url) {
             window.location = url;
@@ -189,25 +195,5 @@ $(function(){
     </footer>
 
     </div>
-
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-34960818-1']);
-      _gaq.push(['_trackPageview']);
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-    </script>
-
-    <!-- Baidu Button BEGIN -->
-		<script type="text/javascript" id="bdshare_js" data="type=slide&amp;img=4&amp;pos=right&amp;uid=541841" ></script>
-		<script type="text/javascript" id="bdshell_js"></script>
-		<script type="text/javascript">
-		var bds_config={"bdTop":170};
-		document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + Math.ceil(new Date()/3600000);
-		</script>
-		<!-- Baidu Button END -->
   </body>
 </html>
