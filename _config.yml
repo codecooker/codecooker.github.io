@@ -1,4 +1,4 @@
-paginate: 5
+paginate: 8
 encoding: UTF-8
 highlighter: pygments
 markdown: rdiscount
