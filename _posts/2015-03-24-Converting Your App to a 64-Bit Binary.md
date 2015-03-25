@@ -66,3 +66,49 @@ int ReturnMax()
 在LLVM编译器中，枚举也能定义不同的大小。确保将枚举类型赋值给合适的类型
 
 ###Common Type-Conversion Problems in Cocoa Touch
+Cocoa Touch, notably Core Foundation and Foundation, add additional situations to look for, because they offer ways to serialize a C data type or to capture it inside an Objective-C object.  
+**NSInteger大小增至64bit**NSInteger在整个Cocoa Touch中都有广泛的使用；它在32位运行时环境下占用32bit，而在64位运行时环境下则占用64bit。所以当我们在接受NSInteger 类型时，必须保证接收方也是NSInteger 类型  
+我们应该避免NSInteger和int之间的转换，下面有一些特殊的例子：  
+* 将NSInteger转换成NSNumber或者由NSNumber转化成NSInteger时
+* 用NSCoder 对NSInteger做Encoding和decoding时。特别的，当我们在64位的设备上对NSInteger 进行编码而在32位的设备上对其进行解码时，如果结果的值超出了32位的整型，则会抛出异常。
+* 使用framework内定义的NSInteger类型数据。特别值得注意的是NSNotFound。在64位运行时，它的价值比一个int类型的最大范围大，所以当他被截断时可能会引起程序错误。
+
+**CGFloat大小增至64bit**和NSInteger一样CGFloat的大小也增至了64位。我们不能将CGFloat和double、float互相赋值。
+{% highlight objective-c%}
+// Incorrect.
+CGFloat value = 200.0;
+CFNumberCreate(kCFAllocatorDefault, kCFNumberFloatType, &value);
+ 
+// Correct!
+CGFloat value = 200.0;
+CFNumberCreate(kCFAllocatorDefault, kCFNumberCGFloatType, &value);
+{% endhighlight %} 
+
+##Be Careful When Performing Integer Computations
+虽然最常见的就是数据截断问题，但是我们也会碰到一些和整数计算有关的问题。这部分包括一些补充书名，我们可用于更新自己的代码
+
+###Sign Extension Rules for C and C-derived Languages
+C类的语言使用一组符号扩展规则用以确定当变量被赋值一个足够大宽度的值时，是否将最高位作为符号位处理。符号扩展规则如下：  
+1. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
