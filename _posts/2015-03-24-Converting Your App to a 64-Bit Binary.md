@@ -89,8 +89,40 @@ CFNumberCreate(kCFAllocatorDefault, kCFNumberCGFloatType, &value);
 
 ###Sign Extension Rules for C and C-derived Languages
 C类的语言使用一组符号扩展规则用以确定当变量被赋值一个足够大宽度的值时，是否将最高位作为符号位处理。符号扩展规则如下：  
-1. 
+1. Unsigned values are zero extended (not sign extended) when promoted to a larger type.
+2. Signed values are always sign extended when promoted to a larger type, even if the resulting type is unsigned.
+3. Constants (unless modified by a suffix, such as 0x8L) are treated as the smallest size that will hold the value. Numbers written in hexadecimal may be treated by the compiler as int, long, and long long types and may be either signed or unsigned types. Decimal numbers are always treated as signed types
+4. The sum of a signed value and an unsigned value of the same size is an unsigned value
 
+{% highlight objective-c%}
+int a=-2;
+unsigned int b=1;
+long c = a + b;
+long long d=c; // to get a consistent size for printing.
+ 
+printf("%lld\n", d);
+{% endhighlight %} 
+*问题：*上述代码在32-bit运行时环境运行时，结果为*-1 (0xffffffff)*，而在64-bit运行时环境得出的结果为*4294967295 (0x00000000ffffffff)*，这样就有可能不是我们所期望的结果  
+*原因:*有符号数值和无符号数值求和结果是一个无符号值（上述第4个规则）
+*解决方案：*将b转换成long型，这个强制转换将b在计算前强制转换成64bit，这样的话结果就为-1
+
+{% highlight objective-c%}
+unsigned short a=1;
+unsigned long b = (a << 31);
+unsigned long long c=b;
+ 
+printf("%llx\n", c);
+{% endhighlight %} 
+*问题：*我们期望的结果是0x80000000（在32-bit中运行），然而在64-bit中却得到了0xffffffff80000000
+*原因:*
+
+
+
+
+##Make Your App Run Well in the 32-Bit Runtime
+
+目前，编写一个可在64位运行时环境下运行的APP同时也应该支持32位。那么应该保证我们的应用在任一环境下运行良好。通常来说也就是设计一个可同时在两种环境下运行良好的结构。但有时也需要针对不同的运行环境编写特殊的解决方案。
+例如，你或许倾向于在整个代码中定义64位整型；因为不仅两种运行时环境都支持64位整型，而且仅使用一个单一的整型简化了APP的设计。但如果你使用全篇使用64位整型，你的应用将会在32位运行时环境下运行更慢一些。一个64位的处理器运行64位整数运算的速度和运行32位整数运算一样，但32位的处理器运行64位的运算就要慢很多。同时，在两种环境下，变量可能会占用更多一些的内存。所以我们应该根据要处理的数据范围选择一个合适的整数类型。如果是一个32的整数运算，就定义一个32位的整数。
 
 
 
