@@ -67,11 +67,12 @@ int ReturnMax()
 
 ###Common Type-Conversion Problems in Cocoa Touch
 Cocoa Touch, notably Core Foundation and Foundation, add additional situations to look for, because they offer ways to serialize a C data type or to capture it inside an Objective-C object.  
-**NSInteger大小增至64bit**NSInteger在整个Cocoa Touch中都有广泛的使用；它在32位运行时环境下占用32bit，而在64位运行时环境下则占用64bit。所以当我们在接受NSInteger 类型时，必须保证接收方也是NSInteger 类型  
+**NSInteger大小增至64bit**  
+NSInteger在整个Cocoa Touch中都有广泛的使用；它在32位运行时环境下占用32bit，而在64位运行时环境下则占用64bit。所以当我们在接受NSInteger 类型时，必须保证接收方也是NSInteger 类型  
 我们应该避免NSInteger和int之间的转换，下面有一些特殊的例子：  
-* 将NSInteger转换成NSNumber或者由NSNumber转化成NSInteger时
-* 用NSCoder 对NSInteger做Encoding和decoding时。特别的，当我们在64位的设备上对NSInteger 进行编码而在32位的设备上对其进行解码时，如果结果的值超出了32位的整型，则会抛出异常。
-* 使用framework内定义的NSInteger类型数据。特别值得注意的是NSNotFound。在64位运行时，它的价值比一个int类型的最大范围大，所以当他被截断时可能会引起程序错误。
+* 将NSInteger转换成NSNumber或者由NSNumber转化成NSInteger时  
+* 用NSCoder 对NSInteger做Encoding和decoding时。特别的，当我们在64位的设备上对NSInteger   进行编码而在32位的设备上对其进行解码时，如果结果的值超出了32位的整型，则会抛出异常   
+* 使用framework内定义的NSInteger类型数据。特别值得注意的是NSNotFound。在64位运行时，它的价值比一个int类型的最大范围大，所以当他被截断时可能会引起程序错误  
 
 **CGFloat大小增至64bit**和NSInteger一样CGFloat的大小也增至了64位。我们不能将CGFloat和double、float互相赋值。
 {% highlight objective-c%}
@@ -89,10 +90,10 @@ CFNumberCreate(kCFAllocatorDefault, kCFNumberCGFloatType, &value);
 
 ###Sign Extension Rules for C and C-derived Languages
 C类的语言使用一组符号扩展规则用以确定当变量被赋值一个足够大宽度的值时，是否将最高位作为符号位处理。符号扩展规则如下：  
-1. Unsigned values are zero extended (not sign extended) when promoted to a larger type.
-2. Signed values are always sign extended when promoted to a larger type, even if the resulting type is unsigned.
-3. Constants (unless modified by a suffix, such as 0x8L) are treated as the smallest size that will hold the value. Numbers written in hexadecimal may be treated by the compiler as int, long, and long long types and may be either signed or unsigned types. Decimal numbers are always treated as signed types
-4. The sum of a signed value and an unsigned value of the same size is an unsigned value
+1. 将无符号值提升至一个大的数据类型时做无符号扩展（Unsigned values are zero extended (not sign extended) when promoted to a larger type.）  
+2. 有符号值始终做符号扩展，即使结果是一个无符号值(Signed values are always sign extended when promoted to a larger type, even if the resulting type is unsigned.)  
+3. 常量将会被当做能处理它的最小数据类型处理，16进制的数字可能被当做*int*、*long*、*long long*、*signed*、*unsigned*处理，而十进制则始终被当做有符号的*int* (Constants (unless modified by a suffix, such as 0x8L) are treated as the smallest size that will hold the value. Numbers written in hexadecimal may be treated by the compiler as int, long, and long long types and may be either signed or unsigned types. Decimal numbers are always treated as signed types)  
+4. 大小相同的有符号值和无符号值求和，结果为无符号值(The sum of a signed value and an unsigned value of the same size is an unsigned value)  
 
 {% highlight objective-c%}
 int a=-2;
@@ -114,12 +115,108 @@ unsigned long long c=b;
 printf("%llx\n", c);
 {% endhighlight %} 
 *问题：*我们期望的结果是0x80000000（在32-bit中运行），然而在64-bit中却得到了0xffffffff80000000
-*原因:*
+*原因：*这部分文档本人也看了一会儿，我是这么理解的，如果有不对之处还望海涵。当我们的常量1即是一个signed int类型，当我们将这个常量赋值给unsigned short 时其结果还是一个unsigned类型。这时我们将一个unsigned 类型做左移操作然后赋值给 unsigned long 会做符号扩展。所以我们得到的结果就是0xffffffff80000000
+
+
+###Working with Bits and Bitmasks
+
+
+##Create Data Structures with Fixed Size and Alignment
+当我们在32-bit和64-bit之间共享数据时，我们需要构造在32-bit和64-bit中表现形式相同的数据。大多数情况下，我们将数据存储至文件或是通过网络传递数据到一个设备时，会面对不同的运行环境，而且也应该注意到用户可能会从一个32-bit的设备读取数据然后存储至一个64-bit的设备。所以构造表现形式相同的数据是我们必须解决的问题  
+
+###使用准确的整型数据类型
+![ C99 explicit integer types]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_1.png)
+
+###注意64-bit整型对齐
+在64-bit运行时中，所有的64-bit整数类型的对齐方式从4字节到变为了8个字节。即使您明确指定每个整数类型，这两种结构可能仍然无法在两个运行时保持相同。
+{% highlight objective-c%}
+struct bar {
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+    int64_t bar;
+};
+{% endhighlight %} 
+
+当我们在32-bit的编译器编译上面的代码时，变量bar是从这个结构体的第12个字节开始分配空间的，而同样的代码我们用64-bit的编译器进行编译时，变量bar则是有第16个字节开始，为了保证bar是8个字节对齐的，编译器会在变量foo2后边加上4个字节的填充
+
+我们可以在定义数据结构时，将占用内存大的放在前面而将占用内存小的放在后面，这样布局的话可以减少过多的数据填充，如下：
+{% highlight objective-c%}
+struct bar {
+    int64_t bar;
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+};
+{% endhighlight %} 
+
+当然我们也可以使用下述方式，来强制干预对齐方式
+{% highlight objective-c%}
+#pragma pack(4)
+struct bar {
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+    int64_t bar;
+};
+#pragma options align=reset
+{% endhighlight %} 
+
+
+##分配内存时使用sizeof
+由于在不同的运行时环境，变量所占用的内存大小有所差别。为了保证我们程序的通用性，我们必须使用sizeof关键字来分配内存，而不是采用硬编码的形式来决定分配内存的大小
+
+
+##更新字符串的格式化输出
+不同类型整形数据的格式化输出格式，参见下表  
+1. 标志格式
+![ Standard format ]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_2.png)
+2. 额外的格式
+![ Additional]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_3.png)
+
+我们举个例子，当我们要格式化输出一个*intptr_t*类型的变量和一个指针时，可参见如下代码
+{% highlight objective-c%}
+#include <inttypes.h>
+void *foo;
+intptr_t k = (intptr_t) foo;
+void *ptr = &k;
+ 
+printf("The value of k is %" PRIdPTR "\n", k);
+printf("The value of ptr is %p\n", ptr);
+
+{% endhighlight %} 
+
+##函数和函数指针
+在32-bit和64-bit中函数调用最明显的区别就是对可变参数函数的调用。
+
+在64位运行时函数调用的处理方式不同于在32位运行时功能。关键的区别是，函数调用与可变参数的原型使用的指令不同的顺序来读取它们的参数比利用参数固定的列表功能。清单2-12显示了原型两种功能。第一个函数（固定功能）始终以一副整数。所述第二函数采用可变数目的参数（但至少两个）。在32位运行时，两个函数的清单2-12使用类似的指令序列，以读出的参数数据中调用。在64位运行时，这两个功能使用的约定是完全不同的编译。
+因为调用约定是多大，在64位运行时更精确，你需要确保一个功能总是正确调用，使被叫方总是发现来电者提供的参数。
+
+
+##不要直接访问Objective-C 指针
+在64-bit运行时中，如果我们的代码直接访问了object->isa的话将会引起错误。因为在64-bit中*isa*已经不仅仅是一个指针了，他除了包含指针之外还用剩余的bits存储了一些其他的运行时信息。这个优化能同时改善内存的使用和应用的性能
+当然，我们可以使用下列方法达到同样的目的
+{% highlight objective-c%}
+#include <inttypes.h>
+class
+object_getClass 
+object_setClass
+{% endhighlight %} 
+
+`重要：由于这个错误不会在模拟器上重现，所以我们需要用真机进行测试`
+
+###Use the Built-in Synchronization Primitives
+
+Sometimes, apps implement their own synchronization primitives to improve performance. The iOS runtime environment provides a full complement of primitives that are optimized and correct for each CPU on which they are running. This runtime library is updated as new architectural features are added. Existing 32-bit apps that rely on the runtime library automatically take advantage of new CPU features introduced in the 64-bit world. If you implemented custom primitives in a previous version of your app, now you might be relying on instructions or paths that are orders of magnitude slower than the built-in primitives. Instead, always use the built-in primitives.
 
 
 
+##避免以硬编码的形式获取内存分页大小
+大多数应用都不需要知道内存分页大小信息，不排除有一些应用会用分配缓存，所以这里有必要强调一下。从iOS7开始，32-bit和64-bit的内存分页大小就已经完全不同了，所以我么一定要确保在用到内存分页大小的时候调用*getpagesize()*函数来获取正确的分页大小
 
-##Make Your App Run Well in the 32-Bit Runtime
+
+
+##确保你的程序在32-bit下运行正常
 
 目前，编写一个可在64位运行时环境下运行的APP同时也应该支持32位。那么应该保证我们的应用在任一环境下运行良好。通常来说也就是设计一个可同时在两种环境下运行良好的结构。但有时也需要针对不同的运行环境编写特殊的解决方案。
 例如，你或许倾向于在整个代码中定义64位整型；因为不仅两种运行时环境都支持64位整型，而且仅使用一个单一的整型简化了APP的设计。但如果你使用全篇使用64位整型，你的应用将会在32位运行时环境下运行更慢一些。一个64位的处理器运行64位整数运算的速度和运行32位整数运算一样，但32位的处理器运行64位的运算就要慢很多。同时，在两种环境下，变量可能会占用更多一些的内存。所以我们应该根据要处理的数据范围选择一个合适的整数类型。如果是一个32的整数运算，就定义一个32位的整数。
