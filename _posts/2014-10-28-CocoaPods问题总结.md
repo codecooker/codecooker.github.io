@@ -9,59 +9,6 @@ tags: [cocoaPods, iOS]
 
 
 
-{% highlight objective-c%}
-#define kRotateAngle                                (M_PI/12)
-#define kProjectionFactor                           (-0.005)
-#define kScaleFactor                                (0.9f)
-    
-    UIView* showInView = self.superview;
-    UIView* backgroundView = [showInView viewWithYYTag:kSheetBackgroundViewTag];
-    if (!backgroundView && show) {
-        backgroundView = [[UIView alloc]initWithFrame:showInView.bounds];
-        backgroundView.backgroundColor = [UIColor blackColor];
-        backgroundView.yyTag = kSheetBackgroundViewTag;
-    }
-    //做页面扭动动画
-    UIImageView* showInViewImageView = (UIImageView*)[backgroundView viewWithYYTag:kSheetShowInViewImageViewTag];
-    if (!showInViewImageView && show) {
-        showInViewImageView = [[UIImageView alloc]init];
-        showInViewImageView.image = [showInView viewScreenshot];
-        showInViewImageView.frame = showInView.frame;
-        showInViewImageView.yyTag = kSheetShowInViewImageViewTag;
-        [backgroundView addSubview:showInViewImageView];
-    }
-    [showInView insertSubview:backgroundView belowSubview:self];
-    CAAnimationGroup* animationGroup = [[CAAnimationGroup alloc]init];
-    CAKeyframeAnimation* animation = [CAKeyframeAnimation animationWithKeyPath:@"transform"];
-    CATransform3D transform = CATransform3DIdentity;
-    transform.m34 = kProjectionFactor;
-    transform = CATransform3DRotate(transform, kRotateAngle, 1, 0, 0);
-    CATransform3D transform1 = CATransform3DIdentity;
-    transform1.m34 = kProjectionFactor;
-    CABasicAnimation* animationScale = [CABasicAnimation animationWithKeyPath:@"transform"];
-    animationScale.duration = YYDefaultAnimationDuration * 2;
-    CGFloat offestY = -20.0f;           //动画过程中将view向上提20px
-    if (show) {
-        animation.values = [NSArray arrayWithObjects:[NSValue valueWithCATransform3D:CATransform3DIdentity],[NSValue valueWithCATransform3D:transform],[NSValue valueWithCATransform3D:transform1] ,nil];
-        animationScale.toValue = [NSValue valueWithCATransform3D:CATransform3DTranslate(CATransform3DMakeScale(kScaleFactor, kScaleFactor, 1), 0, offestY, 0)];
-    }else{
-        animation.values = [NSArray arrayWithObjects:[NSValue valueWithCATransform3D:CATransform3DTranslate(CATransform3DMakeScale(kScaleFactor, kScaleFactor, 1), 0, offestY, 0)],[NSValue valueWithCATransform3D:transform],[NSValue valueWithCATransform3D:transform1] ,nil];
-        animationScale.toValue = [NSValue valueWithCATransform3D:CATransform3DTranslate(CATransform3DIdentity, 0, 0, 0)];
-    }
-    animation.keyTimes = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0.0],[NSNumber numberWithFloat:0.4],[NSNumber numberWithFloat:1], nil];
-    animation.duration = YYDefaultAnimationDuration * 2;
-    [animationGroup setAnimations:[NSArray arrayWithObjects:animation,animationScale, nil]];
-    animationGroup.duration = YYDefaultAnimationDuration * 2;
-    animationGroup.removedOnCompletion = NO;
-    animationGroup.fillMode = kCAFillModeForwards;
-    animationGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    animationGroup.delegate = self;
-    NSString* animationKey = show ? @"AnimationType2Show" : @"AnimationType2Hide";
-    [showInViewImageView.layer addAnimation:animationGroup forKey:animationKey];
-    [self showSheetViewWithAnimationType1:show];
-
-{% endhighlight %}
-
 ####1.找不到相应的库#
 找不到相应的库的问题，我碰到的有两个原因  
 1.打包机器没有添加**framework**对应的源（如何添加源，请继续往下看）  
@@ -145,5 +92,19 @@ error: 'XXXFramework/XXXFramework.h' file not found
   
 `diff: /../Podfile.lock: No such file or directory diff: /Manifest.lock: No such file or directory error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.`  
 
-由于Pods所在的目录并不总在版本控制之下，这样可以保证开发者运行app之前都能更新他们的pods，否则app可能会crash，或者在一些不太明显的地方编译失败.
+由于Pods所在的目录并不总在版本控制之下，这样可以保证开发者运行app之前都能更新他们的pods，否则app可能会crash，或者在一些不太明显的地方编译失败.  
+
+这个校验并不是强制的我们可以删除*Build Phases*里的*Check Pods Manifest.lock*脚本，该脚本一般的内容如下：
+{% highlight sh%}
+diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" > /dev/null
+if [[ $? != 0 ]] ; then
+cat << EOM
+error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
+EOM
+exit 1
+fi
+{% endhighlight %} 
+这个脚本的内容就是校验*${PODS_ROOT}/Manifest.lock*和*${PODS_ROOT}/../Podfile.lock*是否一致，*${PODS_ROOT}/Manifest.lock*里保存的是本地Pods目录下依赖库的版本信息，而*Podfile.lock*则是在我们*Pod install*或者*Pod update*时根据依赖库生成的，所以这个脚本的作用是检测版本管理跟踪的工程依赖库是否和本地的库一致，如果不一致则*exit*  
+所以强烈建议保留
+
 
