@@ -8,7 +8,7 @@ tags: [iOS]
 接上一篇来介绍下，如何用key-value的形式初始化成员变量  
 
 背景接上篇，就不在赘述，如果不了解映射规则的话，可以先看看上一篇  
-[key-value初始化property](http://codecooker.cn/2015/04/key-value初始化variable.html "key-value初始化property");
+[key-value初始化property](http://codecooker.cn/2015/04/key-value初始化property.html "key-value初始化property");
 
 有个上一篇的铺垫，这篇将很好被接受，首先我们通过如下方法实例变量的名称获取到实例变量的指针*objc_ivar *Ivar;*
 {% highlight objective-c%}
