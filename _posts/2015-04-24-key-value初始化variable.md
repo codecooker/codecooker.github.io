@@ -49,7 +49,7 @@ OBJC_EXPORT id object_getIvar(id obj, Ivar ivar)
 1. 获取成（类）员变量的指针Ivar instanceVariable
 2. *object_setIvar*初始化
 
-`注意，如果是以字符串的形式传递参数，请在setIvar方法之前转换成合适的类型`
+<kp>注意，如果是以字符串的形式传递参数，请在setIvar方法之前转换成合适的类型</kp>
 
 实现可参加下面代码
 {% highlight objective-c%}
