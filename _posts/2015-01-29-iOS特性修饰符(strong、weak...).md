@@ -37,7 +37,7 @@ id obejct = [[[NSObject alloc]init]autorelease]; //初始化会调用retain，�
 NSLog(@"object retainCount = %lu" , (unsigned long)[obejct retainCount]);
 {% endhighlight %} 
 在ARC中，对对象的引用我们用strong修饰，为强引用，引用计数器+1，编译器会帮我们加上retain和release，所以不需要自行添加。我们可以这样理解，ARC中得strong和MRC中得retain得作用是一样的，只是在ARC中，编译器会自动为我们加上retain和release  
-`注意：retain和strong是通用的，效果一样`  
+<kp>注意：retain和strong是通用的，效果一样</kp>  
 ####weak 和 unsafe_unretained
 weak和unsafe_unretained都是ARC中常见的修饰符，两者都表示弱引用。区别在于当对象释放后这两个修饰符修饰的指针的值的变化  
 {% highlight objective-c%}
@@ -47,7 +47,7 @@ object0 = nil;
 NSLog(@"%@",object1);
 {% endhighlight %} 
 输出结果为:  
-`(null)`
+<kp>(null)</kp>
 {% highlight objective-c%}
 id object0 = [NSObject new];
 __unsafe_unretained id object1 = object0;
@@ -55,7 +55,7 @@ object0 = nil;
 NSLog(@"%@",object1);
 {% endhighlight %} 
 输出结果为：  
-`<NSObject: 0x7f8c2a47ca20>`
+<kp><NSObject: 0x7f8c2a47ca20></kp>
 看似没有我们的指针还指向对象，我们来尝试对该对象发送一个消息  
 {% highlight objective-c%}
 MyObject *object0 = [MyObject new];

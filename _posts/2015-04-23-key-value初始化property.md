@@ -49,7 +49,7 @@ typedef struct {
 } objc_property_attribute_t;
 {% endhighlight %} 
 
-这里我们用到了`property_getAttributes`方法，所以将`property_getAttributes`方法的返回值着重说一下，当我们调用该方法时，它的返回值一般是这个样式的
+这里我们用到了<kp>property_getAttributes</kp>方法，所以将<kp>property_getAttributes</kp>方法的返回值着重说一下，当我们调用该方法时，它的返回值一般是这个样式的
 {% highlight objective-c%}
 T@"NSString",C,N,V_title
 //分组后是这样的

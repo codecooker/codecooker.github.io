@@ -60,7 +60,21 @@ code{
 	-webkit-border-radius:4px;
 	-moz-border-radius:4px;
 	border-radius:4px;
+	color:#ffffff;
 }
+
+pre{
+	color:#ffffff;
+}
+
+kp{
+	font-family:Menlo,"Andale Mono",Consolas,"Courier New",Monaco,monospace;
+	font-size:13px;
+	word-break:break-all;
+	font-weight:bold;
+	color:#DD0000;
+}
+
 embed,object,iframe{display:block;margin:4px auto;}
 .gist{font-size: 12px;line-height:1.6;}
 

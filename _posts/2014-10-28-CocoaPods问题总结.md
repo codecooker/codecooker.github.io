@@ -58,7 +58,7 @@ error: 'XXXFramework/XXXFramework.h' file not found
 {% endhighlight %}
 在确定了已经添加相应的源且获得了相应的权限后,碰到类似诡异的问题,可以翻看*log*文件的前面,查看是否有生成**podfile.lock**的**cocoapods**版本号和打包机器的**cocoapods**版本号不一致的警告。  
 如下:  
-`[!] The version of CocoaPods used to generate the lockfile (0.34.2) is higher than the version of the current executable (0.33.1). Incompatibility issues may arise.`  
+<kp>[!] The version of CocoaPods used to generate the lockfile (0.34.2) is higher than the version of the current executable (0.33.1). Incompatibility issues may arise.</kp>  
 当看到如此的警告时我们可以按照如下步骤进行处理  
 1.删除工程内的**Pods**文件夹  
 2.删除工程内的**xcworkspace**的文件  
@@ -76,13 +76,14 @@ error: 'XXXFramework/XXXFramework.h' file not found
 
 ####注:cocoapods常见低级问题解答#
 ######1.如何添加源#
-`pod repo add [source_name] [source_path];`  
+{% highlight sh%}
+pod repo add [source_name] [source_path]
+{% endhighlight %}
 
 其中source_name指为源起的名称，可以根据自己的喜好，但是不要和本地源重名。source_path为我们真是源的一个git地址，注意源的git权限通常需要设置为**public**  
 升级cocoapods到最新版后，我们也可以这样使用  
 在podfile里添加如下代码指定该podfile内涉及的库从哪些源里获取  
-
-`source [source_path];`
+<kp>source [source_path];</kp>
 
 ######2.是否需要提交Podfile.lock#
 这是CocoaPods创建的最重要的文件之一。它记录了需要被安装的pod的每个已安装的版本。如果你想知道已安装的pod是哪个版本，可以查看这个文件。推荐将Podfile.lock文件加入到版本控制中，这有助于整个团队的一致性。 
@@ -90,7 +91,7 @@ error: 'XXXFramework/XXXFramework.h' file not found
 ######3.Manifest.lock是干什么的,为什么一致报错#
 这是每次运行pod install时创建的Podfile.lock文件的副本。如果大家遇到过这个错误：
   
-`diff: /../Podfile.lock: No such file or directory diff: /Manifest.lock: No such file or directory error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.`  
+**diff: /../Podfile.lock: No such file or directory diff: /Manifest.lock: No such file or directory error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.**  
 
 由于Pods所在的目录并不总在版本控制之下，这样可以保证开发者运行app之前都能更新他们的pods，否则app可能会crash，或者在一些不太明显的地方编译失败.  
 
