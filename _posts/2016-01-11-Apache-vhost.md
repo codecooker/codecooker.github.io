@@ -6,7 +6,8 @@ tags: [Apache]
 ---
 
 刚开始开发web的时候，我总是将项目直接部署至Apache的DocumentRoot目录，这样我只需要将自己的域名指到localhost即可。但是随着项目开发的进行，我需要同时开发前端和后台时，一个致命的问题就暴露了出来，<kp>我需要在每次切换项目的时候，替换DocumentRoot下部署的文件</kp>，这样反而让我的开发效率降低了不少。于是乎，最终选择了Apache的vhost方式  
-###打开Apache对vhost的支持
+
+### 打开Apache对vhost的支持
 编辑Apache配置文件,在macos上的默认路径为
 {% highlight sh%}
 sudo vim /etc/apache2/httpd.conf
@@ -21,7 +22,7 @@ sudo vim /etc/apache2/httpd.conf
 sudo apachectl restart
 {% endhighlight %}
 
-###编辑httpd-vhosts.conf文件
+### 编辑httpd-vhosts.conf文件
 在macos上的默认路径为
 {% highlight sh%}
 sudo vim /etc/apache2/extra/httpd-vhosts.conf
@@ -43,7 +44,7 @@ sudo vim /etc/apache2/extra/httpd-vhosts.conf
 abc.local.com 127.0.0.1
 {% endhighlight %}
 
-###如何快速的配置
+### 如何快速的配置
 按照上述配置的话，我们每次配置一个目录就需要添加对应vhost配置，不是很方便。我们可以在httpd-vhosts.conf文件中添加
 {% highlight sh%}
 rewriteEngine on

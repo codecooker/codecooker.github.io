@@ -6,7 +6,8 @@ tags: [MySQL,数据库]
 ---
 
 这篇文章纯属实践检验型的，没有技术分析的成分。这段时间在建表的时候，对字符串存取时设置预置大小时产生了一些小得疑问，所以就自己检验了下。要是平时不太注意的同学也可以参考下。  
-###实验
+
+### 实验
 首先我们建立一个数据表
 {% highlight sql%}
 CREATE TABLE `test` (
@@ -52,18 +53,21 @@ ERROR 1406 (22001): Data too long for column 'name' at row 1
 {% endhighlight %}
 返回数据长度超过了最大长度，这个实验在没有遇到具体场景的时候确实不明白目的是什么，现在我来大致总结下结论
 
-###结论
+### 结论
 <kp>varchar</kp>的长度限制的是插入字符串字符的长度，而不是字节的长度。所以当我们在建表的时候，我们不用去考虑插入的字符串是汉字还是字母或者数字，只需要按照字符来统计就行  
 同样，我实验了<kp>char</kp>也得到了同样的结论，需要注意的是<kp>char设置的字符串长度，而varchar设置的字符串最大长度，两者的区别是在对char插入一个不足最大长度的字符串时，后边会补空，而varchar则不会</kp>
 
 最后附上我从w3cschool上看到的几个主流数据库对这些数据类型的解释，共大家参考
-###Microsoft access
+
+### Microsoft access
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_3.png)
-###MySQL
+
+### MySQL
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_4.png)
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_5.png)
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_6.png)
-###SQL Server
+
+### SQL Server
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_7.png)
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_8.png)
 ![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_9.png)
