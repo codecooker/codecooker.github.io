@@ -1,6 +1,6 @@
 paginate: 8
 encoding: UTF-8
-highlighter: pygments
+highlighter: rouge
 markdown: kramdown
 email: "codecooker@outlook.com"
 permalink: /:year/:month/:title.html
