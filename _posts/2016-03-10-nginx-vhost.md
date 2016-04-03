@@ -6,17 +6,17 @@ tags: [nginx]
 ---
 在服务器架构上，一般我们会选用LAMP或者LNMP的配置。前面我们说明了一些关于apache配置的东西，这里大概描述下nginx的配置。关于怎么安装LNMP这里就不做赘述，网上也存在很多教程。
 
-###nginx配置文件
+### nginx配置文件
 nginx的配置文件，一般都存在于nginx目录下的conf目录。如下图所示
 ![nginx vhost]({{ site.url }}/images/{{page.title}}/Snip20160403_1.png)
 所有的配置都可以在此设置
 
-###配置vhost
+### 配置vhost
 nginx的vhost配置文件存在于conf/vhost目录，结构如下
 ![nginx vhost]({{ site.url }}/images/{{page.title}}/Snip20160403_2.png)
 我们可以为每个虚拟主机路径建立一个文件，当然文件名没有什么特殊的要求，只要以conf结尾即可。一般我们会起一个容易标示的名字。
 
-####配置说明
+#### 配置说明
 首先我们来看看phabricator.conf的内容
 {% highlight sh%}
 server {
@@ -68,7 +68,7 @@ location / {
 表示当我们在进入**phabricator.powell.com**时，我们的index文件为**/alidata/www/phabricator/webroot**路径下的**index.php**,也就是我们的默认入口文件；而大括弧内的**rewrite**则表示我们的重写规则，会将**phabricator.powell.com/abc/def/ghi/mn**重写为**phabricator.powell.com/index.php?__path__=abc/def/ghi/mn**  
 **location /index.php**这个部分则配置了一些关于fastCGI的东西。由于nginx默认不解析PHP代码，所以我们需要fastCGI的支持，关于fastCGI在后面我会着重介绍下。
 
-###配置hosts或者解析规则
+### 配置hosts或者解析规则
 如果我们是本地开发而并没有真实的域名的话，就如笔者这里**phabricator.powell.com**，我们则需要在访问机器上将该域名指向到服务器
 {% highlight sh%}
 sudo echo "127.0.0.1 phabricator.powell.com" >> /etc/hosts
