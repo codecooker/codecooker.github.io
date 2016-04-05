@@ -90,6 +90,6 @@ OBJC_EXPORT id object_getIvar(id obj, Ivar ivar)
 {% endhighlight %} 
 
 ###关于类型定义的一些说明
-![关于类型定义的一些说明]({{ site.url }}/images/key-value形式初始化对象/Snip20150504_1.png)
+![关于类型定义的一些说明]({{ site.res }}/images/key-value形式初始化对象/Snip20150504_1.png)
 
 需要注意的是，oc中不支持long double类型，所以当double类型对待

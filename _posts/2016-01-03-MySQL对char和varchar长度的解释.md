@@ -60,18 +60,18 @@ ERROR 1406 (22001): Data too long for column 'name' at row 1
 最后附上我从w3cschool上看到的几个主流数据库对这些数据类型的解释，共大家参考
 
 ### Microsoft access
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_3.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_3.png)
 
 ### MySQL
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_4.png)
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_5.png)
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_6.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_4.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_5.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_6.png)
 
 ### SQL Server
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_7.png)
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_8.png)
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_9.png)
-![PhpStorm配置选项]({{ site.url }}/images/{{page.title}}/Snip20160103_10.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_7.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_8.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_9.png)
+![PhpStorm配置选项]({{ site.res }}/images/{{page.title}}/Snip20160103_10.png)
 
 
 

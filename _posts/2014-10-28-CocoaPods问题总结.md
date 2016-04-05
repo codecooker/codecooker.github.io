@@ -16,7 +16,7 @@ tags: [cocoaPods, iOS]
 
 #### 2.找不到相应的**target**
 由于工程的迁移，或者开发人员的误操作，会造成本地**target**的丢失。这样在命令行打包过程中，会暴找不到**target**的错误，这时我们只需要将针对与个人的**target**设置成**shared**即可，如下:  
-![设置target为shared]({{ site.url }}/images/{{page.title}}/Snip20141028_7.png)  
+![设置target为shared]({{ site.res }}/images/{{page.title}}/Snip20141028_7.png)  
 ***重要:这里需要注意的一点是我们的更改怎么提交到git上，如果大家这样操作后会发现git并没有跟踪到任何变化，我们无所提交。其实我们只需要在git托管的目录下找到.gitignore文件(这是一个隐藏文件，如果不清楚这个文件是做什么的，自行恶补),彩票的文件内容如下***
 
 {% highlight objective-c%}
@@ -65,10 +65,10 @@ error: 'XXXFramework/XXXFramework.h' file not found
 3.删除**Podfile.lock**文件  
 4.打开**xcodeproj**,注意不是**xcworkspace**,在左边树形结构文件处删除**Pods**文件夹  
 
-![pods文件夹图片]({{ site.url }}/images/{{page.title}}/Snip20141028_3.png)  
+![pods文件夹图片]({{ site.res }}/images/{{page.title}}/Snip20141028_3.png)  
 5.删除功能内对**Pod**产生**target**的引用  
 6.删除**Pod**产生的一些配置信息如图  
-![pods文件夹图片]({{ site.url }}/images/{{page.title}}/Snip20141028_5.png)
+![pods文件夹图片]({{ site.res }}/images/{{page.title}}/Snip20141028_5.png)
 图中的**第二项**和**最后一项**  
 7.提交代码打包
 

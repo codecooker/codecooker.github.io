@@ -125,7 +125,7 @@ printf("%llx\n", c);
 当我们在32-bit和64-bit之间共享数据时，我们需要构造在32-bit和64-bit中表现形式相同的数据。大多数情况下，我们将数据存储至文件或是通过网络传递数据到一个设备时，会面对不同的运行环境，而且也应该注意到用户可能会从一个32-bit的设备读取数据然后存储至一个64-bit的设备。所以构造表现形式相同的数据是我们必须解决的问题  
 
 ###使用准确的整型数据类型
-![ C99 explicit integer types]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_1.png)
+![ C99 explicit integer types]({{ site.res }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_1.png)
 
 ###注意64-bit整型对齐
 在64-bit运行时中，所有的64-bit整数类型的对齐方式从4字节到变为了8个字节。即使您明确指定每个整数类型，这两种结构可能仍然无法在两个运行时保持相同。
@@ -170,9 +170,9 @@ struct bar {
 ##更新字符串的格式化输出
 不同类型整形数据的格式化输出格式，参见下表  
 1. 标志格式
-![ Standard format ]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_2.png)
+![ Standard format ]({{ site.res }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_2.png)
 2. 额外的格式
-![ Additional]({{ site.url }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_3.png)
+![ Additional]({{ site.res }}/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_3.png)
 
 我们举个例子，当我们要格式化输出一个*intptr_t*类型的变量和一个指针时，可参见如下代码
 {% highlight objective-c%}

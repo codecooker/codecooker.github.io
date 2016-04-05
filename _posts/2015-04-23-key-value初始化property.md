@@ -130,7 +130,7 @@ V_title                         //对应成员变量_title，即在.m 里做了@
 
 ###*property_getAttributes*的一些说明
 
-![property_getAttributes说明]({{ site.url }}/images/key-value形式初始化对象/Snip20150424_1.png)
+![property_getAttributes说明]({{ site.res }}/images/key-value形式初始化对象/Snip20150424_1.png)
 
 
 

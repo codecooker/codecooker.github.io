@@ -8,12 +8,12 @@ tags: [nginx]
 
 ### nginx配置文件
 nginx的配置文件，一般都存在于nginx目录下的conf目录。如下图所示
-![nginx vhost]({{ site.url }}/images/{{page.title}}/Snip20160403_1.png)
+![nginx vhost]({{ site.res }}/images/{{page.title}}/Snip20160403_1.png)
 所有的配置都可以在此设置
 
 ### 配置vhost
 nginx的vhost配置文件存在于conf/vhost目录，结构如下
-![nginx vhost]({{ site.url }}/images/{{page.title}}/Snip20160403_2.png)
+![nginx vhost]({{ site.res }}/images/{{page.title}}/Snip20160403_2.png)
 我们可以为每个虚拟主机路径建立一个文件，当然文件名没有什么特殊的要求，只要以conf结尾即可。一般我们会起一个容易标示的名字。
 
 #### 配置说明

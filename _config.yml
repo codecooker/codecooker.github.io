@@ -1,7 +1,8 @@
 paginate: 10
 encoding: UTF-8
-highlighter: pygments
+highlighter: rouge
 markdown: kramdown
 email: "codecooker@outlook.com"
 permalink: /:year/:month/:title.html
 baseurl: /codecooker.github.io
+res: "http://7xsmn5.com1.z0.glb.clouddn.com"
