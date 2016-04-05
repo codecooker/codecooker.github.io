@@ -1,4 +1,4 @@
-paginate: 8
+paginate: 10
 encoding: UTF-8
 highlighter: pygments
 markdown: kramdown
