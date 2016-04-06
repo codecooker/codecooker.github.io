@@ -17,7 +17,9 @@ dumpdecrypted是一个砸壳工具。因为appstore安装包apple会为应用加
 详细信息可以参考[dumpdecrypted](http://example.com/ "Title")
 2. class-dump
 为什么是class-dump
+
 >It’s a great tool for the curious. You can look at the design of closed source applications, frameworks, and bundles. Watch the interfaces evolve between releases. Experiment with private frameworks, or see what private goodies are hiding in the AppKit. Learn about the plugin API lurking in Mail.app.  
+
 **class-dump又是什么呢？**  
 class-dump是用于解析Mach-O文件中存储的OC运行时信息的。他能生成类的声明、分类、协议。和otool -ov类似，但是由于class-dump的结果是以OC代码展示的，所以有很强的可读性。
 3. 一台越狱设备(重要)  

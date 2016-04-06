@@ -45,7 +45,7 @@ OBJC_EXPORT id object_getIvar(id obj, Ivar ivar)
 这里我们要用到的就是*class_getInstanceVariable*方法、*class_getClassVariable*方法
 、*object_setIvar*方法
 
-###步骤
+### 步骤
 1. 获取成（类）员变量的指针Ivar instanceVariable
 2. *object_setIvar*初始化
 
@@ -89,7 +89,7 @@ OBJC_EXPORT id object_getIvar(id obj, Ivar ivar)
 }
 {% endhighlight %} 
 
-###关于类型定义的一些说明
+### 关于类型定义的一些说明
 ![关于类型定义的一些说明]({{ site.res }}/images/key-value形式初始化对象/Snip20150504_1.png)
 
 需要注意的是，oc中不支持long double类型，所以当double类型对待
