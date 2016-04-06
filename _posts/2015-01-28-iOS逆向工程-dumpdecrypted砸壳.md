@@ -110,12 +110,15 @@ class-dump --arch armv7 app.decrypted > app.m
 将生成的文件定向到当前目录的app.m文件中,打开文件就能看到内容了.
 
 #### 一些补充
+
 1. DYLD_INSERT_LIBRARIES是什么？  
 是一个环境变量，在执行先先预加载该环境变量的内的动态库。
 
 </br>
 </br>
+
 #### 参考资料
+
 1. [https://github.com/stefanesser/dumpdecrypted](https://github.com/stefanesser/dumpdecrypted "dumpdecrypted")
 2. [http://stevenygard.com/projects/class-dump/](http://stevenygard.com/projects/class-dump/ "class-dump")
 
