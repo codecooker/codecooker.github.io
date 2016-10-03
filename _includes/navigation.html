@@ -1,0 +1,20 @@
+<nav class="main-nav">
+    {% if page.url != "/" %}
+        <a href="{{ site.baseurl }}"> <span class="arrow">←</span> Home </a>
+    {% endif %}
+
+    {% if page.url != "/about/" %}
+        <a href="{{ site.baseurl }}about">About </a>
+    {% endif %}
+
+    {% if page.url != "/categories/" %}
+    	<a href="{{ site.baseurl }}categories">Categories </a>
+	{% endif %}
+
+	{% if page.url != "/tags/" %}
+    <a href="{{ site.baseurl }}tags">Tags </a>
+    {% endif %}
+    
+    <a href="{{ site.github }}">Github </a>
+    <a class="cta" href="{{ site.baseurl }}feed.xml">Subscribe</a>
+</nav>

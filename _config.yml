@@ -1,9 +1,49 @@
-gems: [jekyll-paginate, jekyll-gist]
-paginate: 10
-encoding: UTF-8
-highlighter: rouge
+name: Codecooker
+description: Cease to struggle and you cease to live    
+
+meta_description: "Cease to struggle and you cease to live"
+
+aboutPage: true
+
 markdown: kramdown
-email: "codecooker@outlook.com"
-permalink: /:year/:month/:title.html
-baseurl: /codecooker.github.io
+highlighter: rouge
+
+gems: [jekyll-paginate]
+paginate: 20
+baseurl: /codecooker.github.io/
+domain_name: 'http://codecooker.cn'
+google_analytics: 'UA-XXXXXXXX-X'
+disqus: true
+disqus_shortname: 'your-disqus-shortname'
+
+# Details for the RSS feed generator
+url:            'http://codecooker.cn'
+author:         'codecooker'
+authorTwitter:  ''
+avatar:         'assets/images/avatar.jpg'
+
+# github
+github: 'https://github.com/codecooker'
+
+permalink:       /:year/:title/
 res: "http://7xsmn5.com1.z0.glb.clouddn.com"
+
+defaults:
+    -
+        scope:
+            path: "" # empty string for all files
+            type: pages
+        values:
+            layout: default
+    -
+        scope:
+            path: "" # empty string for all files
+            type: posts
+        values:
+            layout: post
+    -
+        scope:
+            path: ""
+            type: drafts
+        values:
+            layout: post
