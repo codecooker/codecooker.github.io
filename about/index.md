@@ -15,5 +15,3 @@ comments: no
 `*注:由于作者就职与某电商公司，担任iOS开发工程师的,所以iOS的内容可能会占据很大一部分`
 
 *如有任何问题，可以联系作者* <codecooker@outlook.com>
-
-该博客模板clone自[webfrogs](https://github.com/webfrogs) 
