@@ -1,6 +1,6 @@
 # Site settings
 title: CODECOOKER
-url: "http://codecooker.cn"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+url: "http://codecooker.github.io"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
 baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
 #timezone: Asia/Chongqing
 description: >
