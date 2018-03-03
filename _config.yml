@@ -1,49 +1,59 @@
-name: codecooker
-description: Cease to struggle and you cease to live    
+# Site settings
+title: CODECOOKER
+url: "http://codecooker.cn"    # the protocol and hostname of your site, eg. `http://laobubu.github.io`
+baseurl: "" # the prefix of your site uri, eg. `"/jekyll-theme-EasyBook"` or empty string `""`
+#timezone: Asia/Chongqing
+description: >
+  本站旨在为作者提供一种记录学习和成长的途径。
+  之前也尝试过自己建站来维护自己的blog,最后还是回归的github,感谢github为大家提供的环境.
 
-meta_description: "Cease to struggle and you cease to live"
+# Your information
+email: codecooker@outlook.com
+author: codecooker
+avatar: "/assets/images/avatar.jpg"
+profile: 昨夜西风凋碧树。独上高楼，望尽天涯路。
+#twitter_username: twitter_username
+#github_username:  github_username
+profile_links:
+  Email: "mailto:codecooker@outlook.com"
+  GitHub: "https://github.com/codecooker"
+  # You can add more profile links above, or edit _includes/sidebar.html 
 
-aboutPage: true
+# Comment Service (Disqus or 多说)
+#  choose one and un-comment the line to active it
+disqus_shortname: codecooker   # get one: https://disqus.com/admin/signup/
+#duoshuo_shortname: xxx  # get one: http://duoshuo.com/create-site/
 
-markdown: kramdown
+excerpt_separator: <!--more-->
+
+header:
+  links:             # Links on the header. Link to in-site page with a slash as prefix
+    CATEGORY: /CATEGORY/
+    ABOUT: /ABOUT/
+
+permalink: /archivers/:title
+plugins:
+ - jekyll-paginate
+ - jekyll-gist
+ - jemoji
+
+# Build settings
+paginate: 5
+paginate_path: "page:num"
+
 highlighter: rouge
+markdown: kramdown
 
-gems: [jekyll-paginate]
-paginate: 20
-baseurl: /codecooker.github.io/
-domain_name: 'http://codecooker.cn'
-google_analytics: 'UA-47537335-2'
-disqus: true
-disqus_shortname: 'your-disqus-shortname'
-
-# Details for the RSS feed generator
-url:            'http://codecooker.cn'
-author:         'codecooker'
-authorTwitter:  ''
-avatar:         'assets/images/avatar.jpg'
-
-# github
-github: 'https://github.com/codecooker'
-
-permalink:       /:year/:title/
-res: "http://7xsmn5.com1.z0.glb.clouddn.com"
-
+# https://jekyllrb.com/docs/configuration/#precedence
 defaults:
-    -
-        scope:
-            path: "" # empty string for all files
-            type: pages
-        values:
-            layout: default
-    -
-        scope:
-            path: "" # empty string for all files
-            type: posts
-        values:
-            layout: post
-    -
-        scope:
-            path: ""
-            type: drafts
-        values:
-            layout: post
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  math_engine: mathjax

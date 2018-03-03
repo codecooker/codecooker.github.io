@@ -1,11 +1,16 @@
 ---
 layout: default
-archive: true
 ---
+<div class="post">
 
-<head>
-    <link rel="stylesheet" href="{{ site.baseurl}}assets/media/css/style.css">
-</head>
-<article class="content">
-        {{ content }}
-</article>
+  <header class="post-header">
+    <h1 class="post-title">{{ page.title }}</h1>
+  </header>
+
+  <article class="post-content">
+    {{ content }}
+  </article>
+
+  {% include comment.html %}
+
+</div>
