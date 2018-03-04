@@ -1,0 +1,610 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>常用的图形变换 - Codecooker's blog</title>
+<meta name="description" content="坐标系坐标系在开发过程中常分为世界坐标系和屏幕坐标系通常我们的坐标系采用右手型,下图展示了左手坐标系和右手坐标系的区别  左手坐标系，伸出左手用大拇指指向方向轴的方向，其余4个手指自然弯曲，则4指弯曲方向为角度变化的正方向  右手坐标系和左手坐标系对称，只需将左右换成右手即可  iOS采用的是左手坐标系向量的变换...">
+<link rel="canonical" href="http://localhost:4000/math/2015/01/23/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
+<!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
+<!-- for Edge on Windows 10 https://msdn.microsoft.com/en-us/library/dn255024(v=vs.85).aspx --><meta name="msapplication-TileImage" content="/assets/images/logo/icon-144x144.png"><meta name="msapplication-square310x310logo" content="/assets/images/logo/icon-310x310.png"><meta name="msapplication-wide310x150logo" content="/assets/images/logo/icon-310x150.png"><meta name="msapplication-square150x150logo" content="/assets/images/logo/icon-150x150.png"><meta name="msapplication-square70x70logo" content="/assets/images/logo/icon-70x70.png">
+<meta name="msapplication-TileColor" content="#eeeeee"><link rel="stylesheet" href="/assets/css/blog.css"><script>
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var Set = (function() {
+      var add = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (data[i] === item) {
+            return;
+          }
+        }
+        this.size ++;
+        data.push(item);
+        return data;
+      }
+
+      var Set = function(data) {
+        this.size = 0;
+        this._data = [];
+        if (data.length > 0) {
+          for (i = 0; i < data.length; i++) {
+            add.call(this, data[i]);
+          }
+        }
+      }
+      Set.prototype.add = add;
+      Set.prototype.get = function(index) { return this._data[index]; };
+      Set.prototype.has = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (this.get(i) === item) {
+            return true;
+          }
+        }
+        return false;
+      };
+      Set.prototype.is = function(map) {
+        if (map._data.length !== this._data.length) { return false; }
+        var i, j, flag, tData = this._data, mData = map._data;
+        for (i = 0; i < tData.length; i++) {
+          for (flag = false, j = 0; j < mData.length; j++) {
+            if (tData[i] === mData[j]) {
+              flag = true;
+              break;
+            }
+          }
+          if (!flag) { return false; }
+        }
+        return true;
+      };
+      Set.prototype.values = function() {
+        return this._data;
+      };
+      return Set;
+    })();
+
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    }
+    var end = function(type, url, urls) {
+      var s, q, qi, cbs, i, j, cur,
+        val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j]
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, si, q, qi, node, i, cur, flag,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  }
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  }
+</script></head>
+  <body>
+    <div class="m-page-stage js-page-stage">
+      <div class="m-page-content"><header class="m-page-header">
+  <div class="main clearfix">
+    <div class='site-logo'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#666666;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Someone's Blog
+" href="/">Codecooker's blog</a></div>
+    <nav>
+      <ul><li><a href="/">主页</a></li><li><a href="/all.html">归档</a></li><li><a href="/about.html">关于</a></li><li><a type="application/rss+xml" href="/feed.xml">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="m-page-main"><div class="m-post">
+	<div class="main clearfix js-main">
+		<div class="col-2 js-col-2">
+			<aside class="js-article-aside"><div class="m-toc js-toc"></div></aside>
+		</div>
+		<div class="col-1">
+			<article class="js-article" itemscope itemtype="http://schema.org/BlogPosting">
+				<meta itemprop="mainEntityOfPage" itemscope itemType="https://schema.org/WebPage"/>
+				<header class="main-header"><h1 itemprop="headline" itemprop="name headline">常用的图形变换</h1><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Math">Math</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Matrix">Matrix</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><time class="article-meta" datetime="2015-01-23T00:00:00+08:00"
+          itemprop="datePublished">2015年 01月23日
+        </time></div>
+  </div>
+</div>
+</header>
+				<div class="m-article-content js-article-content" itemprop="articleBody"><h3 id="坐标系">坐标系</h3>
+
+<p>坐标系在开发过程中常分为<strong>世界坐标系</strong>和<strong>屏幕坐标系</strong>
+通常我们的坐标系采用右手型,下图展示了左手坐标系和右手坐标系的区别</p>
+<ol>
+  <li>左手坐标系，伸出左手用大拇指指向方向轴的方向，其余4个手指自然弯曲，则4指弯曲方向为角度变化的正方向</li>
+  <li>右手坐标系和左手坐标系对称，只需将左右换成右手即可</li>
+  <li>iOS采用的是左手坐标系
+<img src="/images/常用的图形变换/1.png" alt="右手坐标系和左手坐标系" /></li>
+</ol>
+
+<h3 id="向量的变换">向量的变换</h3>
+
+<p>图像上每个点的位置可以看成一个向量n维向量，取决于图像的空间。所以对图像的变换可以等价于对向量的变换，研究向量的变换可以让我们更直观的了解图像变换的原理</p>
+<ol>
+  <li>向量的平移（对坐标系内某点得移动）
+<img src="/images/常用的图形变换/vector/1.png" alt="向量的平移" /></li>
+  <li>向量的缩放
+X饭方向缩放a倍，Y方向缩放b倍，则有
+<img src="/images/常用的图形变换/vector/2.png" alt="向量的缩放" /></li>
+  <li>向量的旋转 
+二位平面的向量旋转，即可以表示为三维空间的向量绕Z轴的旋转
+如图：<br />
+<img src="/images/常用的图形变换/vector/3.jpg" alt="向量的缩放" />
+将向量x在平面X-Y内绕原点旋转B，假设向量x的模为R，则根据三角函数的知识得
+<img src="/images/常用的图形变换/vector/4.png" alt="向量旋转推倒" />,旋转后的向量为
+<img src="/images/常用的图形变换/vector/5.png" alt="旋转后的向量为" />
+用矩阵表达即为
+<img src="/images/常用的图形变换/vector/6.png" alt="旋转后的矩阵表达式" /></li>
+</ol>
+
+<pre>
+如果向量的起点不是（0，0）点，怎么推导旋转矩阵？
+假设有向量x，则可表示为两个起点为（0，0）的向量的和，则对旋转变换P有
+xP=（x1+x2）P==&gt;x1P+x2P
+</pre>
+
+<h4 id="复杂的变换">复杂的变换</h4>
+
+<p>通常我们的变换不仅局限于只做上述3个变换的一种，但是由于上述3中变换的原子性，所以所有的正交变换都可拆解为上述变换的组合<br />
+即有正交变换<strong>P</strong><br />
+<strong>P=ABCDEFG</strong>
+<code class="highlighter-rouge">其中ABCDEFG位相应的正交变换</code></p>
+
+<p><strong><em>注：由于矩阵乘法不具备交换律，所以变换顺序的改变会直接改变变换的结果</em></strong></p>
+
+<h3 id="三维空间的坐标变换">三维空间的坐标变换</h3>
+
+<p>对上述方法进行拓展，我们很容易得出三维空间的变换矩阵
+<img src="/images/常用的图形变换/transform/1.png" alt="3d_transform" /></p>
+
+<pre>
+坐标系内的点绕任意向量旋转，如何处理?
+可以对改点进行平移或旋转A，使改向量与任一坐标轴重合，然后针对该坐标轴进行旋转。旋转接受后，再对旋转后的做逆变换，即乘以inv（A）
+举例，某点绕向量（1，1，0）进行旋转，推算旋转矩阵
+</pre>
+
+<h3 id="图像的变换">图像的变换</h3>
+
+<p>图像可以看成一个RGB颜色的集合，通过在不同的位置显示不同颜色呈现出可识别的图案。<br />
+图像中的每个点的坐标，抽象成一个坐标矩阵，与变换矩阵做乘法，即可得出图像的变换</p>
+
+<h3 id="图像变换的逆变换">图像变换的逆变换</h3>
+
+<p>由于图像变换都可归结为矩阵的乘法，所以所有正交变换都存在逆变换，只需对变换后的图像矩阵乘以变换矩阵的逆矩阵即可。
+<strong>*再次注意矩阵的乘法不具备交换率，所以必须按照顺序进行变换的消除</strong></p>
+
+<h4 id="齐次向量">齐次向量</h4>
+
+<p>所谓齐次坐标就是将一个原本是n维的向量用一个n+1维向量来表示。例如，二维点(x,y)的齐次坐标表示为(hx,hy,h)。由此可以看出，一个向量的齐次表示是不唯一的，齐次坐标的h取不同的值都表示的是同一个点，比如齐次坐标(8,4,2)、(4,2,1)表示的都是二维点(4,2)。
+为什么引入齐次坐标</p>
+
+<h4 id="齐次变换">齐次变换</h4>
+
+<p>齐次变换具有如下形式：
+<img src="/images/常用的图形变换/transform/2.png" alt="典型的齐次变换矩阵" />
+对向量x做变换，有如下等式成立
+<img src="/images/常用的图形变换/transform/3.png" alt="齐次变换" />
+当b、c、d、f、h都等于0时，a、e、i都等于1时，则有
+<img src="/images/常用的图形变换/transform/4.png" alt="图像平移的齐次变换" />
+对向量（坐标系）的变换一般分为，缩放、平移、旋转，引入齐次向量和齐次变换，将所有的变换统一为矩阵的乘法运算</p>
+
+<h3 id="投影">投影</h3>
+
+<h4 id="透视投影">透视投影</h4>
+
+<p>透视投影,是为了获得接近真实三维物体的视觉效果而在二维的纸或者画布平面上绘图或者渲染的一种方法，也称为透视图[1]。它具有消失感、距离感、相同大小的形体呈现出有规律的变化等一系列的透视特性，能逼真地反映形体的空间形象。透视投影通常用于动画、视觉仿真以及其它许多具有真实性反映的方面。<br />
+透视投影的标准模型
+<img src="/images/常用的图形变换/4.jpg" alt="透视投影的标准模型" />
+推导透视投影标准模型的变换方程<br />
+<img src="/images/常用的图形变换/5.jpg" alt="透视投影标准模型的变换方程" /></p>
+
+<p>根据三角形的相似性，我们可以得出
+<img src="/images/常用的图形变换/p/1.png" alt="投影换算1" />
+有与在手机设备上，原点位于手机屏幕上，所以需要对上述公式做平移，得出针对与手机坐标系的投影关系，如下
+<img src="/images/常用的图形变换/p/2.png" alt="投影换算2" />
+同理我们可以得到，y坐标的投影为
+<img src="/images/常用的图形变换/p/3.png" alt="投影换算3" />
+<strong><em>注意，由于我们的视平面是屏幕，即x，y平面，所以所有z坐标在视屏幕的投影始终为0</em></strong></p>
+
+<p>将上述变换写成矩阵乘法的形式，我们可以的到如下的表达式
+<img src="/images/常用的图形变换/p/4.png" alt="投影换算4" />       <br />
+<strong><em>记住这个变换，后边会讲到</em></strong></p>
+
+<h3 id="变换在ios中的应用">变换在iOS中的应用</h3>
+
+<p>在介绍变换在iOS中的应用前，先了解2个变量，这两个变量和iOS中transform有很大关系</p>
+<ol>
+  <li>锚点
+anchorPoint anchorPoint是一个[0,1]的点，当我们对layer的postion和transform进行变换时，我们必须要考虑当前的anchorPoint值，默认情况下anchorPoint=（0.5,0.5）.下图表明了anchorPoint和postion，frame，bounds的关系
+<img src="/images/常用的图形变换/anchorPoint/1.png" alt="anchor_point" />
+我们可以将anchorPoint理解为三维系统内Z轴的位置，或者说在三维空间中z轴的位置，当anchorPoint为（0.5，0.5）时，我们对图像做旋转变换，即是以图像的中心点为基准进行旋转。当anchorPoint为（0，0）时，则这个中心点则变为图像的左上角
+如下图：
+<img src="/images/常用的图形变换/anchorPoint/2.png" alt="anchor_point——roration" /></li>
+  <li>代码展示
+下面的代码与系统自身生成变换矩阵得出的结论一致</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">//平移，x方向移动100px
+- (CGAffineTransform)moveTransform
+{
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    transform.tx = 100;
+    transform.ty = 0;
+    return transform;
+}
+
+//平移，x方向移动100px
+- (CATransform3D)moveTransform3D
+{
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m41 = 100;
+    return transform;
+}
+
+//缩放,x,y方向放大2倍
+- (CGAffineTransform)scaleTransform
+{
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    transform.a = 2;
+    transform.d = 2;
+    return transform;
+}
+
+//缩放,x,y，z方向放大2倍
+- (CATransform3D)scaleTransform3D
+{
+    CATransform3D transform = CATransform3DIdentity;
+    transform.m11 = 2;
+    transform.m22 = 2;
+    transform.m33 = 2;
+    return transform;
+}
+
+//旋转，绕z轴正方向旋转alpha
+- (CGAffineTransform)rotationTransform
+{
+    double alpha = -M_PI / 4;
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    transform.a = cos(alpha);
+    transform.b = sin(alpha);
+    transform.c = -sin(alpha);
+    transform.d = cos(alpha);
+    return transform;
+}</code></pre></figure>
+
+<p><em>部分如片来源于网络</em></p>
+
+</div>
+				<footer><meta itemprop="dateModified" content="2015-01-23T00:00:00+08:00"><div class="article-license"><div class="m-license"><div class="clearfix"><p>本文遵守 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 许可协议。</p><a class="license" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="Creative Commons License" src="/assets/images/license-cc4.png" />
+    </a><p>欢迎转载，转载需注明出处，且禁止用于商业目的。</p>
+  </div>
+</div></div>
+				</footer>
+			</article>
+			<div class="article-previous-next clearfix"><div class="article-previous"><span>上篇</span><a href="/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html">iOS逆向工程-dumpdecrypted砸壳</a></div><div class="article-next"><span>下篇</span><a href="/ios/2015/01/16/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html">获取iOS设备信息</a></div></div></div>
+	</div>
+</div></div>
+      </div>
+    </div><div class="m-page-footer js-page-footer">
+  <div class="main">
+    <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="codecooker">
+    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+        <div class="floating-action-round-button github">
+          <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+          </a>
+        </div>
+      </li><li title="在 Linkedin 上关注我。">
+        <div class="floating-action-round-button linkedin">
+          <a itemprop="sameAs" href="https://www.linkedin.com/in/lu.peng.wei@gmail.com" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M260.096 155.648c0 27.307008-9.899008 50.516992-29.696 69.632-19.796992 19.115008-45.396992 28.672-76.8 28.672-30.036992 0-54.612992-9.556992-73.728-28.672-19.115008-19.115008-28.672-42.324992-28.672-69.632 0-28.672 9.556992-52.224 28.672-70.656 19.115008-18.432 44.372992-27.648 75.776-27.648 31.403008 0 56.32 9.216 74.752 27.648 18.432 18.432 28.331008 41.984 29.696 70.656 0 0 0 0 0 0m-202.752 808.96c0 0 0-632.832 0-632.832 0 0 196.608 0 196.608 0 0 0 0 632.832 0 632.832 0 0-196.608 0-196.608 0 0 0 0 0 0 0m313.344-430.08c0-58.708992-1.364992-126.292992-4.096-202.752 0 0 169.984 0 169.984 0 0 0 10.24 88.064 10.24 88.064 0 0 4.096 0 4.096 0 40.96-68.267008 105.812992-102.4 194.56-102.4 68.267008 0 123.220992 22.868992 164.864 68.608 41.643008 45.739008 62.464 113.664 62.464 203.776 0 0 0 374.784 0 374.784 0 0-196.608 0-196.608 0 0 0 0-350.208 0-350.208 0-91.476992-33.451008-137.216-100.352-137.216-47.787008 0-81.236992 24.576-100.352 73.728-4.096 8.192-6.144 24.576-6.144 49.152 0 0 0 364.544 0 364.544 0 0-198.656 0-198.656 0 0 0 0-430.08 0-430.08 0 0 0 0 0 0" />
+</svg></div>
+          </a>
+        </div>
+      </li></ul><p class="email">
+      <a title="给我发邮件。" href="mailto:codecooker@outlook.com" target="_self">codecooker@outlook.com</a>
+    </p></div>
+</aside>
+    <footer class="site-info">
+      <p>© Codecooker's blog 2018</p>
+      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.</p>
+    </footer>
+  </div>
+</div><script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script><script>
+  (function() {
+    function scrollAnimateTo(destination, duration, callback) {
+      var $body = $('html, body'), bodyScrollTop = $body.scrollTop();
+      if(bodyScrollTop === destination) { return; }
+      $body.animate({ scrollTop: destination }, duration, callback);
+    }
+    window.scrollTopAnchor = function(anchor, callback) {
+      scrollAnimateTo($(anchor).offset().top, 400, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+  })();
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $articleContent = $('.m-post, .m-page').find('.m-article-content'), $this;
+    $articleContent.children('.highlight').each(function() {
+      $this = $(this);
+      $this.attr('data-lang', $this.find('code').attr('data-lang'));
+    });
+
+    $articleContent.children('h1, h2, h3, h4, h5, h6').each(function() {
+      $this = $(this);
+      $this.append($('<a class="anchor" aria-hidden="true"></a>').html('<svg fill="#000000" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>'));
+    });
+    $articleContent.on('click', '.anchor', function() {
+      window.scrollTopAnchor('#' + $(this).parent().attr('id'));
+    });
+  });
+</script><script>
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $window = $(window);
+    var $pageStage = $('.js-page-stage');
+    var $pageMain = $('.js-main');
+    var $pageFooter = $('.js-page-footer');
+    var $articleContent = $('.js-article-content');
+    var $articleAside = $('.js-article-aside');
+    var $toc = $('.js-toc');
+    var $col2 = $('.js-col-2');
+    var hasTitle = $articleContent.find('h1,h2,h3').length > 0;
+    function asideSticky() {
+      return $col2.css('display') !== 'none' && $pageStage.hasClass('has-toc');
+    }
+    function setTocClass() {
+      if (hasTitle) {
+        !$pageStage.hasClass('has-toc') && $pageStage.addClass('has-toc');
+      }
+    }
+    function setAsideTOC() {
+      var asideTop, asideLeft, scrollBottom, asideBottomTop, lastScrollTop;
+      function init() {
+        var asideOffset = $articleAside.offset();
+        var footerOffset = $pageFooter.offset();
+        var mainOffset = $pageMain.offset();
+        asideTop = mainOffset.top;
+        asideHeight = $toc.outerHeight() + parseInt($articleAside.css('padding-top'), 10) + parseInt($articleAside.css('padding-bottom'), 10);
+        asideLeft = mainOffset.left + $pageMain.outerWidth() - $articleAside.outerWidth() - parseInt($pageMain.css('padding-right'), 10);
+        scrollBottom = footerOffset.top - asideHeight;
+        asideBottomTop = scrollBottom - mainOffset.top;
+      }
+      function setAside(force) {
+        force !== true && (force = false);
+        var scrollTop = $window.scrollTop();
+        if (scrollTop >= asideTop && scrollTop <= scrollBottom) {
+          (!force && lastScrollTop >= asideTop && lastScrollTop <= scrollBottom) ||
+          $articleAside.addClass('fixed').css({
+            left: asideLeft + 'px',
+            top: 0
+          });
+        } else if (scrollTop < asideTop) {
+          (!force && lastScrollTop < asideTop) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+        } else {
+          (!force && lastScrollTop > scrollBottom) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: asideBottomTop + 'px'
+          });
+        }
+        lastScrollTop = scrollTop;
+      }
+      asideSticky() && (init(), setAside());
+      $window.on('scroll', function() {
+        asideSticky() && setAside();
+      });
+      $window.on('resize', window.throttle(function() {
+        setTocClass();
+        asideSticky() && (init(), setAside(true));
+      }, 100));
+      setTimeout(init, 4000);
+    }
+    function toc() {
+      var $tocUl = $('<ul></ul>'), $tocLi, $headings = $articleContent.find('h1,h2,h3'), headingsTop = [],
+        scrolling, activeLast, activeCur, rendered = false;
+      function init() {
+        $headings.each(function() {
+          headingsTop.push(Math.floor($(this).offset().top));
+        });
+      }
+      function setActiveHeading(element, disabled) {
+        var scrollTop = $window.scrollTop(), i;
+        if (disabled || headingsTop.length < 1) { return; }
+        if (element) {
+          activeCur = element;
+        } else {
+          for (i = 0; i < headingsTop.length; i++) {
+            if (scrollTop >= headingsTop[i]) {
+              activeCur = $tocLi.eq(i);
+            } else {
+              activeCur || (activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        activeLast && activeLast.removeClass('toc-active');
+        (activeLast = activeCur).addClass('toc-active');
+      }
+      function render() {
+        $toc.append($tocUl);
+        $headings.each(function() {
+          var $this = $(this);
+          $tocUl.append($('<li></li>').addClass('toc-' + $this.prop("tagName").toLowerCase())
+            .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+        });
+        $tocLi = $tocUl.children('li');
+        $tocUl.on('click', 'a', function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          scrolling = true;
+          setActiveHeading($this.parent());
+          window.scrollTopAnchor($this.attr('href'), function() {
+            scrolling = false;
+          });
+        });
+        rendered = true;
+      }
+      asideSticky() && (render(), $window.on('load', function() {
+        setTimeout(function() {
+          init();
+          setActiveHeading(null, scrolling);
+        }, 1000);
+      }));
+      $window.on('resize', window.throttle(function() {
+        if (asideSticky()) {
+          rendered || render();
+          init();
+          setActiveHeading(null, scrolling);
+        }
+      }));
+      $window.on('scroll', function() {
+        asideSticky() && setActiveHeading(null, scrolling);
+      });
+    }
+    setTocClass();
+    toc();
+    setTimeout(function() {
+      setAsideTOC();
+    }, 1000);
+  });</script></body>
+</html>

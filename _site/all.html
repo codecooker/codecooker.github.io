@@ -1,0 +1,535 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>归档 - Codecooker's blog</title>
+<meta name="description" content="Someone's Blog
+">
+<link rel="canonical" href="http://localhost:4000/all.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
+<!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
+<!-- for Edge on Windows 10 https://msdn.microsoft.com/en-us/library/dn255024(v=vs.85).aspx --><meta name="msapplication-TileImage" content="/assets/images/logo/icon-144x144.png"><meta name="msapplication-square310x310logo" content="/assets/images/logo/icon-310x310.png"><meta name="msapplication-wide310x150logo" content="/assets/images/logo/icon-310x150.png"><meta name="msapplication-square150x150logo" content="/assets/images/logo/icon-150x150.png"><meta name="msapplication-square70x70logo" content="/assets/images/logo/icon-70x70.png">
+<meta name="msapplication-TileColor" content="#eeeeee"><link rel="stylesheet" href="/assets/css/blog.css"><script>
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var Set = (function() {
+      var add = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (data[i] === item) {
+            return;
+          }
+        }
+        this.size ++;
+        data.push(item);
+        return data;
+      }
+
+      var Set = function(data) {
+        this.size = 0;
+        this._data = [];
+        if (data.length > 0) {
+          for (i = 0; i < data.length; i++) {
+            add.call(this, data[i]);
+          }
+        }
+      }
+      Set.prototype.add = add;
+      Set.prototype.get = function(index) { return this._data[index]; };
+      Set.prototype.has = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (this.get(i) === item) {
+            return true;
+          }
+        }
+        return false;
+      };
+      Set.prototype.is = function(map) {
+        if (map._data.length !== this._data.length) { return false; }
+        var i, j, flag, tData = this._data, mData = map._data;
+        for (i = 0; i < tData.length; i++) {
+          for (flag = false, j = 0; j < mData.length; j++) {
+            if (tData[i] === mData[j]) {
+              flag = true;
+              break;
+            }
+          }
+          if (!flag) { return false; }
+        }
+        return true;
+      };
+      Set.prototype.values = function() {
+        return this._data;
+      };
+      return Set;
+    })();
+
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    }
+    var end = function(type, url, urls) {
+      var s, q, qi, cbs, i, j, cur,
+        val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j]
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, si, q, qi, node, i, cur, flag,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  }
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  }
+</script></head>
+  <body>
+    <div class="m-page-stage js-page-stage">
+      <div class="m-page-content"><header class="m-page-header">
+  <div class="main clearfix">
+    <div class='site-logo'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#666666;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Someone's Blog
+" href="/">Codecooker's blog</a></div>
+    <nav>
+      <ul><li><a href="/">主页</a></li><li><a href="/all.html">归档</a></li><li><a href="/about.html">关于</a></li><li><a type="application/rss+xml" href="/feed.xml">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="m-page-main"><div class="m-all">
+  <div class="main"><div class="m-tags js-tags">
+  <ul>
+    <li>
+      <button type="button" class="js-article-tag js-tag-show-all all pill-button inactive" data-encode="">
+        Show All<div class="tag-count">41</div>
+      </button>
+    </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="64-bit">
+          <span>64-bit</span><div class="tag-count">3</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Apache">
+          <span>Apache</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Build">
+          <span>Build</span><div class="tag-count">3</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="C">
+          <span>C</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="C%2B%2B">
+          <span>C++</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="C%2B%2B+C%2B%2B11">
+          <span>C++ C++11</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Git">
+          <span>Git</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Java">
+          <span>Java</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Keychain">
+          <span>Keychain</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Linux">
+          <span>Linux</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Linuxmint">
+          <span>Linuxmint</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Mac">
+          <span>Mac</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Math">
+          <span>Math</span><div class="tag-count">3</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Matlab">
+          <span>Matlab</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Matrix">
+          <span>Matrix</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="MySQL">
+          <span>MySQL</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-2 pill-button inactive" data-encode="PHP">
+          <span>PHP</span><div class="tag-count">4</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="PhpStorm">
+          <span>PhpStorm</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="ThinkPHP">
+          <span>ThinkPHP</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Ubuntu">
+          <span>Ubuntu</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Unix">
+          <span>Unix</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Warning">
+          <span>Warning</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="Web">
+          <span>Web</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="apache">
+          <span>apache</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="c%2B%2B">
+          <span>c++</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="cocoaPods">
+          <span>cocoaPods</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="gem">
+          <span>gem</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-4 pill-button inactive" data-encode="iOS">
+          <span>iOS</span><div class="tag-count">15</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="linux">
+          <span>linux</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="nginx">
+          <span>nginx</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-2 pill-button inactive" data-encode="objective-c">
+          <span>objective-c</span><div class="tag-count">4</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="php">
+          <span>php</span><div class="tag-count">2</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="sessoin">
+          <span>sessoin</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="time">
+          <span>time</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="ubuntu">
+          <span>ubuntu</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="%E5%BF%83%E5%BE%97">
+          <span>心得</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="%E6%84%9F%E6%82%9F">
+          <span>感悟</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="%E6%95%B0%E6%8D%AE%E5%BA%93">
+          <span>数据库</span><div class="tag-count">1</div>
+        </button>
+      </li><li><button type="button" class="js-article-tag tag-1 pill-button inactive" data-encode="%E6%9D%82%E8%B0%88">
+          <span>杂谈</span><div class="tag-count">1</div>
+        </button>
+      </li></ul>
+</div>
+<!--group by year: http://stackoverflow.com/questions/19086284/jekyll-liquid-templating-how-to-group-blog-posts-by-year-->
+    <div class="js-result m-result"></div>
+  </div>
+</div></div>
+      </div>
+    </div><div class="m-page-footer js-page-footer">
+  <div class="main">
+    <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="codecooker">
+    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+        <div class="floating-action-round-button github">
+          <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+          </a>
+        </div>
+      </li><li title="在 Linkedin 上关注我。">
+        <div class="floating-action-round-button linkedin">
+          <a itemprop="sameAs" href="https://www.linkedin.com/in/lu.peng.wei@gmail.com" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M260.096 155.648c0 27.307008-9.899008 50.516992-29.696 69.632-19.796992 19.115008-45.396992 28.672-76.8 28.672-30.036992 0-54.612992-9.556992-73.728-28.672-19.115008-19.115008-28.672-42.324992-28.672-69.632 0-28.672 9.556992-52.224 28.672-70.656 19.115008-18.432 44.372992-27.648 75.776-27.648 31.403008 0 56.32 9.216 74.752 27.648 18.432 18.432 28.331008 41.984 29.696 70.656 0 0 0 0 0 0m-202.752 808.96c0 0 0-632.832 0-632.832 0 0 196.608 0 196.608 0 0 0 0 632.832 0 632.832 0 0-196.608 0-196.608 0 0 0 0 0 0 0m313.344-430.08c0-58.708992-1.364992-126.292992-4.096-202.752 0 0 169.984 0 169.984 0 0 0 10.24 88.064 10.24 88.064 0 0 4.096 0 4.096 0 40.96-68.267008 105.812992-102.4 194.56-102.4 68.267008 0 123.220992 22.868992 164.864 68.608 41.643008 45.739008 62.464 113.664 62.464 203.776 0 0 0 374.784 0 374.784 0 0-196.608 0-196.608 0 0 0 0-350.208 0-350.208 0-91.476992-33.451008-137.216-100.352-137.216-47.787008 0-81.236992 24.576-100.352 73.728-4.096 8.192-6.144 24.576-6.144 49.152 0 0 0 364.544 0 364.544 0 0-198.656 0-198.656 0 0 0 0-430.08 0-430.08 0 0 0 0 0 0" />
+</svg></div>
+          </a>
+        </div>
+      </li></ul><p class="email">
+      <a title="给我发邮件。" href="mailto:codecooker@outlook.com" target="_self">codecooker@outlook.com</a>
+    </p></div>
+</aside>
+    <footer class="site-info">
+      <p>© Codecooker's blog 2018</p>
+      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.</p>
+    </footer>
+  </div>
+</div><script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script><script>
+  (function() {
+    function queryString() {
+      // This function is anonymous, is executed immediately and
+      // the return value is assigned to QueryString!
+      var i = 0,
+        queryObj = {},
+        pair;
+      var queryStr = window.location.search.substring(1);
+      var queryArr = queryStr.split('&');
+      for (i = 0; i < queryArr.length; i++) {
+        pair = queryArr[i].split('=');
+        // If first entry with this name
+        if (typeof queryObj[pair[0]] === 'undefined') {
+          queryObj[pair[0]] = pair[1];
+          // If second entry with this name
+        } else if (typeof queryObj[pair[0]] === 'string') {
+          queryObj[pair[0]] = [queryObj[pair[0]], pair[1]];
+          // If third or later entry with this name
+        } else {
+          queryObj[pair[0]].push(pair[1]);
+        }
+      }
+      return queryObj;
+    }
+
+    function decodeUrl(str) {
+      return str ? decodeURIComponent(str.replace(/\+/g, '%20')) : '';
+    }
+
+    function memorize(f) {
+      var cache = {};
+      return function () {
+        var key = Array.prototype.join.call(arguments, ',');
+        if (key in cache) return cache[key];
+        else return cache[key] = f.apply(this, arguments);
+      };
+    };
+    function initData(json) {
+      var _data = JSON.parse(json), i, j, cur, _tags;
+      Object.keys(_data).forEach(function(year) {
+        for (i = 0; i < _data[year].length; i++) {
+          cur = _data[year][i], _tags = cur.tags;
+          cur.title = decodeUrl(cur.title);
+          if (_tags && _tags.length > 0) {
+            for (j = 0; j < _tags.length; j++) {
+              _tags[j] = decodeUrl(_tags[j]);
+            }
+          }
+        }
+      });
+      return _data;
+    }
+
+    var data = initData('{"2017":[{"key":"1","title":"Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83","tags":["Mac","Linux"],"url":"/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html","date":"12月10日"},{"key":"2","title":"Java%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0","tags":["Java"],"url":"/java/2017/08/21/Java%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0.html","date":"08月21日"},{"key":"3","title":"Linux%E5%AE%89%E8%A3%85PHP7.x","tags":["Linux","Ubuntu","Linuxmint","PHP"],"url":"/php/2017/02/17/Linux%E5%AE%89%E8%A3%85PHP7.x.html","date":"02月17日"},{"key":"4","title":"ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%EF%BC%88%E4%BA%8C%EF%BC%89","tags":["PHP","ThinkPHP"],"url":"/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%BA%8C.html","date":"01月23日"},{"key":"5","title":"ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%EF%BC%88%E4%B8%80%EF%BC%89","tags":["PHP","ThinkPHP"],"url":"/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%B8%80.html","date":"01月23日"}],"2016":[{"key":"6","title":"2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93","tags":["%E5%BF%83%E5%BE%97","%E6%84%9F%E6%82%9F"],"url":"/%E6%84%9F%E6%82%9F/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html","date":"12月31日"},{"key":"7","title":"PHP%E7%A7%98%E9%92%A5%E7%AE%A1%E7%90%86","tags":["PHP","Keychain"],"url":"/php/2016/11/01/PHP%E7%A7%98%E9%92%A5%E7%AE%A1%E7%90%86.html","date":"11月01日"},{"key":"8","title":"PhpStorm+%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5","tags":["apache","php","PhpStorm"],"url":"/php/2016/08/30/PhpStorm-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.html","date":"08月30日"},{"key":"9","title":"%E8%B0%88%E8%B0%88session","tags":["sessoin"],"url":"/sessoin%20web/2016/03/15/%E8%B0%88%E8%B0%88session.html","date":"03月15日"},{"key":"10","title":"nginx+vhost","tags":["nginx"],"url":"/nginx%20vhost%20web/2016/03/10/nginx-vhost.html","date":"03月10日"},{"key":"11","title":"C%2B%2B11+Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F","tags":["C%2B%2B+C%2B%2B11"],"url":"/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html","date":"02月14日"},{"key":"12","title":"Apache+vhost","tags":["Apache"],"url":"/apache%20vhost%20web/2016/01/11/Apache-vhost.html","date":"01月11日"},{"key":"13","title":"MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A","tags":["MySQL","%E6%95%B0%E6%8D%AE%E5%BA%93"],"url":"/mysql/2016/01/03/MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A.html","date":"01月03日"}],"2015":[{"key":"14","title":"Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2","tags":["Git","Web"],"url":"/git%20web/2015/11/30/Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html","date":"11月30日"},{"key":"15","title":"Git-Flow%E6%B5%85%E6%9E%90","tags":["Git"],"url":"/git/2015/11/12/Git-Flow%E6%B5%85%E6%9E%90.html","date":"11月12日"},{"key":"16","title":"%E5%8D%87%E7%BA%A7Mac%E7%B3%BB%E7%BB%9F%E5%90%8Egem%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%89%BE%E4%B8%8D%E5%88%B0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88","tags":["Mac","gem"],"url":"/mac/2015/10/19/%E5%8D%87%E7%BA%A7Mac%E7%B3%BB%E7%BB%9F%E5%90%8Egem%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6%E6%89%BE%E4%B8%8D%E5%88%B0%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88.html","date":"10月19日"},{"key":"17","title":"PhpStorm%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE","tags":["apache","php","PhpStorm"],"url":"/php/2015/10/18/PhpStorm%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2%E9%85%8D%E7%BD%AE.html","date":"10月18日"},{"key":"18","title":"iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95","tags":["iOS","Warning"],"url":"/ios/2015/10/12/iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.html","date":"10月12日"},{"key":"19","title":"iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E","tags":["iOS"],"url":"/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html","date":"10月08日"},{"key":"20","title":"%E8%B5%84%E6%BA%90%E5%AE%9A%E4%BD%8D-%E9%A1%B5%E9%9D%A2%E7%AE%A1%E7%90%86%E5%99%A8","tags":["iOS"],"url":"/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html","date":"05月13日"},{"key":"21","title":"key-value%E5%88%9D%E5%A7%8B%E5%8C%96instanceVariable","tags":["iOS"],"url":"/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html","date":"04月24日"},{"key":"22","title":"key-value%E5%88%9D%E5%A7%8B%E5%8C%96property","tags":["iOS"],"url":"/ios/2015/04/23/key-value%E5%88%9D%E5%A7%8B%E5%8C%96property.html","date":"04月23日"},{"key":"23","title":"Unix%E7%9A%84%E7%89%B9%E7%82%B9","tags":["Unix"],"url":"/unix/2015/04/15/unix%E7%89%B9%E7%82%B9.html","date":"04月15日"},{"key":"24","title":"apple%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80%E5%92%8C%E5%8D%87%E7%BA%A7%E6%8F%90%E7%A4%BA","tags":["iOS"],"url":"/ios/2015/04/01/apple%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80%E5%92%8C%E5%8D%87%E7%BA%A7%E6%8F%90%E7%A4%BA.html","date":"04月01日"},{"key":"25","title":"Converting+Your+App+to+a+64-Bit+Binary","tags":["iOS","Build","64-bit"],"url":"/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html","date":"03月24日"},{"key":"26","title":"Major+64-Bit+Changes","tags":["iOS","Build","64-bit"],"url":"/ios/2015/03/04/Major-64-Bit-Changes.html","date":"03月04日"},{"key":"27","title":"About+64-Bit+Cocoa+Touch+Apps","tags":["iOS","Build","64-bit"],"url":"/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html","date":"03月02日"},{"key":"28","title":"iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6%28strong%E3%80%81weak...%29","tags":["objective-c","iOS"],"url":"/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html","date":"01月29日"},{"key":"29","title":"iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3","tags":["objective-c","iOS"],"url":"/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html","date":"01月28日"},{"key":"30","title":"%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2","tags":["iOS","Math","Matrix"],"url":"/math/2015/01/23/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html","date":"01月23日"},{"key":"31","title":"%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF","tags":["iOS"],"url":"/ios/2015/01/16/%E8%8E%B7%E5%8F%96iOS%E8%AE%BE%E5%A4%87%E4%BF%A1%E6%81%AF.html","date":"01月16日"}],"2014":[{"key":"32","title":"iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4","tags":["time","iOS"],"url":"/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html","date":"12月26日"},{"key":"33","title":"CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93","tags":["cocoaPods","iOS"],"url":"/cocoapods/2014/10/28/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html","date":"10月28日"}],"2013":[{"key":"34","title":"%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C%2B%2B%E4%BB%A3%E7%A0%81","tags":["c%2B%2B"],"url":"/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html","date":"04月23日"}],"2011":[{"key":"35","title":"GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6","tags":["linux","objective-c"],"url":"/objective-c/2011/11/09/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html","date":"11月09日"},{"key":"36","title":"Linux%E7%BC%96%E8%AF%91Objective-C","tags":["objective-c","linux","ubuntu"],"url":"/objective-c/2011/09/15/Linux%E7%BC%96%E8%AF%91Objective-C.html","date":"09月15日"},{"key":"37","title":"%E8%88%8D%E5%8F%8B%E7%9A%84%E5%A4%A7%E4%BD%9C%EF%BC%8C%E5%BE%88%E8%B5%9E%7E%7E","tags":["%E6%9D%82%E8%B0%88"],"url":"/%E6%9D%82%E8%B0%88/2011/06/09/%E8%88%8D%E5%8F%8B%E7%9A%84%E5%A4%A7%E4%BD%9C.html","date":"06月09日"},{"key":"38","title":"%E6%89%AB%E9%9B%B7%E5%BD%93%E7%82%B9%E5%88%B0%E7%A9%BA%E7%99%BD%E5%A4%84%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95","tags":["Matlab","Math"],"url":"/c++/2011/04/08/%E6%89%AB%E9%9B%B7%E5%BD%93%E7%82%B9%E5%88%B0%E7%A9%BA%E7%99%BD%E5%A4%84%E7%9A%84%E8%BF%AD%E4%BB%A3%E7%AE%97%E6%B3%95.html","date":"04月08日"}],"2010":[{"key":"39","title":"C%2B%2B%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD","tags":["C%2B%2B"],"url":"/c++/2010/04/17/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD.html","date":"04月17日"},{"key":"40","title":"%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E","tags":["C","C%2B%2B"],"url":"/c++/2010/04/02/%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E.html","date":"04月02日"}],"2009":[{"key":"41","title":"%E4%B8%89%E6%AC%A1%E6%A0%B7%E6%9D%A1%E5%B7%AE%E5%80%BC%EF%BC%88MATLAB%EF%BC%89","tags":["Matlab","Math"],"url":"/matlab/2009/09/05/%E4%B8%89%E6%AC%A1%E6%A0%B7%E6%9D%A1%E6%8F%92%E5%80%BC(MATLAB).html","date":"09月05日"}]}');
+
+    var searchByTag = memorize(function(tag) {
+      var i, j, cur, _tags, _tag, _data = {};
+      Object.keys(data).forEach(function(year) {
+        for (i = 0; i < data[year].length; i++) {
+          cur = data[year][i], _tags = cur.tags;
+          if (_tags && _tags.length > 0) {
+            for (j = 0; j < _tags.length; j++) {
+              _tag = _tags[j];
+              if (_tag === tag) {
+                if (!_data[year]) {
+                  _data[year] = []
+                }
+                _data[year].push(cur);
+                break;
+              }
+            }
+          }
+        }
+      });
+      return _data;
+    });
+
+    window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+      var $tags = $('.js-tags');
+      var $articleTags = $('.js-article-tag');
+      var $tagShowAll = $('.js-tag-show-all');
+      var $result = $('.js-result');
+      var $lastFocusButton = null;
+
+      var renderHeading = memorize(function (year) {
+        return $('<h2 class="year">' + year + '</h2>');
+      });
+
+      var renderItem = memorize(function (key, title, date, url, tags) {
+        return $('<li><span class="date">' + date + '</span><a class="link" href="' + url + '">' + title + '</a></li>');
+      });
+
+      function render(data) {
+        var $dom = $('<div></div>'), $section, $ul, i, cur, date;
+        Object.keys(data).sort(function(a, b) {
+          return b.localeCompare(a);
+        }).forEach(function(year) {
+          $section = $('<section></section>'), $ul = $('<ul></ul>');
+          $section.append(renderHeading(year));
+          for (i = 0; i < data[year].length; i++) {
+            cur = data[year][i];
+            $ul.append(renderItem(cur.key, cur.title, cur.date, cur.url, cur.tags));
+          }
+          $dom.append($section.append($ul));
+        })
+        return $dom;
+      }
+      function tagSelect(tag, target) {
+        var _data;
+        if (tag === '' || tag === undefined) {
+          _data = data;
+        } else {
+          _data = searchByTag(tag);
+        }
+        if (target) {
+          buttonFoucs(target);
+          window.history.replaceState(null, '', window.location.href.split('?')[0] + '?tag=' + target.data('encode'));
+        }
+        $result.html(render(_data));
+      }
+
+      function searchButtonsByTag(rawTag) {
+        if (!rawTag) {
+          return $tagShowAll;
+        }
+        var _buttons = $articleTags.filter('[data-encode="' + rawTag + '"]');
+        if (_buttons.length === 0) {
+          return $tagShowAll;
+        }
+        return _buttons;
+      }
+
+      function buttonFoucs(target) {
+        if (target) {
+          target.addClass('focus');
+          target.focus();
+          $lastFocusButton && !$lastFocusButton.is(target) && $lastFocusButton.removeClass('focus');
+          $lastFocusButton = target;
+        }
+      }
+
+      $articleTags.removeClass('inactive');
+      var query = queryString(), rawTag;
+      query.tag === undefined || (rawTag = query.tag);
+      tagSelect(decodeUrl(rawTag));
+      buttonFoucs(searchButtonsByTag(rawTag));
+
+      $tags.on('click', 'button', function() {
+        tagSelect($(this).children('span').text(), $(this));
+      });
+    });
+  })();
+</script>
+</body>
+</html>

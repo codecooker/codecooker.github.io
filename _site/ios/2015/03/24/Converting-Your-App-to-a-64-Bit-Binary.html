@@ -1,0 +1,649 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Converting Your App to a 64-Bit Binary - Codecooker's blog</title>
+<meta name="description" content="这里概括一下，创建同时支持32-bit和64-bit运行时环境app步骤  安装Xcode 5.0.1  打开我们的工程.Xcode提示你升级你的工程，升级过程中，会产生一些新的错误和警告。这些错误和警告在我们编译64-bit的app是至关重要的  将工程的最低支持iOS版本升级至5.1.1.如果我们支持的系统版...">
+<link rel="canonical" href="http://localhost:4000/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
+<!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
+<!-- for Edge on Windows 10 https://msdn.microsoft.com/en-us/library/dn255024(v=vs.85).aspx --><meta name="msapplication-TileImage" content="/assets/images/logo/icon-144x144.png"><meta name="msapplication-square310x310logo" content="/assets/images/logo/icon-310x310.png"><meta name="msapplication-wide310x150logo" content="/assets/images/logo/icon-310x150.png"><meta name="msapplication-square150x150logo" content="/assets/images/logo/icon-150x150.png"><meta name="msapplication-square70x70logo" content="/assets/images/logo/icon-70x70.png">
+<meta name="msapplication-TileColor" content="#eeeeee"><link rel="stylesheet" href="/assets/css/blog.css"><script>
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var Set = (function() {
+      var add = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (data[i] === item) {
+            return;
+          }
+        }
+        this.size ++;
+        data.push(item);
+        return data;
+      }
+
+      var Set = function(data) {
+        this.size = 0;
+        this._data = [];
+        if (data.length > 0) {
+          for (i = 0; i < data.length; i++) {
+            add.call(this, data[i]);
+          }
+        }
+      }
+      Set.prototype.add = add;
+      Set.prototype.get = function(index) { return this._data[index]; };
+      Set.prototype.has = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (this.get(i) === item) {
+            return true;
+          }
+        }
+        return false;
+      };
+      Set.prototype.is = function(map) {
+        if (map._data.length !== this._data.length) { return false; }
+        var i, j, flag, tData = this._data, mData = map._data;
+        for (i = 0; i < tData.length; i++) {
+          for (flag = false, j = 0; j < mData.length; j++) {
+            if (tData[i] === mData[j]) {
+              flag = true;
+              break;
+            }
+          }
+          if (!flag) { return false; }
+        }
+        return true;
+      };
+      Set.prototype.values = function() {
+        return this._data;
+      };
+      return Set;
+    })();
+
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    }
+    var end = function(type, url, urls) {
+      var s, q, qi, cbs, i, j, cur,
+        val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j]
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, si, q, qi, node, i, cur, flag,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  }
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  }
+</script></head>
+  <body>
+    <div class="m-page-stage js-page-stage">
+      <div class="m-page-content"><header class="m-page-header">
+  <div class="main clearfix">
+    <div class='site-logo'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#666666;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Someone's Blog
+" href="/">Codecooker's blog</a></div>
+    <nav>
+      <ul><li><a href="/">主页</a></li><li><a href="/all.html">归档</a></li><li><a href="/about.html">关于</a></li><li><a type="application/rss+xml" href="/feed.xml">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="m-page-main"><div class="m-post">
+	<div class="main clearfix js-main">
+		<div class="col-2 js-col-2">
+			<aside class="js-article-aside"><div class="m-toc js-toc"></div></aside>
+		</div>
+		<div class="col-1">
+			<article class="js-article" itemscope itemtype="http://schema.org/BlogPosting">
+				<meta itemprop="mainEntityOfPage" itemscope itemType="https://schema.org/WebPage"/>
+				<header class="main-header"><h1 itemprop="headline" itemprop="name headline">Converting Your App to a 64-Bit Binary</h1><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><time class="article-meta" datetime="2015-03-24T00:00:00+08:00"
+          itemprop="datePublished">2015年 03月24日
+        </time></div>
+  </div>
+</div>
+</header>
+				<div class="m-article-content js-article-content" itemprop="articleBody"><p>这里概括一下，创建同时支持32-bit和64-bit运行时环境app步骤</p>
+
+<ol>
+  <li><strong>安装Xcode 5.0.1</strong></li>
+  <li><strong>打开我们的工程</strong>.Xcode提示你升级你的工程，升级过程中，会产生一些新的错误和警告。这些错误和警告在我们编译64-bit的app是至关重要的</li>
+  <li><strong>将工程的最低支持iOS版本升级至5.1.1</strong>.如果我们支持的系统版本低于5.1，我们将不能构建64-bit的工程</li>
+  <li><strong>将build setting-&gt;Architectures改成“Standard Architectures (including 64-bit).”</strong></li>
+  <li><strong>升级应用支持64-bit运行时环境</strong>虽然编译错误和警告可以帮助我们简化这项工作，但是不能帮助我们全部解决所以问题，我们可以i这份文档提到的注意点针对我们的代码进行适配</li>
+  <li><strong>在64-bit真机上测试</strong>.不可否认iOS模拟器对在开发阶段很好用，但是有一些改变，必须在真机上才能测试和重现（例如 函数调用）</li>
+  <li><strong>利用Instruments来检测我们应用的内存性能</strong></li>
+  <li><strong>提交审核同时支持两种架构的app</strong>
+本章的剩余部分描述了当移植一个 Cocoa Touch app到64位运行时环境中经常出现的问题。参考这些部分来帮助我们更好的适配我们的代码</li>
+</ol>
+
+<h2 id="do-not-cast-pointers-to-integers">Do Not Cast Pointers to Integers</h2>
+<p>事实上，我们很少需要将指针类型强制转换成整型.在使用指针的过程中，我们需要确保所有的变量都足够大到能表示一个地址
+举个例子，下述代码，在32-bit中可以输出正确的结果，因为在32-bit中，int型和指针类型都是32bits，所有可以正常运算。而在64-bit运行时中，指针类型，已经远远的大于int型，在赋值过程中会被截断，丢失一部分数据。在这里，我们可以简单的增加指针的值来达到同样的效果</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">int *c = something passed in as an argument....
+int *d = (int *)((int)c + 4); // Incorrect.
+int *d = c + 1;               // Correct!</code></pre></figure>
+
+<p>如果我们必须将指针转换成int型，我们可以使用<em>uintptr_t</em>类型来避免数据被截断。*注意,像这样通过将指针转换成整型，然后加以数学计算，最后再转换成指针类型的做法直接违背基础类型转换的规则。这样，当试图访问一个错位的指针时，会引发不可预知的编译器错误或处理器错误</p>
+
+<h2 id="use-data-types-consistently">Use Data Types Consistently</h2>
+<p>很多常见的编码级错误都是由于我们在编码过程中没有保持数据类型一致导致的。即使编译器会在我们使用不一致的数据类型时给我们警告，然而关注这些变化也会在我们代码中对我们有所帮助<br />
+在调用函数时，我们必须保证接收者和函数的返回值数据类型一致。如果类型不一致，就有可能产生数据截断的问题</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">long PerformCalculation(void);
+
+    int  x = PerformCalculation(); // incorrect
+    long y = PerformCalculation(); // correct!</code></pre></figure>
+
+<p>同样的问题，也发生在形参和实参的类型上</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">int PerformAnotherCalculation(int input);
+    long i = LONG_MAX;
+    int x = PerformCalculation(i);</code></pre></figure>
+
+<p>函数返回值的类型一定要和声明的类型一致，否则也会出现截断问题（返回值被截断）</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">int ReturnMax()
+{
+    return LONG_MAX;
+}</code></pre></figure>
+
+<p>所有的例子都是假定int和long类型是一样的，在标准ANSI C中并没有做出如此假定，而且这样在64-bit中是明显错误的。默认情况下，当我们升级了工程，
+<em>-Wshorten-64-to-32</em>编译选项就已经自动为我们添加了，这样的话，编译器可以在很多数据截断的情况下给出警告。如果你没有升级你的工程，你就需要手动的开启这个选项。BTW，你也可以包含 <em>-Wconversion</em>选项，来发现更多潜在的问题</p>
+
+<p>在Cocoa Touch应用中，查看下述整型，确保它们在你的代码中是使用正确的：</p>
+
+<ul>
+  <li>long</li>
+  <li>NSInteger</li>
+  <li>CFIndex</li>
+  <li>size_t (the result of calling the sizeof intrinsic operation)</li>
+</ul>
+
+<p>在32-bit和64-bit运行时中，<em>fpos_t</em>和<em>off_t</em>类型都是64bits大小的，所以禁止将他们赋值给int</p>
+
+<h3 id="enumerations-are-also-typed">Enumerations Are Also Typed</h3>
+<p>在LLVM编译器中，枚举也能定义不同的大小。确保将枚举类型赋值给合适的类型</p>
+
+<h3 id="common-type-conversion-problems-in-cocoa-touch">Common Type-Conversion Problems in Cocoa Touch</h3>
+<p>Cocoa Touch, notably Core Foundation and Foundation, add additional situations to look for, because they offer ways to serialize a C data type or to capture it inside an Objective-C object.<br />
+<strong>NSInteger大小增至64bit</strong><br />
+NSInteger在整个Cocoa Touch中都有广泛的使用；它在32位运行时环境下占用32bit，而在64位运行时环境下则占用64bit。所以当我们在接受NSInteger 类型时，必须保证接收方也是NSInteger 类型<br />
+我们应该避免NSInteger和int之间的转换，下面有一些特殊的例子：</p>
+<ul>
+  <li>将NSInteger转换成NSNumber或者由NSNumber转化成NSInteger时</li>
+  <li>用NSCoder 对NSInteger做Encoding和decoding时。特别的，当我们在64位的设备上对NSInteger   进行编码而在32位的设备上对其进行解码时，如果结果的值超出了32位的整型，则会抛出异常</li>
+  <li>使用framework内定义的NSInteger类型数据。特别值得注意的是NSNotFound。在64位运行时，它的价值比一个int类型的最大范围大，所以当他被截断时可能会引起程序错误</li>
+</ul>
+
+<p><strong>CGFloat大小增至64bit</strong>和NSInteger一样CGFloat的大小也增至了64位。我们不能将CGFloat和double、float互相赋值。</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">// Incorrect.
+CGFloat value = 200.0;
+CFNumberCreate(kCFAllocatorDefault, kCFNumberFloatType, &amp;value);
+ 
+// Correct!
+CGFloat value = 200.0;
+CFNumberCreate(kCFAllocatorDefault, kCFNumberCGFloatType, &amp;value);</code></pre></figure>
+
+<h2 id="be-careful-when-performing-integer-computations">Be Careful When Performing Integer Computations</h2>
+<p>虽然最常见的就是数据截断问题，但是我们也会碰到一些和整数计算有关的问题。这部分包括一些补充书名，我们可用于更新自己的代码</p>
+
+<h3 id="sign-extension-rules-for-c-and-c-derived-languages">Sign Extension Rules for C and C-derived Languages</h3>
+<p>C类的语言使用一组符号扩展规则用以确定当变量被赋值一个足够大宽度的值时，是否将最高位作为符号位处理。符号扩展规则如下：</p>
+<ol>
+  <li>将无符号值提升至一个大的数据类型时做无符号扩展（Unsigned values are zero extended (not sign extended) when promoted to a larger type.）</li>
+  <li>有符号值始终做符号扩展，即使结果是一个无符号值(Signed values are always sign extended when promoted to a larger type, even if the resulting type is unsigned.)</li>
+  <li>常量将会被当做能处理它的最小数据类型处理，16进制的数字可能被当做<em>int</em>、<em>long</em>、<em>long long</em>、<em>signed</em>、<em>unsigned</em>处理，而十进制则始终被当做有符号的<em>int</em> (Constants (unless modified by a suffix, such as 0x8L) are treated as the smallest size that will hold the value. Numbers written in hexadecimal may be treated by the compiler as int, long, and long long types and may be either signed or unsigned types. Decimal numbers are always treated as signed types)</li>
+  <li>大小相同的有符号值和无符号值求和，结果为无符号值(The sum of a signed value and an unsigned value of the same size is an unsigned value)</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">int a=-2;
+unsigned int b=1;
+long c = a + b;
+long long d=c; // to get a consistent size for printing.
+ 
+printf("%lld\n", d);</code></pre></figure>
+
+<p><em>问题：</em>上述代码在32-bit运行时环境运行时，结果为<em>-1 (0xffffffff)</em>，而在64-bit运行时环境得出的结果为<em>4294967295 (0x00000000ffffffff)</em>，这样就有可能不是我们所期望的结果<br />
+<em>原因:</em>有符号数值和无符号数值求和结果是一个无符号值（上述第4个规则）
+<em>解决方案：</em>将b转换成long型，这个强制转换将b在计算前强制转换成64bit，这样的话结果就为-1</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">unsigned short a=1;
+unsigned long b = (a &lt;&lt; 31);
+unsigned long long c=b;
+ 
+printf("%llx\n", c);</code></pre></figure>
+
+<p><em>问题：</em>我们期望的结果是0x80000000（在32-bit中运行），然而在64-bit中却得到了0xffffffff80000000
+<em>原因：</em>这部分文档本人也看了一会儿，我是这么理解的，如果有不对之处还望海涵。当我们的常量1即是一个signed int类型，当我们将这个常量赋值给unsigned short 时其结果还是一个unsigned类型。这时我们将一个unsigned 类型做左移操作然后赋值给 unsigned long 会做符号扩展。所以我们得到的结果就是0xffffffff80000000</p>
+
+<h3 id="working-with-bits-and-bitmasks">Working with Bits and Bitmasks</h3>
+
+<h2 id="create-data-structures-with-fixed-size-and-alignment">Create Data Structures with Fixed Size and Alignment</h2>
+<p>当我们在32-bit和64-bit之间共享数据时，我们需要构造在32-bit和64-bit中表现形式相同的数据。大多数情况下，我们将数据存储至文件或是通过网络传递数据到一个设备时，会面对不同的运行环境，而且也应该注意到用户可能会从一个32-bit的设备读取数据然后存储至一个64-bit的设备。所以构造表现形式相同的数据是我们必须解决的问题</p>
+
+<h3 id="使用准确的整型数据类型">使用准确的整型数据类型</h3>
+<p><img src="/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_1.png" alt=" C99 explicit integer types" /></p>
+
+<h3 id="注意64-bit整型对齐">注意64-bit整型对齐</h3>
+<p>在64-bit运行时中，所有的64-bit整数类型的对齐方式从4字节到变为了8个字节。即使您明确指定每个整数类型，这两种结构可能仍然无法在两个运行时保持相同。</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">struct bar {
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+    int64_t bar;
+};</code></pre></figure>
+
+<p>当我们在32-bit的编译器编译上面的代码时，变量bar是从这个结构体的第12个字节开始分配空间的，而同样的代码我们用64-bit的编译器进行编译时，变量bar则是有第16个字节开始，为了保证bar是8个字节对齐的，编译器会在变量foo2后边加上4个字节的填充</p>
+
+<p>我们可以在定义数据结构时，将占用内存大的放在前面而将占用内存小的放在后面，这样布局的话可以减少过多的数据填充，如下：</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">struct bar {
+    int64_t bar;
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+};</code></pre></figure>
+
+<p>当然我们也可以使用下述方式，来强制干预对齐方式</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">#pragma pack(4)
+struct bar {
+    int32_t foo0;
+    int32_t foo1;
+    int32_t foo2;
+    int64_t bar;
+};
+#pragma options align=reset</code></pre></figure>
+
+<h2 id="分配内存时使用sizeof">分配内存时使用sizeof</h2>
+<p>由于在不同的运行时环境，变量所占用的内存大小有所差别。为了保证我们程序的通用性，我们必须使用sizeof关键字来分配内存，而不是采用硬编码的形式来决定分配内存的大小</p>
+
+<h2 id="更新字符串的格式化输出">更新字符串的格式化输出</h2>
+<p>不同类型整形数据的格式化输出格式，参见下表</p>
+<ol>
+  <li>标志格式
+<img src="/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_2.png" alt=" Standard format " /></li>
+  <li>额外的格式
+<img src="/images/Converting_Your_App_to_a_b4-Bit_Binary/Snip20150415_3.png" alt=" Additional" /></li>
+</ol>
+
+<p>我们举个例子，当我们要格式化输出一个<em>intptr_t</em>类型的变量和一个指针时，可参见如下代码</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">#include &lt;inttypes.h&gt;
+void *foo;
+intptr_t k = (intptr_t) foo;
+void *ptr = &amp;k;
+ 
+printf("The value of k is %" PRIdPTR "\n", k);
+printf("The value of ptr is %p\n", ptr);</code></pre></figure>
+
+<h2 id="函数和函数指针">函数和函数指针</h2>
+<p>在32-bit和64-bit中函数调用最明显的区别就是对可变参数函数的调用。</p>
+
+<p>在64位运行时函数调用的处理方式不同于在32位运行时功能。关键的区别是，函数调用与可变参数的原型使用的指令不同的顺序来读取它们的参数比利用参数固定的列表功能。清单2-12显示了原型两种功能。第一个函数（固定功能）始终以一副整数。所述第二函数采用可变数目的参数（但至少两个）。在32位运行时，两个函数的清单2-12使用类似的指令序列，以读出的参数数据中调用。在64位运行时，这两个功能使用的约定是完全不同的编译。
+因为调用约定是多大，在64位运行时更精确，你需要确保一个功能总是正确调用，使被叫方总是发现来电者提供的参数。</p>
+
+<h2 id="不要直接访问objective-c-指针">不要直接访问Objective-C 指针</h2>
+<p>在64-bit运行时中，如果我们的代码直接访问了object-&gt;isa的话将会引起错误。因为在64-bit中<em>isa</em>已经不仅仅是一个指针了，他除了包含指针之外还用剩余的bits存储了一些其他的运行时信息。这个优化能同时改善内存的使用和应用的性能
+当然，我们可以使用下列方法达到同样的目的</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">#include &lt;inttypes.h&gt;
+class
+object_getClass 
+object_setClass</code></pre></figure>
+
+<p><code class="highlighter-rouge">重要：由于这个错误不会在模拟器上重现，所以我们需要用真机进行测试</code></p>
+
+<h3 id="use-the-built-in-synchronization-primitives">Use the Built-in Synchronization Primitives</h3>
+
+<p>Sometimes, apps implement their own synchronization primitives to improve performance. The iOS runtime environment provides a full complement of primitives that are optimized and correct for each CPU on which they are running. This runtime library is updated as new architectural features are added. Existing 32-bit apps that rely on the runtime library automatically take advantage of new CPU features introduced in the 64-bit world. If you implemented custom primitives in a previous version of your app, now you might be relying on instructions or paths that are orders of magnitude slower than the built-in primitives. Instead, always use the built-in primitives.</p>
+
+<h2 id="避免以硬编码的形式获取内存分页大小">避免以硬编码的形式获取内存分页大小</h2>
+<p>大多数应用都不需要知道内存分页大小信息，不排除有一些应用会用分配缓存，所以这里有必要强调一下。从iOS7开始，32-bit和64-bit的内存分页大小就已经完全不同了，所以我么一定要确保在用到内存分页大小的时候调用<em>getpagesize()</em>函数来获取正确的分页大小</p>
+
+<h2 id="确保你的程序在32-bit下运行正常">确保你的程序在32-bit下运行正常</h2>
+
+<p>目前，编写一个可在64位运行时环境下运行的APP同时也应该支持32位。那么应该保证我们的应用在任一环境下运行良好。通常来说也就是设计一个可同时在两种环境下运行良好的结构。但有时也需要针对不同的运行环境编写特殊的解决方案。
+例如，你或许倾向于在整个代码中定义64位整型；因为不仅两种运行时环境都支持64位整型，而且仅使用一个单一的整型简化了APP的设计。但如果你使用全篇使用64位整型，你的应用将会在32位运行时环境下运行更慢一些。一个64位的处理器运行64位整数运算的速度和运行32位整数运算一样，但32位的处理器运行64位的运算就要慢很多。同时，在两种环境下，变量可能会占用更多一些的内存。所以我们应该根据要处理的数据范围选择一个合适的整数类型。如果是一个32的整数运算，就定义一个32位的整数。</p>
+
+</div>
+				<footer><meta itemprop="dateModified" content="2015-03-24T00:00:00+08:00"><div class="article-license"><div class="m-license"><div class="clearfix"><p>本文遵守 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 许可协议。</p><a class="license" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="Creative Commons License" src="/assets/images/license-cc4.png" />
+    </a><p>欢迎转载，转载需注明出处，且禁止用于商业目的。</p>
+  </div>
+</div></div>
+				</footer>
+			</article>
+			<div class="article-previous-next clearfix"><div class="article-previous"><span>上篇</span><a href="/ios/2015/04/01/apple%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80%E5%92%8C%E5%8D%87%E7%BA%A7%E6%8F%90%E7%A4%BA.html">apple评论页面地址和升级提示</a></div><div class="article-next"><span>下篇</span><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">Major 64-Bit Changes</a></div></div></div>
+	</div>
+</div></div>
+      </div>
+    </div><div class="m-page-footer js-page-footer">
+  <div class="main">
+    <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="codecooker">
+    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+        <div class="floating-action-round-button github">
+          <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+          </a>
+        </div>
+      </li><li title="在 Linkedin 上关注我。">
+        <div class="floating-action-round-button linkedin">
+          <a itemprop="sameAs" href="https://www.linkedin.com/in/lu.peng.wei@gmail.com" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M260.096 155.648c0 27.307008-9.899008 50.516992-29.696 69.632-19.796992 19.115008-45.396992 28.672-76.8 28.672-30.036992 0-54.612992-9.556992-73.728-28.672-19.115008-19.115008-28.672-42.324992-28.672-69.632 0-28.672 9.556992-52.224 28.672-70.656 19.115008-18.432 44.372992-27.648 75.776-27.648 31.403008 0 56.32 9.216 74.752 27.648 18.432 18.432 28.331008 41.984 29.696 70.656 0 0 0 0 0 0m-202.752 808.96c0 0 0-632.832 0-632.832 0 0 196.608 0 196.608 0 0 0 0 632.832 0 632.832 0 0-196.608 0-196.608 0 0 0 0 0 0 0m313.344-430.08c0-58.708992-1.364992-126.292992-4.096-202.752 0 0 169.984 0 169.984 0 0 0 10.24 88.064 10.24 88.064 0 0 4.096 0 4.096 0 40.96-68.267008 105.812992-102.4 194.56-102.4 68.267008 0 123.220992 22.868992 164.864 68.608 41.643008 45.739008 62.464 113.664 62.464 203.776 0 0 0 374.784 0 374.784 0 0-196.608 0-196.608 0 0 0 0-350.208 0-350.208 0-91.476992-33.451008-137.216-100.352-137.216-47.787008 0-81.236992 24.576-100.352 73.728-4.096 8.192-6.144 24.576-6.144 49.152 0 0 0 364.544 0 364.544 0 0-198.656 0-198.656 0 0 0 0-430.08 0-430.08 0 0 0 0 0 0" />
+</svg></div>
+          </a>
+        </div>
+      </li></ul><p class="email">
+      <a title="给我发邮件。" href="mailto:codecooker@outlook.com" target="_self">codecooker@outlook.com</a>
+    </p></div>
+</aside>
+    <footer class="site-info">
+      <p>© Codecooker's blog 2018</p>
+      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.</p>
+    </footer>
+  </div>
+</div><script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script><script>
+  (function() {
+    function scrollAnimateTo(destination, duration, callback) {
+      var $body = $('html, body'), bodyScrollTop = $body.scrollTop();
+      if(bodyScrollTop === destination) { return; }
+      $body.animate({ scrollTop: destination }, duration, callback);
+    }
+    window.scrollTopAnchor = function(anchor, callback) {
+      scrollAnimateTo($(anchor).offset().top, 400, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+  })();
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $articleContent = $('.m-post, .m-page').find('.m-article-content'), $this;
+    $articleContent.children('.highlight').each(function() {
+      $this = $(this);
+      $this.attr('data-lang', $this.find('code').attr('data-lang'));
+    });
+
+    $articleContent.children('h1, h2, h3, h4, h5, h6').each(function() {
+      $this = $(this);
+      $this.append($('<a class="anchor" aria-hidden="true"></a>').html('<svg fill="#000000" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>'));
+    });
+    $articleContent.on('click', '.anchor', function() {
+      window.scrollTopAnchor('#' + $(this).parent().attr('id'));
+    });
+  });
+</script><script>
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $window = $(window);
+    var $pageStage = $('.js-page-stage');
+    var $pageMain = $('.js-main');
+    var $pageFooter = $('.js-page-footer');
+    var $articleContent = $('.js-article-content');
+    var $articleAside = $('.js-article-aside');
+    var $toc = $('.js-toc');
+    var $col2 = $('.js-col-2');
+    var hasTitle = $articleContent.find('h1,h2,h3').length > 0;
+    function asideSticky() {
+      return $col2.css('display') !== 'none' && $pageStage.hasClass('has-toc');
+    }
+    function setTocClass() {
+      if (hasTitle) {
+        !$pageStage.hasClass('has-toc') && $pageStage.addClass('has-toc');
+      }
+    }
+    function setAsideTOC() {
+      var asideTop, asideLeft, scrollBottom, asideBottomTop, lastScrollTop;
+      function init() {
+        var asideOffset = $articleAside.offset();
+        var footerOffset = $pageFooter.offset();
+        var mainOffset = $pageMain.offset();
+        asideTop = mainOffset.top;
+        asideHeight = $toc.outerHeight() + parseInt($articleAside.css('padding-top'), 10) + parseInt($articleAside.css('padding-bottom'), 10);
+        asideLeft = mainOffset.left + $pageMain.outerWidth() - $articleAside.outerWidth() - parseInt($pageMain.css('padding-right'), 10);
+        scrollBottom = footerOffset.top - asideHeight;
+        asideBottomTop = scrollBottom - mainOffset.top;
+      }
+      function setAside(force) {
+        force !== true && (force = false);
+        var scrollTop = $window.scrollTop();
+        if (scrollTop >= asideTop && scrollTop <= scrollBottom) {
+          (!force && lastScrollTop >= asideTop && lastScrollTop <= scrollBottom) ||
+          $articleAside.addClass('fixed').css({
+            left: asideLeft + 'px',
+            top: 0
+          });
+        } else if (scrollTop < asideTop) {
+          (!force && lastScrollTop < asideTop) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+        } else {
+          (!force && lastScrollTop > scrollBottom) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: asideBottomTop + 'px'
+          });
+        }
+        lastScrollTop = scrollTop;
+      }
+      asideSticky() && (init(), setAside());
+      $window.on('scroll', function() {
+        asideSticky() && setAside();
+      });
+      $window.on('resize', window.throttle(function() {
+        setTocClass();
+        asideSticky() && (init(), setAside(true));
+      }, 100));
+      setTimeout(init, 4000);
+    }
+    function toc() {
+      var $tocUl = $('<ul></ul>'), $tocLi, $headings = $articleContent.find('h1,h2,h3'), headingsTop = [],
+        scrolling, activeLast, activeCur, rendered = false;
+      function init() {
+        $headings.each(function() {
+          headingsTop.push(Math.floor($(this).offset().top));
+        });
+      }
+      function setActiveHeading(element, disabled) {
+        var scrollTop = $window.scrollTop(), i;
+        if (disabled || headingsTop.length < 1) { return; }
+        if (element) {
+          activeCur = element;
+        } else {
+          for (i = 0; i < headingsTop.length; i++) {
+            if (scrollTop >= headingsTop[i]) {
+              activeCur = $tocLi.eq(i);
+            } else {
+              activeCur || (activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        activeLast && activeLast.removeClass('toc-active');
+        (activeLast = activeCur).addClass('toc-active');
+      }
+      function render() {
+        $toc.append($tocUl);
+        $headings.each(function() {
+          var $this = $(this);
+          $tocUl.append($('<li></li>').addClass('toc-' + $this.prop("tagName").toLowerCase())
+            .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+        });
+        $tocLi = $tocUl.children('li');
+        $tocUl.on('click', 'a', function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          scrolling = true;
+          setActiveHeading($this.parent());
+          window.scrollTopAnchor($this.attr('href'), function() {
+            scrolling = false;
+          });
+        });
+        rendered = true;
+      }
+      asideSticky() && (render(), $window.on('load', function() {
+        setTimeout(function() {
+          init();
+          setActiveHeading(null, scrolling);
+        }, 1000);
+      }));
+      $window.on('resize', window.throttle(function() {
+        if (asideSticky()) {
+          rendered || render();
+          init();
+          setActiveHeading(null, scrolling);
+        }
+      }));
+      $window.on('scroll', function() {
+        asideSticky() && setActiveHeading(null, scrolling);
+      });
+    }
+    setTocClass();
+    toc();
+    setTimeout(function() {
+      setAsideTOC();
+    }, 1000);
+  });</script></body>
+</html>

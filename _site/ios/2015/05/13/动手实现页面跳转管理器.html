@@ -1,0 +1,781 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>资源定位-页面管理器 - Codecooker's blog</title>
+<meta name="description" content="页面管理器是一个用于触发和管理app内页面跳转展示的模块，通过该模块调用方可以很方便的触发页面的跳转并传递自定义的参数。将页面的切换操作抽象为一种URI触发机制，克服了不同页面对应不同VC（viewController）时跳转页面时的不灵活性。下面我们将页面跳转管理器统称为PM（Page Manager）为什么P...">
+<link rel="canonical" href="http://localhost:4000/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
+<!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
+<!-- for Edge on Windows 10 https://msdn.microsoft.com/en-us/library/dn255024(v=vs.85).aspx --><meta name="msapplication-TileImage" content="/assets/images/logo/icon-144x144.png"><meta name="msapplication-square310x310logo" content="/assets/images/logo/icon-310x310.png"><meta name="msapplication-wide310x150logo" content="/assets/images/logo/icon-310x150.png"><meta name="msapplication-square150x150logo" content="/assets/images/logo/icon-150x150.png"><meta name="msapplication-square70x70logo" content="/assets/images/logo/icon-70x70.png">
+<meta name="msapplication-TileColor" content="#eeeeee"><link rel="stylesheet" href="/assets/css/blog.css"><script>
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var Set = (function() {
+      var add = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (data[i] === item) {
+            return;
+          }
+        }
+        this.size ++;
+        data.push(item);
+        return data;
+      }
+
+      var Set = function(data) {
+        this.size = 0;
+        this._data = [];
+        if (data.length > 0) {
+          for (i = 0; i < data.length; i++) {
+            add.call(this, data[i]);
+          }
+        }
+      }
+      Set.prototype.add = add;
+      Set.prototype.get = function(index) { return this._data[index]; };
+      Set.prototype.has = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (this.get(i) === item) {
+            return true;
+          }
+        }
+        return false;
+      };
+      Set.prototype.is = function(map) {
+        if (map._data.length !== this._data.length) { return false; }
+        var i, j, flag, tData = this._data, mData = map._data;
+        for (i = 0; i < tData.length; i++) {
+          for (flag = false, j = 0; j < mData.length; j++) {
+            if (tData[i] === mData[j]) {
+              flag = true;
+              break;
+            }
+          }
+          if (!flag) { return false; }
+        }
+        return true;
+      };
+      Set.prototype.values = function() {
+        return this._data;
+      };
+      return Set;
+    })();
+
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    }
+    var end = function(type, url, urls) {
+      var s, q, qi, cbs, i, j, cur,
+        val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j]
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, si, q, qi, node, i, cur, flag,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  }
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  }
+</script></head>
+  <body>
+    <div class="m-page-stage js-page-stage">
+      <div class="m-page-content"><header class="m-page-header">
+  <div class="main clearfix">
+    <div class='site-logo'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#666666;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Someone's Blog
+" href="/">Codecooker's blog</a></div>
+    <nav>
+      <ul><li><a href="/">主页</a></li><li><a href="/all.html">归档</a></li><li><a href="/about.html">关于</a></li><li><a type="application/rss+xml" href="/feed.xml">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="m-page-main"><div class="m-post">
+	<div class="main clearfix js-main">
+		<div class="col-2 js-col-2">
+			<aside class="js-article-aside"><div class="m-toc js-toc"></div></aside>
+		</div>
+		<div class="col-1">
+			<article class="js-article" itemscope itemtype="http://schema.org/BlogPosting">
+				<meta itemprop="mainEntityOfPage" itemscope itemType="https://schema.org/WebPage"/>
+				<header class="main-header"><h1 itemprop="headline" itemprop="name headline">资源定位-页面管理器</h1><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><time class="article-meta" datetime="2015-05-13T00:00:00+08:00"
+          itemprop="datePublished">2015年 05月13日
+        </time></div>
+  </div>
+</div>
+</header>
+				<div class="m-article-content js-article-content" itemprop="articleBody"><p>页面管理器是一个用于触发和管理app内页面跳转展示的模块，通过该模块调用方可以很方便的触发页面的跳转并传递自定义的参数。将页面的切换操作抽象为一种URI触发机制，克服了不同页面对应不同<em>VC（viewController）</em>时跳转页面时的不灵活性。下面我们将页面跳转管理器统称为<em>PM（Page Manager）</em></p>
+
+<h2 id="为什么pm">为什么PM？</h2>
+
+<p>在我们平时的应用开发过程中，我们应该都碰到过根据远程数据配置页面入口的情况，通常我们会枚举所有情况，根据不同的入参决定要切换到的页面和切换页面的形态，这样做一般会存在如下问题：</p>
+
+<blockquote>
+  <ol>
+    <li>页面切换逻辑太过分散，不便管理维护</li>
+    <li>不同的触发位置都需要实现一份分发逻辑，造成大量的冗余代码</li>
+    <li>分发方法过于庞大，极大的影响可读性</li>
+    <li>运营位（数据）、动态入口配置不灵活</li>
+  </ol>
+</blockquote>
+
+<p>而PM的提出就是为了解决以前分散的页面跳转带来的不便，而将页面跳转统一成为一种URI的形式来做处理，这样实现的优势基本上归结为以下几点：</p>
+
+<blockquote>
+  <ol>
+    <li>页面跳转（VC切换）抽象为一种URI，方便统一分发管理</li>
+    <li>可以避免在非主线程触发页面切换时引起的crash</li>
+    <li>统一的URI定位符处理，同时处理<em>web</em>页面和<em>native</em>页面的天然切换</li>
+    <li>对传入参数进行字符话处理，可以通过简单的<em>URI</em>初始化对象，而不需要关心具体的参数初始化，类似<em>HTTP</em>请求</li>
+    <li>使底层页面切换方法针对上层透明，接入方不需要关心是否是平台自身实现的容器<em>VC</em></li>
+    <li>方便监控页面切换指数（性能等）</li>
+  </ol>
+</blockquote>
+
+<h2 id="怎么实现">怎么实现？</h2>
+
+<p>这里我们可以思考下，当为了满足上述优势的情况下，该怎么实现？</p>
+
+<blockquote>
+  <p>首先，我们需要一个规则来映射到我们<em>app</em>中对应的<em>VC</em>；我们还需要一个业务模块来屏蔽<em>app</em>内页面的切换逻辑；还需要一个将映射规则解析成<em>PM</em>能懂的解析器；还需要一个调度页面跳转的核心模块，….</p>
+</blockquote>
+
+<p>总结出来分为如下几个模块：</p>
+
+<ul>
+  <li>文件管理模块–&gt;负责处理映射规则文件</li>
+  <li>URI解析模块–&gt;负责解析URI，将URI以我们定义的规则拆分，并提供获取相关信息的接口</li>
+  <li>数据工厂–&gt;根据文件管理模块、URI解析模块输出产生PM能处理的数据</li>
+  <li>解析引擎–&gt;负责调度处理文件管理模块、URI解析模块、数据工厂，获取合适的路径</li>
+  <li>业务模块–&gt;负责告知PM，本地页面切换方式，用于屏蔽不同APP之间的差异</li>
+  <li>核心模块–&gt;负责处理页面切换的核心逻辑</li>
+</ul>
+
+<p><img src="/images/资源定位-页面管理器/core_1.png" alt="整体框架" /></p>
+
+<h4 id="文件管理模块fileadapter">文件管理模块–FileAdapter</h4>
+
+<p>FileAdapter作为一个文件适配器，用来处理文件的获取（网络、bundle、缓存），并将文件输出为PM可识别的类型。并对外提供如下接口</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">//!配置文件名称，返回配置文件的绝对路径需要带上后缀名，也可直接从外部进行设置
+@property (nonatomic,strong) NSString *configFilePath;
+
+//!配置文件对应的数据，根据configfile文件的内容输入以字典形式输出，不同格式的数据文件需要经过转换整理成字典类型返回
+- (NSDictionary *)configInfos;</code></pre></figure>
+
+<p>我们也可以在<em>FileAdapter</em>内做一些文件的获取逻辑和读取逻辑。<br />
+例如，在<em>demo</em>中，我们支持的文件类型是<em>macox</em>和<em>iOS</em>中最常见的<em>plist</em>类型，所以我们需要在<em>FileAdapter</em>中对<em>plist</em>文件进行解析，并转换成<em>PageManager</em>可识别的<em>NSDictionary</em>类型。如果我们的原文件是<em>Json</em>格式的话，<strong>我们只需要重新继承实现FileAdapter，对新有的逻辑进行处理即可</strong></p>
+<kp>对FileAdapter的理解可以为一个抽象的接口层，我们默认实现了一种Plist格式文件支持。如果调用方需要自定义文件的获取方式，可以继承该类实现自己的FileAdapter</kp>
+
+<h4 id="uri解析模块uriadapter">URI解析模块–URIAdapter</h4>
+
+<p><em>URIAdapter</em>模块的主要工作就是根据我们的URI解析出我们需要的信息，通过<em>URIAdapter</em>，可以在URI提取出URI对应的<em>host</em>、<em>pathComponent</em>、<em>parameters</em>等信息<br />
+同<em>FileAdapter</em>一样，<em>URIAdapter</em>也可以理解为一个抽象的接口层，提供一个默认的URI解析规则，如果使用者需要适配以往的URI或者定义自身的<em>URI</em>拼接规则，<strong>指需要继承URIAdapter来实现自己的URIAdapter即可</strong><br />
+<em>URIAdapter</em>为外部提供了如下接口：</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">//!要处理的URI数据，该URI定义页面跳转的数据
+@property (nonatomic,strong) NSString *URI;
+
+//!uri对应的host
+@property (nonatomic,strong,readonly) NSString *host;
+
+//!uri对应的PathComponent
+@property (nonatomic,strong,readonly) NSArray *pathComponent;
+
+//!uri对应的参数列表，以list的形式返回，item为dic数据详细格式参见定义
+@property (nonatomic,strong,readonly) NSArray *parameters;</code></pre></figure>
+
+<p>这里需要对默认的URI拼接方式做一个说明，默认的URI结构如下</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">//默认的URI拼接方式，由协议头+host+pathComponent组成
+xxxx://page.xx/hello?parameter1=x&amp;parameter2=xx</code></pre></figure>
+
+<p>符合标准的URI定义格式，我们根据xxxx:（scheme）来区分应用，用page.xx（host）来区分模块，其他相应的模块来控制页面切换时的形态或者初始化参数</p>
+
+<h4 id="数据工厂dataengine">数据工厂–DataEngine</h4>
+
+<p>顾名思义，<em>DataEngine</em>是用于生产数据的模块，它根据<em>FileAdapter</em>和<em>URIAdapter</em>数据来生产页面跳转必须的业务数据，该模块主要负责产生页面跳转时必须的数据（参数、<em>VC</em>），并返回跳转路径<br />
+<img src="/images/资源定位-页面管理器/core_2.png" alt="整体框架" />
+<em>fixedPath</em>是一个路径序列，每个<em>item</em>为一个<em>ManagerPathNode</em>对象
+<img src="/images/资源定位-页面管理器/core_3.png" alt="整体框架" />
+数据工厂，还担负了校验参数的任务，负责校验必传参数是否传递了和参数格式是否正常等。如果不满足需求则数据工厂返回的<em>fixedPath</em>则为空</p>
+
+<h4 id="解析引擎pagemanagerparserruleengine">解析引擎–PageManagerParserRuleEngine</h4>
+
+<p>解析引擎，很明显，作为一个引擎，负责联动各个模块完成由URI–&gt;Data的任务。所以对于解析引擎来说，需要知道协同的模块都有哪些，这些协同模块是怎么工作的。解析引擎需要实现一个接口，使用者可根据自己的需求自定义自己的解析引擎。也可以将解析引擎单独拆分出来应用于其他模块</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">//!URI解析规则处理器需要实现的接口
+@protocol  CCPageManagerParserRuleEngineInterface&lt;NSObject&gt;
+
+@optional
+
+//!如果需要一个单例的页面规则解析器，请实现改方法，如果未实现该方法，系统会每次创建一个解析器的实例，且不长期拥有实例
++ (instancetype)engine;
+
+@required
+
+//!处理消息URL，该消息URL和参数的处理结果直接以block的形式反馈给receiver,flag类型参照CCPageManagerFlag
+- (BOOL)handleUrl : (NSString *)url withParameters : (NSMutableArray *)parameters onCompletion : (void (^)(NSArray *path, CCPageManagerFlag flag)) completion;
+
+
+//!是否能处理该类URL目前是否能处理，只针对域来处理而不做详细的跳转判断
+- (BOOL)canOpenUrl : (NSString *)url;
+
+
+@end</code></pre></figure>
+
+<h4 id="业务模块">业务模块</h4>
+
+<p>这里的页面模块指的是根具体使用方比较相关的部分。为了完成PM的可移植性，在初期对对具体平台相关的页面切换方法进行了包装，针对不同的业务场景我们只需要改变</p>
+
+<p>这里我们对普通的VC做了如下抽象</p>
+<ol>
+  <li>针对NSObject对象实现了VC的接口，方便在自定义VC的应用中快速的移植</li>
+  <li>人为的VC区分为普通VC和容器VC（ContainerIViewController）</li>
+  <li>对VC实现页面切换操作接口</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">#pragma mark -CCPageManagerViewControllerInterface
+//!view controller实现的接口
+@protocol CCPageManagerViewControllerInterface &lt;NSObject&gt;
+
+@required
+
+//!当前的 view controller对象，容器vc的该方法返回当前展示的view controller，如果receiver不是一个容器vc，则应返回自身
+- (id)currentViewController;
+
+//!当前view controller 所属于的container，如果当前view controller为 app的root view controller的话，则返回nil
+- (id)containerViewController;
+
+//!当前view controller 对应的自view
+- (UIView*)view;
+
+@optional
+
+//!在参数index位置显示viewcontroller，需要根据不同的容器做相应的实现，对应能支持的index操作才有作用，不支持的操作index则无忽略该参数
+- (BOOL)showViewController : (CCPageManagerPathNode *)node atIndex : (NSUInteger)index;
+
+//!dismiss当前的vc
+- (BOOL)dismissViewController : (CCPageManagerPathNode *)node flag : (CCPageManagerFlag)flag;
+
+@end
+
+#pragma mark -CCPageManagerContainerInterface
+//!容器vc接口类，对所有自定义container view controller都需要根据需求实现相应的方法，才能完成PageManager的功能
+@protocol CCPageManagerContainerInterface &lt;CCPageManagerViewControllerInterface&gt;
+
+
+@optional
+
+//!容器view controller的子view controller们，若当前容器没有子view controller则返回nil,这里只对容器类的view controller支持该项操作，也可理解为人为的对将容器vc分离出来
+- (NSArray *)childViewControllers;
+
+@end</code></pre></figure>
+
+<p>这样做了以后，PM中对页面的调整和APP中页面的原生跳转逻辑成为了完全分离的。不依赖于任何系统原生的VC，可以屏蔽不同APP中的差异。当然在引入灵活性的同时也加大了嵌入PM的成本，我们需要为自己实现的容器VC实现响应的接口，来保证PM的功能完整性</p>
+
+<h4 id="核心模块ccpagemanager">核心模块–CCPageManager</h4>
+
+<p>该模块是整个PM的核心模块，或者说是中枢模块，用来驱动调配各个模块工作完成页面的跳转工作。为了让该模块正常工作，我们需要知道页面栈当前的状态和位置。所以需要提供一个初始化方法来获取rootViewController,而且提供一个出发页面跳转的方法。具体对外暴露了如下接口</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">@property (nonatomic,weak) id&lt;CCPageManagerViewControllerInterface&gt; rootViewController;
+
+//!页面管理器操作的历史栈，该栈只针对经过页面管理器的操作做记录，没有经过页面管理器的操作不做记录，如要获取页面访问路径则需要保证页面的跳转是由页面管理器完成
+@property (nonatomic,readonly,strong) CCPageHistoryStack *pageHistoryStack;
+
+//!代理，详细可参见CCPageManagerDelegate
+@property (nonatomic,weak) id&lt;CCPageManagerDelegate&gt; delegate;
+
+#pragma mark -create instance
+
+//!单例的页面管理器，需要调用页面管理器时请调用该单例，不要自己创建实例
++ (instancetype)defaultManager;
+
+
+#pragma mark -规则解析器
+
+//!注册URL解析规则器，具体实现参照CCPageManagerParserRuleEngineInterface的定义,返回值表示是否注册成功
+- (BOOL)registerParserRuleEngineClassName : (NSString *)parserEngineClassName;
+
+
+#pragma mark -页面调转消息处理
+
+//!是否能处理该类URL目前是否能处理，只针对域来处理而不做详细的跳转判断
+- (BOOL)canOpenUrl : (NSString *)url;
+
+//!处理页面跳转消息，parameter为key、value形式
+- (BOOL)openUrl : (NSString *)url withParameters : (NSArray *)parameters;
+
+//!goback操作，调用可返回上次的页面,可以返回返回yes，反之返回NO，针对页面管理器跳转的pageHistoryStack完成一次回退操作，需要注意的是所有页面都采用页面管理器进行跳转时使用此方法才能获取到期望的结果
+- (BOOL)goBack;
+
+//!reset操作，对客户端来说，可以理解为跳转到root view controller
+- (void)reset;</code></pre></figure>
+
+<h4 id="辅助模块util">辅助模块–util</h4>
+
+<p>该模块主要提供一些工具类，例如如何用序列化数据初始化一个对象等等。在PM中，最关键的初始化方法即属于该模块。关于实现方式在前面的文章中已经做了介绍，这里就不赘述</p>
+
+<h4 id="流程图">流程图</h4>
+<p><img src="/images/资源定位-页面管理器/core_4.png" alt="整体框架" /></p>
+
+<h2 id="如何使用pm">如何使用PM</h2>
+
+<p>在使用过程中，我们分为几种情况</p>
+<h4 id="引入pagemanager到工程">引入PageManager到工程</h4>
+
+<p>1.如果我们的工程是以cocoaPods管理的，只需要在Podfile中加入</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pod</span> <span class="s1">'CCPageManager'</span><span class="p">,</span> <span class="s1">'~&gt; 0.0.1'</span></code></pre></figure>
+
+<p>2.如果我们是自行管理第三方代码的话，则需要手动将PageManager的framework引入工程</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">git</span> <span class="nb">clone</span> <span class="n">git</span><span class="vi">@codecooker</span><span class="p">.</span><span class="nf">git</span></code></pre></figure>
+
+<h4 id="完全使用pm的各个模块个解析规则">完全使用PM的各个模块个解析规则</h4>
+
+<ol>
+  <li>注册PM到应用</li>
+</ol>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">// 注册rootViewController给PM
+[CCPageManager defaultManager].rootViewController = self.window.rootViewController;
+
+//创建解析引擎
+CCPageManagerParserRuleEngine *parserRuleEngine = [CCPageManagerParserRuleEngine new];
+NSError *error    = nil;
+
+//设置解析引擎的过滤规则，示例的过滤规则为host=page.cc
+NSString *pattern = @"(?&lt;=://)page.cc(?=/)";
+NSRegularExpression *expression = [[NSRegularExpression alloc]initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:&amp;error];
+if (!error) {
+    parserRuleEngine.filter = expression;
+}
+
+//注册解析引擎给PM
+[[CCPageManager defaultManager]registerParserRuleEngine:parserRuleEngine];</code></pre></figure>
+
+<p>2 . 实现自己的FileAdatper,注册对应的映射文件</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">- (NSString *)configFilePath
+{
+    //返回自身的配置文件路径
+    return [[NSBundle mainBundle]pathForResource:@"CCPageMap" ofType:@"plist"];
+}
+
+- (NSDictionary *)configInfos
+{
+    //返回配置文件内的数据，格式参见附录，如需自定义格式，请继续向后看
+    return [NSDictionary dictionaryWithContentsOfFile:[self configFilePath]];
+}</code></pre></figure>
+
+<p>3 . 构建自己的映射文件，如下形式</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;key&gt;</span>betSsq<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>class<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>CCViewController<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>attributes<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="nt">&lt;dict&gt;</span>
+            <span class="nt">&lt;key&gt;</span>name<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;string&gt;</span>CCType<span class="nt">&lt;/string&gt;</span>
+            <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+            <span class="nt">&lt;key&gt;</span>required<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;true/&gt;</span>
+        <span class="nt">&lt;/dict&gt;</span>
+        <span class="nt">&lt;dict&gt;</span>
+            <span class="nt">&lt;key&gt;</span>name<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;string&gt;</span>playMethod<span class="nt">&lt;/string&gt;</span>
+            <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;integer&gt;</span>-1<span class="nt">&lt;/integer&gt;</span>
+            <span class="nt">&lt;key&gt;</span>required<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;true/&gt;</span>
+        <span class="nt">&lt;/dict&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/dict&gt;</span></code></pre></figure>
+
+<p>4.发送URI给PageManager</p>
+
+<figure class="highlight"><pre><code class="language-objective-c" data-lang="objective-c">[self openUrl:message withParameters:array];</code></pre></figure>
+
+<h4 id="改变规则后的调用">改变规则后的调用</h4>
+
+<ul>
+  <li>如果改变了URI解析规则，请重写URIAdapter中的方法，使之正确解析</li>
+  <li>如果改变了映射文件的格式，请重写FileAdapter中的方法</li>
+  <li>如果数据格式改变，请重写DataEngine中的方法</li>
+</ul>
+
+<kp>这里的重写都指的是继承覆盖</kp>
+
+<h2 id="附录">附录</h2>
+
+<h4 id="1demo中配置文件的格式说明">1.Demo中配置文件的格式说明</h4>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;key&gt;</span>betSsq<span class="nt">&lt;/key&gt;</span>
+<span class="nt">&lt;dict&gt;</span>
+    <span class="nt">&lt;key&gt;</span>class<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;string&gt;</span>CCController<span class="nt">&lt;/string&gt;</span>
+    <span class="nt">&lt;key&gt;</span>attributes<span class="nt">&lt;/key&gt;</span>
+    <span class="nt">&lt;array&gt;</span>
+        <span class="nt">&lt;dict&gt;</span>
+            <span class="nt">&lt;key&gt;</span>name<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;string&gt;</span>CCType<span class="nt">&lt;/string&gt;</span>
+            <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;integer&gt;</span>1<span class="nt">&lt;/integer&gt;</span>
+            <span class="nt">&lt;key&gt;</span>required<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;true/&gt;</span>
+        <span class="nt">&lt;/dict&gt;</span>
+        <span class="nt">&lt;dict&gt;</span>
+            <span class="nt">&lt;key&gt;</span>name<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;string&gt;</span>playMethod<span class="nt">&lt;/string&gt;</span>
+            <span class="nt">&lt;key&gt;</span>default<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;integer&gt;</span>-1<span class="nt">&lt;/integer&gt;</span>
+            <span class="nt">&lt;key&gt;</span>required<span class="nt">&lt;/key&gt;</span>
+            <span class="nt">&lt;true/&gt;</span>
+        <span class="nt">&lt;/dict&gt;</span>
+    <span class="nt">&lt;/array&gt;</span>
+<span class="nt">&lt;/dict&gt;</span></code></pre></figure>
+
+<p>key-&gt;页面标示符
+class-&gt;对应页面viewController名称
+attributes-&gt;参数列表，item为一个包含name和value的map<br />
+attributes[item]-&gt;name 表示参数的名称，可与viewcontroller中的property、instanceVariable对应<br />
+attributes[item]-&gt;value 表示与name对应的变量应初始化成的value，如果以URI的形式传递参数的话，只支持基础格式<br />
+attributes[item]-&gt;default 与name对应的变量如果为空时的默认值<br />
+attributes[item]-&gt;required 是否必传</p>
+
+</div>
+				<footer><meta itemprop="dateModified" content="2015-05-13T00:00:00+08:00"><div class="article-license"><div class="m-license"><div class="clearfix"><p>本文遵守 <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> 许可协议。</p><a class="license" rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+      <img alt="Creative Commons License" src="/assets/images/license-cc4.png" />
+    </a><p>欢迎转载，转载需注明出处，且禁止用于商业目的。</p>
+  </div>
+</div></div>
+				</footer>
+			</article>
+			<div class="article-previous-next clearfix"><div class="article-previous"><span>上篇</span><a href="/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html">iOS分享引擎</a></div><div class="article-next"><span>下篇</span><a href="/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html">key-value初始化instanceVariable</a></div></div></div>
+	</div>
+</div></div>
+      </div>
+    </div><div class="m-page-footer js-page-footer">
+  <div class="main">
+    <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="codecooker">
+    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+        <div class="floating-action-round-button github">
+          <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+          </a>
+        </div>
+      </li><li title="在 Linkedin 上关注我。">
+        <div class="floating-action-round-button linkedin">
+          <a itemprop="sameAs" href="https://www.linkedin.com/in/lu.peng.wei@gmail.com" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M260.096 155.648c0 27.307008-9.899008 50.516992-29.696 69.632-19.796992 19.115008-45.396992 28.672-76.8 28.672-30.036992 0-54.612992-9.556992-73.728-28.672-19.115008-19.115008-28.672-42.324992-28.672-69.632 0-28.672 9.556992-52.224 28.672-70.656 19.115008-18.432 44.372992-27.648 75.776-27.648 31.403008 0 56.32 9.216 74.752 27.648 18.432 18.432 28.331008 41.984 29.696 70.656 0 0 0 0 0 0m-202.752 808.96c0 0 0-632.832 0-632.832 0 0 196.608 0 196.608 0 0 0 0 632.832 0 632.832 0 0-196.608 0-196.608 0 0 0 0 0 0 0m313.344-430.08c0-58.708992-1.364992-126.292992-4.096-202.752 0 0 169.984 0 169.984 0 0 0 10.24 88.064 10.24 88.064 0 0 4.096 0 4.096 0 40.96-68.267008 105.812992-102.4 194.56-102.4 68.267008 0 123.220992 22.868992 164.864 68.608 41.643008 45.739008 62.464 113.664 62.464 203.776 0 0 0 374.784 0 374.784 0 0-196.608 0-196.608 0 0 0 0-350.208 0-350.208 0-91.476992-33.451008-137.216-100.352-137.216-47.787008 0-81.236992 24.576-100.352 73.728-4.096 8.192-6.144 24.576-6.144 49.152 0 0 0 364.544 0 364.544 0 0-198.656 0-198.656 0 0 0 0-430.08 0-430.08 0 0 0 0 0 0" />
+</svg></div>
+          </a>
+        </div>
+      </li></ul><p class="email">
+      <a title="给我发邮件。" href="mailto:codecooker@outlook.com" target="_self">codecooker@outlook.com</a>
+    </p></div>
+</aside>
+    <footer class="site-info">
+      <p>© Codecooker's blog 2018</p>
+      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.</p>
+    </footer>
+  </div>
+</div><script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script><script>
+  (function() {
+    function scrollAnimateTo(destination, duration, callback) {
+      var $body = $('html, body'), bodyScrollTop = $body.scrollTop();
+      if(bodyScrollTop === destination) { return; }
+      $body.animate({ scrollTop: destination }, duration, callback);
+    }
+    window.scrollTopAnchor = function(anchor, callback) {
+      scrollAnimateTo($(anchor).offset().top, 400, function() {
+        window.history.replaceState(null, '', window.location.href.split('#')[0] + anchor);
+        callback && callback();
+      });
+    }
+  })();
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $articleContent = $('.m-post, .m-page').find('.m-article-content'), $this;
+    $articleContent.children('.highlight').each(function() {
+      $this = $(this);
+      $this.attr('data-lang', $this.find('code').attr('data-lang'));
+    });
+
+    $articleContent.children('h1, h2, h3, h4, h5, h6').each(function() {
+      $this = $(this);
+      $this.append($('<a class="anchor" aria-hidden="true"></a>').html('<svg fill="#000000" width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg>'));
+    });
+    $articleContent.on('click', '.anchor', function() {
+      window.scrollTopAnchor('#' + $(this).parent().attr('id'));
+    });
+  });
+</script><script>
+  window.Lazyload.js('https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js', function() {
+    var $window = $(window);
+    var $pageStage = $('.js-page-stage');
+    var $pageMain = $('.js-main');
+    var $pageFooter = $('.js-page-footer');
+    var $articleContent = $('.js-article-content');
+    var $articleAside = $('.js-article-aside');
+    var $toc = $('.js-toc');
+    var $col2 = $('.js-col-2');
+    var hasTitle = $articleContent.find('h1,h2,h3').length > 0;
+    function asideSticky() {
+      return $col2.css('display') !== 'none' && $pageStage.hasClass('has-toc');
+    }
+    function setTocClass() {
+      if (hasTitle) {
+        !$pageStage.hasClass('has-toc') && $pageStage.addClass('has-toc');
+      }
+    }
+    function setAsideTOC() {
+      var asideTop, asideLeft, scrollBottom, asideBottomTop, lastScrollTop;
+      function init() {
+        var asideOffset = $articleAside.offset();
+        var footerOffset = $pageFooter.offset();
+        var mainOffset = $pageMain.offset();
+        asideTop = mainOffset.top;
+        asideHeight = $toc.outerHeight() + parseInt($articleAside.css('padding-top'), 10) + parseInt($articleAside.css('padding-bottom'), 10);
+        asideLeft = mainOffset.left + $pageMain.outerWidth() - $articleAside.outerWidth() - parseInt($pageMain.css('padding-right'), 10);
+        scrollBottom = footerOffset.top - asideHeight;
+        asideBottomTop = scrollBottom - mainOffset.top;
+      }
+      function setAside(force) {
+        force !== true && (force = false);
+        var scrollTop = $window.scrollTop();
+        if (scrollTop >= asideTop && scrollTop <= scrollBottom) {
+          (!force && lastScrollTop >= asideTop && lastScrollTop <= scrollBottom) ||
+          $articleAside.addClass('fixed').css({
+            left: asideLeft + 'px',
+            top: 0
+          });
+        } else if (scrollTop < asideTop) {
+          (!force && lastScrollTop < asideTop) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: 0
+          });
+        } else {
+          (!force && lastScrollTop > scrollBottom) ||
+          $articleAside.removeClass('fixed').css({
+            left: 0,
+            top: asideBottomTop + 'px'
+          });
+        }
+        lastScrollTop = scrollTop;
+      }
+      asideSticky() && (init(), setAside());
+      $window.on('scroll', function() {
+        asideSticky() && setAside();
+      });
+      $window.on('resize', window.throttle(function() {
+        setTocClass();
+        asideSticky() && (init(), setAside(true));
+      }, 100));
+      setTimeout(init, 4000);
+    }
+    function toc() {
+      var $tocUl = $('<ul></ul>'), $tocLi, $headings = $articleContent.find('h1,h2,h3'), headingsTop = [],
+        scrolling, activeLast, activeCur, rendered = false;
+      function init() {
+        $headings.each(function() {
+          headingsTop.push(Math.floor($(this).offset().top));
+        });
+      }
+      function setActiveHeading(element, disabled) {
+        var scrollTop = $window.scrollTop(), i;
+        if (disabled || headingsTop.length < 1) { return; }
+        if (element) {
+          activeCur = element;
+        } else {
+          for (i = 0; i < headingsTop.length; i++) {
+            if (scrollTop >= headingsTop[i]) {
+              activeCur = $tocLi.eq(i);
+            } else {
+              activeCur || (activeCur = $tocLi.eq(i));
+              break;
+            }
+          }
+        }
+        activeLast && activeLast.removeClass('toc-active');
+        (activeLast = activeCur).addClass('toc-active');
+      }
+      function render() {
+        $toc.append($tocUl);
+        $headings.each(function() {
+          var $this = $(this);
+          $tocUl.append($('<li></li>').addClass('toc-' + $this.prop("tagName").toLowerCase())
+            .append($('<a></a>').text($this.text()).attr('href', '#' + $this.prop('id'))));
+        });
+        $tocLi = $tocUl.children('li');
+        $tocUl.on('click', 'a', function(e) {
+          e.preventDefault();
+          var $this = $(this);
+          scrolling = true;
+          setActiveHeading($this.parent());
+          window.scrollTopAnchor($this.attr('href'), function() {
+            scrolling = false;
+          });
+        });
+        rendered = true;
+      }
+      asideSticky() && (render(), $window.on('load', function() {
+        setTimeout(function() {
+          init();
+          setActiveHeading(null, scrolling);
+        }, 1000);
+      }));
+      $window.on('resize', window.throttle(function() {
+        if (asideSticky()) {
+          rendered || render();
+          init();
+          setActiveHeading(null, scrolling);
+        }
+      }));
+      $window.on('scroll', function() {
+        asideSticky() && setActiveHeading(null, scrolling);
+      });
+    }
+    setTocClass();
+    toc();
+    setTimeout(function() {
+      setAsideTOC();
+    }, 1000);
+  });</script></body>
+</html>

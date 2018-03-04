@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="zh-Hans">
+  <head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
+<meta name="description" content="Someone's Blog
+">
+<link rel="canonical" href="http://localhost:4000/blog/page4/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
+<!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
+<meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
+<!-- for Edge on Windows 10 https://msdn.microsoft.com/en-us/library/dn255024(v=vs.85).aspx --><meta name="msapplication-TileImage" content="/assets/images/logo/icon-144x144.png"><meta name="msapplication-square310x310logo" content="/assets/images/logo/icon-310x310.png"><meta name="msapplication-wide310x150logo" content="/assets/images/logo/icon-310x150.png"><meta name="msapplication-square150x150logo" content="/assets/images/logo/icon-150x150.png"><meta name="msapplication-square70x70logo" content="/assets/images/logo/icon-70x70.png">
+<meta name="msapplication-TileColor" content="#eeeeee"><link rel="stylesheet" href="/assets/css/blog.css"><script>
+  window.Lazyload = (function(doc) {
+    var queue = {js: [], css: []}, sources = {js: {}, css: {}}, context = this;
+    var Set = (function() {
+      var add = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (data[i] === item) {
+            return;
+          }
+        }
+        this.size ++;
+        data.push(item);
+        return data;
+      }
+
+      var Set = function(data) {
+        this.size = 0;
+        this._data = [];
+        if (data.length > 0) {
+          for (i = 0; i < data.length; i++) {
+            add.call(this, data[i]);
+          }
+        }
+      }
+      Set.prototype.add = add;
+      Set.prototype.get = function(index) { return this._data[index]; };
+      Set.prototype.has = function(item) {
+        var i, data = this._data;
+        for (i = 0; i < data.length; i++) {
+          if (this.get(i) === item) {
+            return true;
+          }
+        }
+        return false;
+      };
+      Set.prototype.is = function(map) {
+        if (map._data.length !== this._data.length) { return false; }
+        var i, j, flag, tData = this._data, mData = map._data;
+        for (i = 0; i < tData.length; i++) {
+          for (flag = false, j = 0; j < mData.length; j++) {
+            if (tData[i] === mData[j]) {
+              flag = true;
+              break;
+            }
+          }
+          if (!flag) { return false; }
+        }
+        return true;
+      };
+      Set.prototype.values = function() {
+        return this._data;
+      };
+      return Set;
+    })();
+
+    var createNode = function(name, attrs) {
+      var node = doc.createElement(name), attr;
+      for (attr in attrs) {
+        if (attrs.hasOwnProperty(attr)) {
+          node.setAttribute(attr, attrs[attr]);
+        }
+      }
+      return node;
+    }
+    var end = function(type, url, urls) {
+      var s, q, qi, cbs, i, j, cur,
+        val, flag;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        s[url] = true;
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (cur.urls.has(url)) {
+            qi = cur, val = qi.urls.values();
+            qi && (cbs = qi.callbacks);
+            for (flag = true, j = 0; j < val.length; j++) {
+              cur = val[j]
+              if (!s[cur]) {
+                flag = false;
+              }
+            }
+            if (flag && cbs && cbs.length > 0) {
+              for (j = 0; j < cbs.length; j++) {
+                cbs[j].call(context);
+              }
+              qi.load = true;
+            }
+          }
+        }
+      }
+    };
+    var load = function(type, urls, callback) {
+      var s, si, q, qi, node, i, cur, flag,
+        _urls = typeof urls === 'string' ? new Set([urls]) : new Set(urls), val, url;
+      if (type === 'js' || type ==='css') {
+        s = sources[type], q = queue[type];
+        for (i = 0; i < q.length; i++) {
+          cur = q[i];
+          if (_urls.is(cur.urls)) {
+            qi = cur;
+            break;
+          }
+        }
+        val = _urls.values();
+        if (qi) {
+          callback && (qi.load || qi.callbacks.push(callback));
+          callback && (qi.load && callback());
+        } else {
+          q.push({
+            urls: _urls,
+            callbacks: callback ? [callback] : [],
+            load: false
+          });
+          for (i = 0; i < val.length; i++) {
+            node = null, url = val[i];
+            if (s[url] === undefined) {
+              (type === 'js' ) && (node = createNode('script', { src: url }));
+              (type === 'css') && (node = createNode('link', { rel: 'stylesheet', href: url }));
+              if (node) {
+                node.onload = (function(type, url) {
+                  return function() {
+                    end(type, url);
+                  }
+                })(type, url);
+                (doc.head || doc.body).appendChild(node);
+                s[url] = false;
+              }
+            }
+          }
+        }
+      }
+    };
+    return {
+      js: function(url, callback) {
+        load('js', url, callback);
+      },
+      css: function(url, callback) {
+        load('css', url, callback);
+      }
+    };
+  })(this.document);
+
+  window.throttle = function(func, wait) {
+    var args, result, thisArg, timeoutId, lastCalled = 0;
+
+    function trailingCall() {
+      lastCalled = new Date;
+      timeoutId = null;
+      result = func.apply(thisArg, args);
+    }
+    return function() {
+      var now = new Date,
+        remaining = wait - (now - lastCalled);
+
+      args = arguments;
+      thisArg = this;
+
+      if (remaining <= 0) {
+        clearTimeout(timeoutId);
+        timeoutId = null;
+        lastCalled = now;
+        result = func.apply(thisArg, args);
+      } else if (!timeoutId) {
+        timeoutId = setTimeout(trailingCall, remaining);
+      }
+      return result;
+    };
+  };
+
+  window.hasEvent = function(event) {
+    return 'on'.concat(event) in window.document;
+  }
+</script></head>
+  <body>
+    <div class="m-page-stage js-page-stage">
+      <div class="m-page-content"><header class="m-page-header">
+  <div class="main clearfix">
+    <div class='site-logo'><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="24px" height="24px" viewBox="0 0 24 24">
+<style type="text/css">
+	.st0{fill:#666666;}
+</style>
+<path class="st0" d="M1.7,22.3c5.7-5.7,11.3-5.7,17,0c3.3-3.3,3.5-5.3,0.8-6c2.7,0.7,3.5-1.1,2.3-5.6s-3.3-5.2-6.3-2.1
+	c3-3,2.3-5.2-2.1-6.3S7,1.8,7.7,4.6C7,1.8,5,2.1,1.7,5.3C7.3,11,7.3,16.7,1.7,22.3"/>
+</svg><a title="Someone's Blog
+" href="/">Codecooker's blog</a></div>
+    <nav>
+      <ul><li><a href="/">主页</a></li><li><a href="/all.html">归档</a></li><li><a href="/about.html">关于</a></li><li><a type="application/rss+xml" href="/feed.xml">RSS</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="m-page-main"><div class="m-home">
+  <div class="main">
+    <div class="m-post-list"><article><h1><a href="/ios/2015/04/23/key-value%E5%88%9D%E5%A7%8B%E5%8C%96property.html">key-value初始化property</a></h1>
+          <div class="m-article-content">最近在做项目的过程中，有用到以key-value的形式初始化对象，常规做法就是实现一份儿解析根据不同的映射初始化不同的变量。但由于我们需要让使用方更大的简化调用方式，所以引入了该方法来实现这些功能。其实就是用了一些oc语言的特性来处理这些事情。
+
+为什么提出
+由于在处理一些特有逻辑的时候，我们需要用一些key-value的形式或者配置文件来初始化对象，而传统的encode和decode方法则需要在类里边根据自己的实现来实现一份儿代码。所以我们需要一个独立的模块来出来该类问题。要么是不方便，要么是代码过于分散不便管理
+
+从 0 到 1
+我们可以定制一个映射规则，这篇文章内的映射规则是这样的
+
+  以array的形式传入要初始化的参数，参数的item为一个map类型。map的定义格式为ke...</div><a href="/ios/2015/04/23/key-value%E5%88%9D%E5%A7%8B%E5%8C%96property.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 04月23日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/unix/2015/04/15/unix%E7%89%B9%E7%82%B9.html">Unix的特点</a></h1>
+          <div class="m-article-content">Unix的特点：（30多年过去了，这些东西早已变成经典）
+
+
+  Everything (including hardware) is a file
+所有的事物（甚至硬件本身）都是一个的文件。
+  Configuration data stored in text
+以文本形式储存配置数据。
+  Small, single-purpose program
+程序尽量朝向小而单一的目标设计
+  Avoid captive user interfaces
+尽量避免令人困惑的用户接口
+  Ability to chain program together to perform complex tasks
+将几个程序连结起来，处理大而复杂的工作。
+
+
+摘抄自 陈皓的 酷壳coolshell;
+</div><a href="/unix/2015/04/15/unix%E7%89%B9%E7%82%B9.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=Unix">Unix</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 04月15日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/04/01/apple%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80%E5%92%8C%E5%8D%87%E7%BA%A7%E6%8F%90%E7%A4%BA.html">apple评论页面地址和升级提示</a></h1>
+          <div class="m-article-content">最近发现之前构造的iOS评论页面不好用了，今天收集了下，现在备忘于此：
+
+NSString *appstoreReview = nil;
+if (SYSTEM_VERSION_IS_OVER_IOS7){
+    appstoreReview = @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&amp;id=[appid]";
+}else {
+    appstoreReview = @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUse...</div><a href="/ios/2015/04/01/apple%E8%AF%84%E8%AE%BA%E9%A1%B5%E9%9D%A2%E5%9C%B0%E5%9D%80%E5%92%8C%E5%8D%87%E7%BA%A7%E6%8F%90%E7%A4%BA.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 04月01日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">Converting Your App to a 64-Bit Binary</a></h1>
+          <div class="m-article-content">这里概括一下，创建同时支持32-bit和64-bit运行时环境app步骤
+
+
+  安装Xcode 5.0.1
+  打开我们的工程.Xcode提示你升级你的工程，升级过程中，会产生一些新的错误和警告。这些错误和警告在我们编译64-bit的app是至关重要的
+  将工程的最低支持iOS版本升级至5.1.1.如果我们支持的系统版本低于5.1，我们将不能构建64-bit的工程
+  将build setting-&gt;Architectures改成“Standard Architectures (including 64-bit).”
+  升级应用支持64-bit运行时环境虽然编译错误和警告可以帮助我们简化这项工作，但是不能帮助我们全部解决所以问题，我们可以i这份文档提到的注意点针对我们的代码...</div><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月24日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">Major 64-Bit Changes</a></h1>
+          <div class="m-article-content">数据类型的变化
+在C和Objective-C语言里，每个平台（编译器）都自己定义了内建数据类型的一些内存属性（大小，对齐方式）， 并没有一个统一的标准。这样做的好处是在于在语言标准的的严格定义下，每个平台可以让数值在操作系统和硬件下更好的适配。 iOS 64-bit 运行时也对很多内建数据类型的大小做了改变。在上层，很多 Cocoa Touch frameworks 使用的数据类型也做了改变。
+ILP32和LP64
+
+  32-bit运行时表示为ILP32
+其中，I表示整型；L表示长整型；P代表指针；ILP32表示在32-bit运行是里，整型、长整型、指针时32-bit长度
+同理LP64则表示在64-bit运行时里 整型是32-bit长度；长整型、指针为64-bit长度
+
+
+下表描述了...</div><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月04日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">About 64-Bit Cocoa Touch Apps</a></h1>
+          <div class="m-article-content">随着桌面操作系统由32-bit到64-bit的过渡，64-bit的app的出现也在被OS的发展驱动着。现在，iOS的系统架构和桌面系统的架构也有很多相同的地方。从iOS7的A7处理器开始，我们就可以build支持64-bit处理器的app了。当app支持了64bit后在同样的机型上可以获取更高的性能
+
+简介
+apple 的A7处理器支持两个不同的指令集。一个是由apple早前处理器支持的32bit ARM指令集；另一个则是一个全新的64-bit ARM架构处理器。64-bit架构最重要的改进不局限于支持更大的地址空间，更是提供一个全新的The 64-bit architecture supports a new and streamlined instruction set that ...</div><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月02日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">iOS特性修饰符(strong、weak...)</a></h1>
+          <div class="m-article-content">iOS特性在修饰的时候我们经常会和下面几个修饰符打交道
+
+strong、retain、assign、unsafe_unretained、weak、nonatomic、atomic、copy
+
+其中与内存有关的有strong、retain、assign、unsafe_unretained、weak，在使用过程中稍有不慎就会陷入内存泄露，搞清楚他们的作用很有必要
+在描述之前我们需要补充说明一些概念
+
+//修饰变量我们用__strong形式的修饰符
+__strong id a = nil;
+__unsafe_unretained id b = nil;
+__weak              id c = nil;
+//修饰特性我们用不带下划线的，表示一样
+@property (nonato...</div><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 01月29日</span></div>
+  </div>
+</div>
+</article></div><nav class="m-pagination"><p>共计 41 篇文章，6 页。</p>
+          <ul><li><a class="round-button" href="/blog/page3">
+                <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+</svg>
+</div></a>
+              </li><li>
+                  <a class="round-button" href="/"><span>1</span></a>
+                </li><li><span class="omit"><svg fill="#000000" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span></li><li>
+                      <a class="round-button" href="/blog/page3"><span>3</span></a>
+                    </li><li>
+                  <div class="round-button cur"><span>4</span></div>
+                </li><li>
+                      <a class="round-button" href="/blog/page5"><span>5</span></a>
+                    </li><li>
+                      <a class="round-button" href="/blog/page6"><span>6</span></a>
+                    </li><li>
+                <a class="round-button" href="/blog/page5">
+                  <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+</svg>
+</div>
+                </a>
+              </li></ul>
+        </nav></div>
+</div>
+</div>
+      </div>
+    </div><div class="m-page-footer js-page-footer">
+  <div class="main">
+    <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="codecooker">
+    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+        <div class="floating-action-round-button github">
+          <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path class="svgpath" data-index="path_0" fill="#272636" d="M0 525.2c0 223.6 143.3 413.7 343 483.5 26.9 6.8 22.8-12.4 22.8-25.4l0-88.7c-155.3 18.2-161.5-84.6-172-101.7-21.1-36-70.8-45.2-56-62.3 35.4-18.2 71.4 4.6 113.1 66.3 30.2 44.7 89.1 37.2 119 29.7 6.5-26.9 20.5-50.9 39.7-69.6C248.8 728.2 181.7 630 181.7 513.2c0-56.6 18.7-108.7 55.3-150.7-23.3-69.3 2.2-128.5 5.6-137.3 66.5-6 135.5 47.6 140.9 51.8 37.8-10.2 80.9-15.6 129.1-15.6 48.5 0 91.8 5.6 129.8 15.9 12.9-9.8 77-55.8 138.8-50.2 3.3 8.8 28.2 66.7 6.3 135 37.1 42.1 56 94.6 56 151.4 0 117-67.5 215.3-228.8 243.7 26.9 26.6 43.6 63.4 43.6 104.2l0 128.8c0.9 10.3 0 20.5 17.2 20.5C878.1 942.4 1024 750.9 1024 525.3c0-282.9-229.3-512-512-512C229.1 13.2 0 242.3 0 525.2L0 525.2z" />
+</svg>
+</div>
+          </a>
+        </div>
+      </li><li title="在 Linkedin 上关注我。">
+        <div class="floating-action-round-button linkedin">
+          <a itemprop="sameAs" href="https://www.linkedin.com/in/lu.peng.wei@gmail.com" target="_blank">
+            <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M260.096 155.648c0 27.307008-9.899008 50.516992-29.696 69.632-19.796992 19.115008-45.396992 28.672-76.8 28.672-30.036992 0-54.612992-9.556992-73.728-28.672-19.115008-19.115008-28.672-42.324992-28.672-69.632 0-28.672 9.556992-52.224 28.672-70.656 19.115008-18.432 44.372992-27.648 75.776-27.648 31.403008 0 56.32 9.216 74.752 27.648 18.432 18.432 28.331008 41.984 29.696 70.656 0 0 0 0 0 0m-202.752 808.96c0 0 0-632.832 0-632.832 0 0 196.608 0 196.608 0 0 0 0 632.832 0 632.832 0 0-196.608 0-196.608 0 0 0 0 0 0 0m313.344-430.08c0-58.708992-1.364992-126.292992-4.096-202.752 0 0 169.984 0 169.984 0 0 0 10.24 88.064 10.24 88.064 0 0 4.096 0 4.096 0 40.96-68.267008 105.812992-102.4 194.56-102.4 68.267008 0 123.220992 22.868992 164.864 68.608 41.643008 45.739008 62.464 113.664 62.464 203.776 0 0 0 374.784 0 374.784 0 0-196.608 0-196.608 0 0 0 0-350.208 0-350.208 0-91.476992-33.451008-137.216-100.352-137.216-47.787008 0-81.236992 24.576-100.352 73.728-4.096 8.192-6.144 24.576-6.144 49.152 0 0 0 364.544 0 364.544 0 0-198.656 0-198.656 0 0 0 0-430.08 0-430.08 0 0 0 0 0 0" />
+</svg></div>
+          </a>
+        </div>
+      </li></ul><p class="email">
+      <a title="给我发邮件。" href="mailto:codecooker@outlook.com" target="_self">codecooker@outlook.com</a>
+    </p></div>
+</aside>
+    <footer class="site-info">
+      <p>© Codecooker's blog 2018</p>
+      <p>Powered by <a title="Jekyll is a simple, blog-aware, static site generator." href="http://jekyllrb.com/">Jekyll</a> & <a
+        title="TeXt is a succinct theme for blogging." href="https://github.com/kitian616/jekyll-TeXt-theme">TeXt Theme</a>.</p>
+    </footer>
+  </div>
+</div><script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script></body>
+</html>

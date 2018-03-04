@@ -181,6 +181,6 @@ build-iPhoneSimulator/
 
 # jekyll
 Gemfile.lock
-_site/
+#_site/
 .sass-cache/
 .jekyll-metadata
