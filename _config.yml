@@ -17,7 +17,7 @@ text_color_theme: default #eg: default | dark | forest | ocean | chocolate | ora
 baseurl: /
 title: Codecooker's blog
 description: > #this means to ignore newlines until "nav_lists:"
-  Someone's Blog
+  Codecooker's Blog
 
 nav_lists:
   - titles:
@@ -34,7 +34,7 @@ nav_lists:
 #   rss:  /feed.xml
 
 ## GitHub repository (if the site is hosted by GitHub) ##
-# repository:  #e.g. someone/someone.github.io
+repository:  codecooker.github.io #e.g. someone/someone.github.io
 # repository_tree:  #e.g. master
 
 ## Language & timezone ##
