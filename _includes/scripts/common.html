@@ -1,0 +1,14 @@
+<script>
+  (function () {
+    var domPageStage = document.getElementsByClassName('js-page-stage')[0];
+    function addClass(dom, classname) {
+      dom.setAttribute('class', dom.getAttribute('class') + ' ' + classname);
+    }
+    if(window.hasEvent('touchstart')) {
+      addClass(domPageStage, 'is-touch');
+      document.addEventListener("touchstart", function(){}, false);
+    } else {
+      addClass(domPageStage, 'not-touch');
+    }
+  })();
+</script>
