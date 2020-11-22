@@ -204,7 +204,27 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/php/2016/08/30/PhpStorm-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.html">PhpStorm 代码审查</a></h1>
+    <div class="m-post-list"><article><h1><a href="/php/2016/11/01/PHP%E7%A7%98%E9%92%A5%E7%AE%A1%E7%90%86.html">PHP秘钥管理</a></h1>
+          <div class="m-article-content">做过PHP开发的同学们都应该有这么一个认识，PHP代码中的所有东西对开发者都是不透明的。只要有代码就可以看到所有的配置信息，但是这样会存在什么样的问题呢？前段时间也对此类问题做了些许思考，并提供了一个目前来看比较好的解决方案。
+
+现状
+目前比较常用的存储秘钥的方法，大致可分为如下几种：
+
+
+  密钥明文存储到在代码文件
+  密钥明文存储在某个隐蔽的地方
+  加密后存储，加密算法暴露
+  密钥服务器
+
+
+针对以上几种方式，其实每种都不是一个完美的解决方案。将密钥明文存储到在代码文件中，是最直观，最直接的做法。相信很多项目中也还是这么做的。这样最大的缺陷就是秘钥直接暴露，完全没有隐私。密钥明文存储在某个隐蔽的地方，算是一种比较好的方法，将秘钥存在服务器上的某个地方，用部署脚本部署秘钥，但是...</div><a href="/php/2016/11/01/PHP%E7%A7%98%E9%92%A5%E7%AE%A1%E7%90%86.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=PHP">PHP</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Keychain">Keychain</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 11月01日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/php/2016/08/30/PhpStorm-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.html">PhpStorm 代码审查</a></h1>
           <div class="m-article-content">PHP的自动类型转换(弱类型)使我们在开发过程中确实尝到了不少甜头，然后由于语言的松散性(个人杜撰用词，PHP是全宇宙最牛逼的语言)，也使我们在开发过程中碰到不少让人追悔莫及的问题，这篇文字旨在帮助自己总结IDE是如何帮助自己避免一些潜在问题的
 
 手抖问题
@@ -307,19 +327,7 @@ CREATE TABLE `test` (
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 01月03日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/git%20web/2015/11/30/Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html">Git实现代码自动部署</a></h1>
-          <div class="m-article-content">这段时间自己一直投身于Web的前后台开发，每每碰到需要部署到测试服务器或是线上服务器时，都是手工进行合并。但是这样会无形中增加我们部署的风险。而我们确实也由于这样的手动部署导致了不少线上问题。今天这里为大家推荐一个方法，就是利用push代码的时机对代码进行自动部署，这样我们每次只要有提交代码就会部署到测试服务器或者线上，方便快捷，降低出错率。
-
-确定自动部署的时机
-
-我们的代码采用的是Git Flow的形式，介于我们在本地开发测试，只有预发布状态才会进行线上部署，所以我们的时机就选择当master代码接收到push动作时触发。Git本身给我们提供了很多hook脚本来帮助我们在git的各个阶段做一些自定义的工作，由于我们是为了捕捉Git的push操作，所以git hook当然是我们的不二...</div><a href="/git%20web/2015/11/30/Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=Git">Git</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Web">Web</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 11月30日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 41 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
           <ul><li><a class="round-button" href="/">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>

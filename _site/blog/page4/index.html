@@ -204,7 +204,24 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/ios/2015/04/23/key-value%E5%88%9D%E5%A7%8B%E5%8C%96property.html">key-value初始化property</a></h1>
+    <div class="m-post-list"><article><h1><a href="/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html">key-value初始化instanceVariable</a></h1>
+          <div class="m-article-content">接上一篇来介绍下，如何用key-value的形式初始化成员变量
+
+背景接上篇，就不在赘述，如果不了解映射规则的话，可以先看看上一篇
+key-value初始化property;
+
+有个上一篇的铺垫，这篇将很好被接受，首先我们通过如下方法实例变量的名称获取到实例变量的指针objc_ivar *Ivar;
+
+Ivar instanceVariable = class_getClassVariable([self class], variableName.UTF8String);
+
+同样Ivar类型为一个系统类型，我们不知道其内部实现，当然apple也同样为我们提供了方法来处理它，和上篇一样，先对处理它的方法做个描述
+
+OBJC_EXPORT Ivar class_getClassVariab...</div><a href="/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 04月24日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/04/23/key-value%E5%88%9D%E5%A7%8B%E5%8C%96property.html">key-value初始化property</a></h1>
           <div class="m-article-content">最近在做项目的过程中，有用到以key-value的形式初始化对象，常规做法就是实现一份儿解析根据不同的映射初始化不同的变量。但由于我们需要让使用方更大的简化调用方式，所以引入了该方法来实现这些功能。其实就是用了一些oc语言的特性来处理这些事情。
 
 为什么提出
@@ -301,27 +318,7 @@ apple 的A7处理器支持两个不同的指令集。一个是由apple早前处�
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月02日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">iOS特性修饰符(strong、weak...)</a></h1>
-          <div class="m-article-content">iOS特性在修饰的时候我们经常会和下面几个修饰符打交道
-
-strong、retain、assign、unsafe_unretained、weak、nonatomic、atomic、copy
-
-其中与内存有关的有strong、retain、assign、unsafe_unretained、weak，在使用过程中稍有不慎就会陷入内存泄露，搞清楚他们的作用很有必要
-在描述之前我们需要补充说明一些概念
-
-//修饰变量我们用__strong形式的修饰符
-__strong id a = nil;
-__unsafe_unretained id b = nil;
-__weak              id c = nil;
-//修饰特性我们用不带下划线的，表示一样
-@property (nonato...</div><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 01月29日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 41 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
           <ul><li><a class="round-button" href="/blog/page3">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>

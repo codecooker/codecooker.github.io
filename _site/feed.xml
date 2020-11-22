@@ -1,5 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hans"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh-Hans" /><updated>2020-11-22T20:08:55+08:00</updated><id>http://localhost:4000/</id><title type="html">Codecooker’s blog</title><subtitle>Codecooker's Blog
-</subtitle><author><name>codecooker</name><email>codecooker@outlook.com</email></author><entry><title type="html">Mac用户构建Linux开发环境</title><link href="http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" rel="alternate" type="text/html" title="Mac用户构建Linux开发环境" /><published>2017-12-10T00:00:00+08:00</published><updated>2017-12-10T00:00:00+08:00</updated><id>http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83</id><content type="html" xml:base="http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html">&lt;p&gt;最近可能会从Mac暂时迁移至Linux环境进行常规软件开发，所以本周末利用空隙时间从Linux发行版本到常用软件再到开发环境的准备做了一个大致的梳理。由于我是重度Mac使用者，所以我会分大概3篇文章来说明怎么准备一个Linux系统便于Mac重度开发者迁移。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="zh-Hans"><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="zh-Hans" /><updated>2020-11-22T21:14:57+08:00</updated><id>http://localhost:4000/</id><title type="html">Codecooker’s blog</title><subtitle>Codecooker's Blog
+</subtitle><author><name>codecooker</name><email>codecooker@outlook.com</email></author><entry><title type="html">人生三重境界</title><link href="http://localhost:4000/%E6%84%9F%E6%82%9F/2020/11/22/%E4%BA%BA%E7%94%9F%E4%B8%89%E9%87%8D%E5%A2%83%E7%95%8C.html" rel="alternate" type="text/html" title="人生三重境界" /><published>2020-11-22T00:00:00+08:00</published><updated>2020-11-22T00:00:00+08:00</updated><id>http://localhost:4000/%E6%84%9F%E6%82%9F/2020/11/22/%E4%BA%BA%E7%94%9F%E4%B8%89%E9%87%8D%E5%A2%83%E7%95%8C</id><content type="html" xml:base="http://localhost:4000/%E6%84%9F%E6%82%9F/2020/11/22/%E4%BA%BA%E7%94%9F%E4%B8%89%E9%87%8D%E5%A2%83%E7%95%8C.html">&lt;p&gt;最近在搞一个务虚的事情，从痛点分析到目标制定再到措施落地，目标要可量化，措施要可执行，结果要可衡量。&lt;br /&gt;
+如何衡量一个人的能力，通常会转换成另一个一般化指标，例如，考试分数可以比较客观的反应学生能力，但不能完全代表学生的能力。&lt;br /&gt;
+所以我们可以将我们的衡量标准价值导向绑定，假设我们绩效导向为代码量，那这个我们定义的能力强就需要包含开发代码量多。&lt;/p&gt;
+
+&lt;h3 id=&quot;立&quot;&gt;立&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;昨夜西风凋碧树，独上高楼，望尽天涯路&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;该阶段需要“立”志，确定目标，也就是价值导向。&lt;/p&gt;
+
+&lt;h3 id=&quot;守&quot;&gt;守&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;衣带渐宽终不悔，为伊消得人憔悴&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;主要为了目标不断的求索，努力。&lt;/p&gt;
+
+&lt;h3 id=&quot;得&quot;&gt;得&lt;/h3&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;众里寻他千百度，蓦然回首，那人却在灯火阑珊处&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;付出努力，一步一个脚印，结果（真理）会来找我们，这是一个自然而然的过程。&lt;/p&gt;
+
+&lt;h3 id=&quot;实操&quot;&gt;实操&lt;/h3&gt;
+
+&lt;p&gt;例如公司需要员工加班，所以我们制定的精英标准需要支撑到公司的诉求。&lt;br /&gt;
+那我们的目标就是，成为一个加班多的人；可以分解为如下三步：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;立：加班工时超过100h&lt;/li&gt;
+  &lt;li&gt;守：拉通、扯皮、放慢节奏、工作留在加班时候干&lt;/li&gt;
+  &lt;li&gt;得：2020年底实现月加班工时100h&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>codecooker</name><email>codecooker@outlook.com</email></author><category term="感悟" /><category term="心得" /><category term="感悟" /><summary type="html">最近在搞一个务虚的事情，从痛点分析到目标制定再到措施落地，目标要可量化，措施要可执行，结果要可衡量。 如何衡量一个人的能力，通常会转换成另一个一般化指标，例如，考试分数可以比较客观的反应学生能力，但不能完全代表学生的能力。 所以我们可以将我们的衡量标准价值导向绑定，假设我们绩效导向为代码量，那这个我们定义的能力强就需要包含开发代码量多。 立 昨夜西风凋碧树，独上高楼，望尽天涯路 该阶段需要“立”志，确定目标，也就是价值导向。 守 衣带渐宽终不悔，为伊消得人憔悴 主要为了目标不断的求索，努力。 得 众里寻他千百度，蓦然回首，那人却在灯火阑珊处 付出努力，一步一个脚印，结果（真理）会来找我们，这是一个自然而然的过程。 实操 例如公司需要员工加班，所以我们制定的精英标准需要支撑到公司的诉求。 那我们的目标就是，成为一个加班多的人；可以分解为如下三步： 立：加班工时超过100h 守：拉通、扯皮、放慢节奏、工作留在加班时候干 得：2020年底实现月加班工时100h</summary></entry><entry><title type="html">Mac用户构建Linux开发环境</title><link href="http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html" rel="alternate" type="text/html" title="Mac用户构建Linux开发环境" /><published>2017-12-10T00:00:00+08:00</published><updated>2017-12-10T00:00:00+08:00</updated><id>http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83</id><content type="html" xml:base="http://localhost:4000/linux/2017/12/10/Mac%E7%94%A8%E6%88%B7%E6%9E%84%E5%BB%BALinux%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html">&lt;p&gt;最近可能会从Mac暂时迁移至Linux环境进行常规软件开发，所以本周末利用空隙时间从Linux发行版本到常用软件再到开发环境的准备做了一个大致的梳理。由于我是重度Mac使用者，所以我会分大概3篇文章来说明怎么准备一个Linux系统便于Mac重度开发者迁移。&lt;/p&gt;
 
 &lt;h3 id=&quot;发行版的选择&quot;&gt;发行版的选择&lt;/h3&gt;
 &lt;p&gt;在发行版的选择上，本人也有过纠结，毕竟Linux发行版众多，选出一种合适的发行版确实是一个头疼的事儿。经过慎重考虑，我从Centos、Fedora、ArchLinux、Ubuntu、LinuxMint中选择了LinuxMint。具体原因如下：&lt;/p&gt;
@@ -596,83 +633,4 @@ PHP中session的生命周期相关到几个callback&lt;/p&gt;
 &lt;p&gt;流程如下:
 &lt;img src=&quot;/images/谈谈session/session_2.png&quot; alt=&quot;session的生命周期&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;至此，相信大家对session已经有了个整体的了解。&lt;/p&gt;</content><author><name>codecooker</name><email>codecooker@outlook.com</email></author><category term="sessoin web" /><category term="sessoin" /><summary type="html">做互联网开发的同学，想必都对session有所了解。session我们可以理解为是一个会话，能确定服务的访问者当前的状态或者身份，也可以理解为是当前访问者的一些相关数据。最近由于项目中碰到了一些关于session处理的内容，索性将session相关的东西总结下，以备将来回顾。 什么是session 在计算机中，尤其是在网络应用中，称为“会话控制”。Session 对象存储特定用户会话所需的信息。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web 页时，如果该用户还没有会话，则 Web 服务器将自动创建一个 Session 对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。例如，如果用户指明不喜欢查看图形，就可以将该信息存储在 Session 对象中。 session的工作机制 session的工作机制大致如下图所示： 客户端发出请求 服务端获取客户端cookies，根据session id获取对应的session 如果没有session id则生成session_id 将session_id下发给客户端，客户端保存至cookies中，以备下次使用 以PHP为例，每次我们执行完脚本后会将当前会话的session信息全部重写一遍，所以我们就不用担心在使用的过程中session过期情况的。 session的生命周期 session的生命周期针对各个语言，平台，相差不会很大。这里以PHP为例，做一些说明 PHP中session的生命周期相关到几个callback open,open 回调函数类似于类的构造函数， 在会话打开的时候会被调用。 这是自动开始会话或者通过调用 session_start() 手动开始会话 之后第一个被调用的回调函数。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 close,close 回调函数类似于类的析构函数。 在 write 回调函数调用之后调用。 当调用 session_write_close() 函数之后，也会调用 close 回调函数。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 read，如果会话中有数据，read 回调函数必须返回将会话数据编码（序列化）后的字符串。 如果会话中没有数据，read 回调函数返回空字符串。 write,在会话保存数据时会调用 write 回调函数。 此回调函数接收当前会话 ID 以及 $_SESSION 中数据序列化之后的字符串作为参数。 序列化会话数据的过程由 PHP 根据 session.serialize_handler 设定值来完成。 destroy，当调用 session_destroy() 函数， 或者调用 session_regenerate_id() 函数并且设置 destroy 参数为 TRUE 时， 会调用此回调函数。此回调函数操作成功返回 TRUE，反之返回 FALSE。 gc,为了清理会话中的旧数据，PHP 会不时的调用垃圾收集回调函数。 调用周期由 session.gc_probability 和 session.gc_divisor 参数控制。 传入到此回调函数的 lifetime 参数由 session.gc_maxlifetime 设置。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 create_sid，当需要新的会话 ID 时被调用的回调函数。 回调函数被调用时无传入参数， 其返回值应该是一个字符串格式的、有效的会话 ID。 流程如下: 至此，相信大家对session已经有了个整体的了解。</summary></entry><entry><title type="html">nginx vhost</title><link href="http://localhost:4000/nginx%20vhost%20web/2016/03/10/nginx-vhost.html" rel="alternate" type="text/html" title="nginx vhost" /><published>2016-03-10T00:00:00+08:00</published><updated>2016-03-10T00:00:00+08:00</updated><id>http://localhost:4000/nginx%20vhost%20web/2016/03/10/nginx-vhost</id><content type="html" xml:base="http://localhost:4000/nginx%20vhost%20web/2016/03/10/nginx-vhost.html">&lt;p&gt;在服务器架构上，一般我们会选用LAMP或者LNMP的配置。前面我们说明了一些关于apache配置的东西，这里大概描述下nginx的配置。关于怎么安装LNMP这里就不做赘述，网上也存在很多教程。&lt;/p&gt;
-
-&lt;h3 id=&quot;nginx配置文件&quot;&gt;nginx配置文件&lt;/h3&gt;
-&lt;p&gt;nginx的配置文件，一般都存在于nginx目录下的conf目录。如下图所示
-&lt;img src=&quot;/images/nginx vhost/Snip20160403_1.png&quot; alt=&quot;nginx vhost&quot; /&gt;
-所有的配置都可以在此设置&lt;/p&gt;
-
-&lt;h3 id=&quot;配置vhost&quot;&gt;配置vhost&lt;/h3&gt;
-&lt;p&gt;nginx的vhost配置文件存在于conf/vhost目录，结构如下
-&lt;img src=&quot;/images/nginx vhost/Snip20160403_2.png&quot; alt=&quot;nginx vhost&quot; /&gt;
-我们可以为每个虚拟主机路径建立一个文件，当然文件名没有什么特殊的要求，只要以conf结尾即可。一般我们会起一个容易标示的名字。&lt;/p&gt;
-
-&lt;h4 id=&quot;配置说明&quot;&gt;配置说明&lt;/h4&gt;
-&lt;p&gt;首先我们来看看phabricator.conf的内容&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;server &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  server_name phabricator.powell.com&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  root        /alidata/www/phabricator/webroot&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-  location / &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    index index.php&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    rewrite ^/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/index.php?__path__&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; last&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  location &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; /favicon.ico &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    try_files &lt;span class=&quot;nv&quot;&gt;$uri&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;204&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-  location /index.php &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    fastcgi_pass   localhost:9000&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_index   index.php&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c&quot;&gt;#required if PHP was built with --enable-force-cgi-redirect&lt;/span&gt;
-    fastcgi_param  REDIRECT_STATUS    200&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;c&quot;&gt;#variables to make the $_SERVER populate in PHP&lt;/span&gt;
-    fastcgi_param  SCRIPT_FILENAME    &lt;span class=&quot;nv&quot;&gt;$document_root$fastcgi_script_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_param  QUERY_STRING       &lt;span class=&quot;nv&quot;&gt;$query_string&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_param  REQUEST_METHOD     &lt;span class=&quot;nv&quot;&gt;$request_method&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_param  CONTENT_TYPE       &lt;span class=&quot;nv&quot;&gt;$content_type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_param  CONTENT_LENGTH     &lt;span class=&quot;nv&quot;&gt;$content_length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    fastcgi_param  SCRIPT_NAME        &lt;span class=&quot;nv&quot;&gt;$fastcgi_script_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    fastcgi_param  GATEWAY_INTERFACE  CGI/1.1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    fastcgi_param  SERVER_SOFTWARE    nginx/&lt;span class=&quot;nv&quot;&gt;$nginx_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-    fastcgi_param  REMOTE_ADDR        &lt;span class=&quot;nv&quot;&gt;$remote_addr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;server_name&lt;/em&gt;&lt;/strong&gt;可以理解我们部署的host，如果有多个url指向同一地址的话，只需要输入多个host，以空格隔开即可&lt;br /&gt;
-&lt;strong&gt;&lt;em&gt;root&lt;/em&gt;&lt;/strong&gt;表示我们部署的文件路径，DocumnetPath&lt;/p&gt;
-
-&lt;p&gt;注意下面这段配置&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;location / &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    index index.php&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-    rewrite ^/&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;.&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;/index.php?__path__&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt; last&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;表示当我们在进入&lt;strong&gt;phabricator.powell.com&lt;/strong&gt;时，我们的index文件为&lt;strong&gt;/alidata/www/phabricator/webroot&lt;/strong&gt;路径下的&lt;strong&gt;index.php&lt;/strong&gt;,也就是我们的默认入口文件；而大括弧内的&lt;strong&gt;rewrite&lt;/strong&gt;则表示我们的重写规则，会将&lt;strong&gt;phabricator.powell.com/abc/def/ghi/mn&lt;/strong&gt;重写为&lt;strong&gt;phabricator.powell.com/index.php?__path__=abc/def/ghi/mn&lt;/strong&gt;&lt;br /&gt;
-&lt;strong&gt;location /index.php&lt;/strong&gt;这个部分则配置了一些关于fastCGI的东西。由于nginx默认不解析PHP代码，所以我们需要fastCGI的支持，关于fastCGI在后面我会着重介绍下。&lt;/p&gt;
-
-&lt;h3 id=&quot;配置hosts或者解析规则&quot;&gt;配置hosts或者解析规则&lt;/h3&gt;
-&lt;p&gt;如果我们是本地开发而并没有真实的域名的话，就如笔者这里&lt;strong&gt;phabricator.powell.com&lt;/strong&gt;，我们则需要在访问机器上将该域名指向到服务器&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;127.0.0.1 phabricator.powell.com&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; /etc/hosts&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;当然如果我们是现有域名的话，只需要在域名服务商处添加解析规则即可，一般10分钟左右生效，如果比较着急也可以先手动指定host&lt;/p&gt;
-
-&lt;p&gt;重启nginx&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;service nginx restart&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;重启php-fpm(FastCGI Process Manager：FastCGI进程管理器)&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;service php-fpm restart&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;至此我们的nginx vhost配置已经完成&lt;/p&gt;</content><author><name>codecooker</name><email>codecooker@outlook.com</email></author><category term="nginx vhost web" /><category term="nginx" /><summary type="html">在服务器架构上，一般我们会选用LAMP或者LNMP的配置。前面我们说明了一些关于apache配置的东西，这里大概描述下nginx的配置。关于怎么安装LNMP这里就不做赘述，网上也存在很多教程。 nginx配置文件 nginx的配置文件，一般都存在于nginx目录下的conf目录。如下图所示 所有的配置都可以在此设置 配置vhost nginx的vhost配置文件存在于conf/vhost目录，结构如下 我们可以为每个虚拟主机路径建立一个文件，当然文件名没有什么特殊的要求，只要以conf结尾即可。一般我们会起一个容易标示的名字。 配置说明 首先我们来看看phabricator.conf的内容 server { server_name phabricator.powell.com; root /alidata/www/phabricator/webroot; location / { index index.php; rewrite ^/(.*)$ /index.php?__path__=/$1 last; } location = /favicon.ico { try_files $uri =204; } location /index.php { fastcgi_pass localhost:9000; fastcgi_index index.php; #required if PHP was built with --enable-force-cgi-redirect fastcgi_param REDIRECT_STATUS 200; #variables to make the $_SERVER populate in PHP fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; fastcgi_param QUERY_STRING $query_string; fastcgi_param REQUEST_METHOD $request_method; fastcgi_param CONTENT_TYPE $content_type; fastcgi_param CONTENT_LENGTH $content_length; fastcgi_param SCRIPT_NAME $fastcgi_script_name; fastcgi_param GATEWAY_INTERFACE CGI/1.1; fastcgi_param SERVER_SOFTWARE nginx/$nginx_version; fastcgi_param REMOTE_ADDR $remote_addr; } } server_name可以理解我们部署的host，如果有多个url指向同一地址的话，只需要输入多个host，以空格隔开即可 root表示我们部署的文件路径，DocumnetPath 注意下面这段配置 location / { index index.php; rewrite ^/(.*)$ /index.php?__path__=/$1 last; } 表示当我们在进入phabricator.powell.com时，我们的index文件为/alidata/www/phabricator/webroot路径下的index.php,也就是我们的默认入口文件；而大括弧内的rewrite则表示我们的重写规则，会将phabricator.powell.com/abc/def/ghi/mn重写为phabricator.powell.com/index.php?__path__=abc/def/ghi/mn location /index.php这个部分则配置了一些关于fastCGI的东西。由于nginx默认不解析PHP代码，所以我们需要fastCGI的支持，关于fastCGI在后面我会着重介绍下。 配置hosts或者解析规则 如果我们是本地开发而并没有真实的域名的话，就如笔者这里phabricator.powell.com，我们则需要在访问机器上将该域名指向到服务器 sudo echo &quot;127.0.0.1 phabricator.powell.com&quot; &amp;gt;&amp;gt; /etc/hosts 当然如果我们是现有域名的话，只需要在域名服务商处添加解析规则即可，一般10分钟左右生效，如果比较着急也可以先手动指定host 重启nginx sudo service nginx restart 重启php-fpm(FastCGI Process Manager：FastCGI进程管理器) sudo service php-fpm restart 至此我们的nginx vhost配置已经完成</summary></entry></feed>
+&lt;p&gt;至此，相信大家对session已经有了个整体的了解。&lt;/p&gt;</content><author><name>codecooker</name><email>codecooker@outlook.com</email></author><category term="sessoin web" /><category term="sessoin" /><summary type="html">做互联网开发的同学，想必都对session有所了解。session我们可以理解为是一个会话，能确定服务的访问者当前的状态或者身份，也可以理解为是当前访问者的一些相关数据。最近由于项目中碰到了一些关于session处理的内容，索性将session相关的东西总结下，以备将来回顾。 什么是session 在计算机中，尤其是在网络应用中，称为“会话控制”。Session 对象存储特定用户会话所需的信息。这样，当用户在应用程序的 Web 页之间跳转时，存储在 Session 对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。当用户请求来自应用程序的 Web 页时，如果该用户还没有会话，则 Web 服务器将自动创建一个 Session 对象。当会话过期或被放弃后，服务器将终止该会话。Session 对象最常见的一个用法就是存储用户的首选项。例如，如果用户指明不喜欢查看图形，就可以将该信息存储在 Session 对象中。 session的工作机制 session的工作机制大致如下图所示： 客户端发出请求 服务端获取客户端cookies，根据session id获取对应的session 如果没有session id则生成session_id 将session_id下发给客户端，客户端保存至cookies中，以备下次使用 以PHP为例，每次我们执行完脚本后会将当前会话的session信息全部重写一遍，所以我们就不用担心在使用的过程中session过期情况的。 session的生命周期 session的生命周期针对各个语言，平台，相差不会很大。这里以PHP为例，做一些说明 PHP中session的生命周期相关到几个callback open,open 回调函数类似于类的构造函数， 在会话打开的时候会被调用。 这是自动开始会话或者通过调用 session_start() 手动开始会话 之后第一个被调用的回调函数。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 close,close 回调函数类似于类的析构函数。 在 write 回调函数调用之后调用。 当调用 session_write_close() 函数之后，也会调用 close 回调函数。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 read，如果会话中有数据，read 回调函数必须返回将会话数据编码（序列化）后的字符串。 如果会话中没有数据，read 回调函数返回空字符串。 write,在会话保存数据时会调用 write 回调函数。 此回调函数接收当前会话 ID 以及 $_SESSION 中数据序列化之后的字符串作为参数。 序列化会话数据的过程由 PHP 根据 session.serialize_handler 设定值来完成。 destroy，当调用 session_destroy() 函数， 或者调用 session_regenerate_id() 函数并且设置 destroy 参数为 TRUE 时， 会调用此回调函数。此回调函数操作成功返回 TRUE，反之返回 FALSE。 gc,为了清理会话中的旧数据，PHP 会不时的调用垃圾收集回调函数。 调用周期由 session.gc_probability 和 session.gc_divisor 参数控制。 传入到此回调函数的 lifetime 参数由 session.gc_maxlifetime 设置。 此回调函数操作成功返回 TRUE，反之返回 FALSE。 create_sid，当需要新的会话 ID 时被调用的回调函数。 回调函数被调用时无传入参数， 其返回值应该是一个字符串格式的、有效的会话 ID。 流程如下: 至此，相信大家对session已经有了个整体的了解。</summary></entry></feed>

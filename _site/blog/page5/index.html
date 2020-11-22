@@ -204,7 +204,27 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html">iOS逆向工程-dumpdecrypted砸壳</a></h1>
+    <div class="m-post-list"><article><h1><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">iOS特性修饰符(strong、weak...)</a></h1>
+          <div class="m-article-content">iOS特性在修饰的时候我们经常会和下面几个修饰符打交道
+
+strong、retain、assign、unsafe_unretained、weak、nonatomic、atomic、copy
+
+其中与内存有关的有strong、retain、assign、unsafe_unretained、weak，在使用过程中稍有不慎就会陷入内存泄露，搞清楚他们的作用很有必要
+在描述之前我们需要补充说明一些概念
+
+//修饰变量我们用__strong形式的修饰符
+__strong id a = nil;
+__unsafe_unretained id b = nil;
+__weak              id c = nil;
+//修饰特性我们用不带下划线的，表示一样
+@property (nonato...</div><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 01月29日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html">iOS逆向工程-dumpdecrypted砸壳</a></h1>
           <div class="m-article-content">近期想打开大门学习下同行们的iOS开发，于是想到了可以针对一些有特色的应用进行逆向工程，然后着重学习下该应用的设计架构。
 由于自己也是初学者，下来就把自己躺过的坑记录在这里方便后续查阅。
 
@@ -339,28 +359,7 @@ void printCombinatio...</div><a href="/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%8
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2013年 04月23日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/objective-c/2011/11/09/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html">GNUstep编译.m文件并连接形成可执行文件</a></h1>
-          <div class="m-article-content">对于存在多个.m文件的程序，由于需要编译过程中是相互依赖的，并且再编译完成后需要连接方能产生可执行文件。所以我们可以按照如下方法实施：
-例如，现在有文件Point.h Point.m main.m
-我们可以写如下Makefile文件，然后make，完成编译和连接
-建立GNUmakefile,在里边输入如下内容：
-
-include $(GNUSTEP_MAKEFILES)/common.make 
-
-TOOL_NAME=Test 
-              Test_OBJC_FILES=source1.m source2.m 
-
-include $(GNUSTEP_MAKEFILES)/tool.make 
-
-可替换其中的黑体为自己的target和source文件名
-然后在当前目录执...</div><a href="/objective-c/2011/11/09/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=linux">linux</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2011年 11月09日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 41 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
           <ul><li><a class="round-button" href="/blog/page4">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>

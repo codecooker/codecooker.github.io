@@ -204,7 +204,28 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/objective-c/2011/09/15/Linux%E7%BC%96%E8%AF%91Objective-C.html">Linux编译Objective-C</a></h1>
+    <div class="m-post-list"><article><h1><a href="/objective-c/2011/11/09/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html">GNUstep编译.m文件并连接形成可执行文件</a></h1>
+          <div class="m-article-content">对于存在多个.m文件的程序，由于需要编译过程中是相互依赖的，并且再编译完成后需要连接方能产生可执行文件。所以我们可以按照如下方法实施：
+例如，现在有文件Point.h Point.m main.m
+我们可以写如下Makefile文件，然后make，完成编译和连接
+建立GNUmakefile,在里边输入如下内容：
+
+include $(GNUSTEP_MAKEFILES)/common.make 
+
+TOOL_NAME=Test 
+              Test_OBJC_FILES=source1.m source2.m 
+
+include $(GNUSTEP_MAKEFILES)/tool.make 
+
+可替换其中的黑体为自己的target和source文件名
+然后在当前目录执...</div><a href="/objective-c/2011/11/09/GNUstep%E7%BC%96%E8%AF%91.m%E6%96%87%E4%BB%B6%E5%B9%B6%E8%BF%9E%E6%8E%A5%E5%BD%A2%E6%88%90%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=linux">linux</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2011年 11月09日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/objective-c/2011/09/15/Linux%E7%BC%96%E8%AF%91Objective-C.html">Linux编译Objective-C</a></h1>
           <div class="m-article-content">首先安装必须的包： 
 (提供Ubuntu下安装方法)
 1.gobjc
@@ -328,7 +349,7 @@ promps={'请输入边界...</div><a href="/matlab/2009/09/05/%E4%B8%89%E6%AC%A1%
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2009年 09月05日</span></div>
   </div>
 </div>
-</article></div><nav class="m-pagination"><p>共计 41 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
           <ul><li><a class="round-button" href="/blog/page5">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
