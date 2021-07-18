@@ -169,6 +169,10 @@
 <lastmod>2020-11-22T00:00:00+08:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/java/2021/07/18/Java-ClassLoader.html</loc>
+<lastmod>2021-07-18T00:00:00+08:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/about.html</loc>
 </url>
 <url>
@@ -191,5 +195,8 @@
 </url>
 <url>
 <loc>http://localhost:4000/blog/page6/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/blog/page7/</loc>
 </url>
 </urlset>

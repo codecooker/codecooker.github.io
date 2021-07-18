@@ -204,7 +204,26 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/git%20web/2015/11/30/Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html">Git实现代码自动部署</a></h1>
+    <div class="m-post-list"><article><h1><a href="/mysql/2016/01/03/MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A.html">MySQL对char和varchar长度的解释</a></h1>
+          <div class="m-article-content">这篇文章纯属实践检验型的，没有技术分析的成分。这段时间在建表的时候，对字符串存取时设置预置大小时产生了一些小得疑问，所以就自己检验了下。要是平时不太注意的同学也可以参考下。
+
+实验
+首先我们建立一个数据表
+
+CREATE TABLE `test` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(5) NOT NULL DEFAULT '',
+  `ic_number` varchar(18) NOT NULL DEFAULT '',
+  `bank_card` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name_number` (`...</div><a href="/mysql/2016/01/03/MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=MySQL">MySQL</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 01月03日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/git%20web/2015/11/30/Git%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2.html">Git实现代码自动部署</a></h1>
           <div class="m-article-content">这段时间自己一直投身于Web的前后台开发，每每碰到需要部署到测试服务器或是线上服务器时，都是手工进行合并。但是这样会无形中增加我们部署的风险。而我们确实也由于这样的手动部署导致了不少线上问题。今天这里为大家推荐一个方法，就是利用push代码的时机对代码进行自动部署，这样我们每次只要有提交代码就会部署到测试服务器或者线上，方便快捷，降低出错率。
 
 确定自动部署的时机
@@ -314,24 +333,7 @@ inhibit_all_warnings!
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月08日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">资源定位-页面管理器</a></h1>
-          <div class="m-article-content">页面管理器是一个用于触发和管理app内页面跳转展示的模块，通过该模块调用方可以很方便的触发页面的跳转并传递自定义的参数。将页面的切换操作抽象为一种URI触发机制，克服了不同页面对应不同VC（viewController）时跳转页面时的不灵活性。下面我们将页面跳转管理器统称为PM（Page Manager）
-
-为什么PM？
-
-在我们平时的应用开发过程中，我们应该都碰到过根据远程数据配置页面入口的情况，通常我们会枚举所有情况，根据不同的入参决定要切换到的页面和切换页面的形态，这样做一般会存在如下问题：
-
-
-  
-    页面切换逻辑太过分散，不便管理维护
-    不同的触发位置都需要实现一份分发逻辑，造成大量的冗余代码
-    分发方法过于庞大，极大的影响可读性
-    运营位（数据）、动...</div><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 05月13日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page2">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -346,7 +348,7 @@ inhibit_all_warnings!
                 </li><li>
                       <a class="round-button" href="/blog/page4"><span>4</span></a>
                     </li><li><span class="omit"><svg fill="#000000" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span></li><li>
-                      <a class="round-button" href="/blog/page6"><span>6</span></a>
+                      <a class="round-button" href="/blog/page7"><span>7</span></a>
                     </li><li>
                 <a class="round-button" href="/blog/page4">
                   <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">

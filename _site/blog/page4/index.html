@@ -204,7 +204,24 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html">key-value初始化instanceVariable</a></h1>
+    <div class="m-post-list"><article><h1><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">资源定位-页面管理器</a></h1>
+          <div class="m-article-content">页面管理器是一个用于触发和管理app内页面跳转展示的模块，通过该模块调用方可以很方便的触发页面的跳转并传递自定义的参数。将页面的切换操作抽象为一种URI触发机制，克服了不同页面对应不同VC（viewController）时跳转页面时的不灵活性。下面我们将页面跳转管理器统称为PM（Page Manager）
+
+为什么PM？
+
+在我们平时的应用开发过程中，我们应该都碰到过根据远程数据配置页面入口的情况，通常我们会枚举所有情况，根据不同的入参决定要切换到的页面和切换页面的形态，这样做一般会存在如下问题：
+
+
+  
+    页面切换逻辑太过分散，不便管理维护
+    不同的触发位置都需要实现一份分发逻辑，造成大量的冗余代码
+    分发方法过于庞大，极大的影响可读性
+    运营位（数据）、动...</div><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 05月13日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/04/24/key-value%E5%88%9D%E5%A7%8B%E5%8C%96variable.html">key-value初始化instanceVariable</a></h1>
           <div class="m-article-content">接上一篇来介绍下，如何用key-value的形式初始化成员变量
 
 背景接上篇，就不在赘述，如果不了解映射规则的话，可以先看看上一篇
@@ -305,20 +322,7 @@ ILP32和LP64
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月04日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">About 64-Bit Cocoa Touch Apps</a></h1>
-          <div class="m-article-content">随着桌面操作系统由32-bit到64-bit的过渡，64-bit的app的出现也在被OS的发展驱动着。现在，iOS的系统架构和桌面系统的架构也有很多相同的地方。从iOS7的A7处理器开始，我们就可以build支持64-bit处理器的app了。当app支持了64bit后在同样的机型上可以获取更高的性能
-
-简介
-apple 的A7处理器支持两个不同的指令集。一个是由apple早前处理器支持的32bit ARM指令集；另一个则是一个全新的64-bit ARM架构处理器。64-bit架构最重要的改进不局限于支持更大的地址空间，更是提供一个全新的The 64-bit architecture supports a new and streamlined instruction set that ...</div><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Build">Build</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月02日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 42 篇文章，6 页。</p>
+</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page3">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -332,8 +336,8 @@ apple 的A7处理器支持两个不同的指令集。一个是由apple早前处�
                   <div class="round-button cur"><span>4</span></div>
                 </li><li>
                       <a class="round-button" href="/blog/page5"><span>5</span></a>
-                    </li><li>
-                      <a class="round-button" href="/blog/page6"><span>6</span></a>
+                    </li><li><span class="omit"><svg fill="#000000" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg></span></li><li>
+                      <a class="round-button" href="/blog/page7"><span>7</span></a>
                     </li><li>
                 <a class="round-button" href="/blog/page5">
                   <div class="icon icon--next"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
