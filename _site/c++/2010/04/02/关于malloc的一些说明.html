@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>关于malloc的一些说明 - Codecooker's blog</title>
 <meta name="description" content="如下面的代码：int main(){ long *p1,*p2; p1=(long *)malloc(0); p2=(long *)malloc(0); return 0;}p1,p2指向的地址不为空，今天有同学问我，我想了一番，最后朋友有帮忙查了下MSDN，最终有了答案。当malloc()的参数为0时，系统会在...">
-<link rel="canonical" href="http://localhost:4000/c++/2010/04/02/%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/c++/2010/04/02/%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -247,7 +247,7 @@
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
 <meta name="description" content="Codecooker's Blog
 ">
-<link rel="canonical" href="http://localhost:4000/blog/page6/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/blog/page6/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -204,7 +204,50 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html">实现组合的C++代码</a></h1>
+    <div class="m-post-list"><article><h1><a href="/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html">iOS测量代码执行时间</a></h1>
+          <div class="m-article-content">iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间
+
+涉及的API
+先来认识几个API，他们被包含在
+&lt;mach/mach_time.h&gt;
+在使用前我们需要先
+
+#import &lt;mach/mach_time.h&gt;  
+
+进入mach_time.h文件，我们可以看到如下内容
+
+struct mach_timebase_info {
+uint32_t    numer;
+uint32_t    denom;
+};
+typedef struct mach_timebase_info   *mach_timebase_info_t;
+typedef s...</div><a href="/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=time">time</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2014年 12月26日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/cocoapods/2014/10/28/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html">CocoaPods问题总结</a></h1>
+          <div class="m-article-content">在项目接入cocoapods后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。
+这里我来总结下常见的一些问题的处理方案，方便大家在日后的项目测试中做到有的放矢。
+
+1.找不到相应的库
+找不到相应的库的问题，我碰到的有两个原因
+1.打包机器没有添加framework对应的源（如何添加源，请继续往下看）
+2.本地cocoapods的版本与打包机器上cocoapods的版本不一致，这个问题通常是由于本地的版本高于MTL版本造成的
+
+2.找不到相应的target
+由于工程的迁移，或者开发人员的误操作，会造成本地target的丢失。这样在命令行打包过程中，会暴找不到target的错误，这时我们只需要将针对与个人的target设置成shared即可，如下:
+
+重要:这里需...</div><a href="/cocoapods/2014/10/28/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=cocoaPods">cocoaPods</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2014年 10月28日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html">实现组合的C++代码</a></h1>
           <div class="m-article-content">这些代码，验证了实现组合的一个算法。较为高效。运作原理就是常说的用二进制标志位标示选取的数字。
 代码部分应该已经实现了所需的各个子函数，但是这个只是demo，如需要使用，需要检测是否有完备性问题。
 现在将代码贴在这里：
@@ -309,50 +352,7 @@ int ComputeEmpty(int aMine[][12],int x,int y)
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2011年 04月08日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/c++/2010/04/17/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD.html">C++运算符的重载</a></h1>
-          <div class="m-article-content">
-#include &lt;iostream&gt;
-using std::cin;
-using std::cout;
-using std::endl;
-class point
-{
-      int x;
-      int y;
-      public :
-             point point::operator+(const point &amp;a);
-             point()
-             {
-             }
-             point(int x,int y)
-             {
-                           this-&gt;x = x;
-                 ...</div><a href="/c++/2010/04/17/C++%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E9%87%8D%E8%BD%BD.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=C%2B%2B">C++</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2010年 04月17日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/c++/2010/04/02/%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E.html">关于malloc的一些说明</a></h1>
-          <div class="m-article-content">如下面的代码：
-
-int main()
-{
- long *p1,*p2;
- p1=(long *)malloc(0);
- p2=(long *)malloc(0);
- return 0;
-}
-
-p1,p2指向的地址不为空，今天有同学问我，我想了一番，最后朋友有帮忙查了下MSDN，最终有了答案。
-当malloc()的参数为0时，系统会在堆中分配一个长度为0的项目，然后返回一个指向该项目的有效的指针，而不是NULL！
-</div><a href="/c++/2010/04/02/%E5%85%B3%E4%BA%8Emalloc%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=C">C</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=C%2B%2B">C++</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2010年 04月02日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
+</article></div><nav class="m-pagination"><p>共计 45 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page5">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -384,7 +384,7 @@ p1,p2指向的地址不为空，今天有同学问我，我想了一番，最后
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

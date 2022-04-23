@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>实现组合的C++代码 - Codecooker's blog</title>
 <meta name="description" content="这些代码，验证了实现组合的一个算法。较为高效。运作原理就是常说的用二进制标志位标示选取的数字。代码部分应该已经实现了所需的各个子函数，但是这个只是demo，如需要使用，需要检测是否有完备性问题。现在将代码贴在这里：#includeusing std::cout;using std::cin;using std::...">
-<link rel="canonical" href="http://localhost:4000/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/c++/2013/04/23/%E5%AE%9E%E7%8E%B0%E7%BB%84%E5%90%88%E7%9A%84C++%E4%BB%A3%E7%A0%81.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -228,22 +228,22 @@
 <span class="cp">#include
 </span><span class="k">using</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
 
-<span class="n">string</span> <span class="n">createHelperStr</span><span class="p">(</span><span class="kt">int</span> <span class="n">maxCount</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">);</span>
-<span class="n">string</span><span class="o">*</span> <span class="n">combination</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">);</span>
-<span class="n">string</span> <span class="n">sortStrASC</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">);</span>
-<span class="kt">void</span> <span class="n">printCombination</span><span class="p">(</span><span class="n">string</span> <span class="n">helperStr</span><span class="p">);</span>
+<span class="n">string</span> <span class="nf">createHelperStr</span><span class="p">(</span><span class="kt">int</span> <span class="n">maxCount</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">);</span>
+<span class="n">string</span><span class="o">*</span> <span class="nf">combination</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">);</span>
+<span class="n">string</span> <span class="nf">sortStrASC</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">printCombination</span><span class="p">(</span><span class="n">string</span> <span class="n">helperStr</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="n">Total</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">12</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">14</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">18</span><span class="p">,</span><span class="mi">19</span><span class="p">,</span><span class="mi">20</span><span class="p">};</span>
 <span class="cp">#define Total_Item_Num (20)
 #define Need_Combination_Count (10)
 </span>
-<span class="kt">int</span> <span class="n">main</span><span class="p">(){</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
 	<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">createHelperStr</span><span class="p">(</span><span class="n">Total_Item_Num</span><span class="p">,</span><span class="n">Need_Combination_Count</span><span class="p">)</span><span class="o">&lt;&lt;</span><span class="n">endl</span><span class="p">;</span>
 	<span class="n">combination</span><span class="p">(</span><span class="n">createHelperStr</span><span class="p">(</span><span class="n">Total_Item_Num</span><span class="p">,</span><span class="n">Need_Combination_Count</span><span class="p">),</span><span class="n">Need_Combination_Count</span><span class="p">);</span>
 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">string</span> <span class="n">createHelperStr</span><span class="p">(</span><span class="kt">int</span> <span class="n">maxCount</span><span class="p">,</span> <span class="kt">int</span> <span class="n">subCount</span><span class="p">){</span>
+<span class="n">string</span> <span class="nf">createHelperStr</span><span class="p">(</span><span class="kt">int</span> <span class="n">maxCount</span><span class="p">,</span> <span class="kt">int</span> <span class="n">subCount</span><span class="p">){</span>
 	<span class="n">string</span> <span class="n">retStr</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">maxCount</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
 		<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">subCount</span><span class="p">)</span>
@@ -254,7 +254,7 @@
 	<span class="k">return</span> <span class="n">retStr</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">string</span><span class="o">*</span> <span class="n">combination</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">){</span>
+<span class="n">string</span><span class="o">*</span> <span class="nf">combination</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span><span class="kt">int</span> <span class="n">subCount</span><span class="p">){</span>
 	<span class="kt">bool</span> <span class="n">isend</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
 	<span class="k">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 	<span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
@@ -277,7 +277,7 @@
 	<span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="n">string</span> <span class="n">sortStrASC</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">){</span>
+<span class="n">string</span> <span class="nf">sortStrASC</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">){</span>
 	<span class="n">string</span> <span class="n">retStr</span><span class="p">(</span><span class="s">""</span><span class="p">);</span>
 	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">length</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
 		<span class="k">if</span><span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
@@ -292,7 +292,7 @@
 	<span class="k">return</span> <span class="n">retStr</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kt">void</span> <span class="n">printCombination</span><span class="p">(</span><span class="n">string</span> <span class="n">helperStr</span><span class="p">){</span>
+<span class="kt">void</span> <span class="nf">printCombination</span><span class="p">(</span><span class="n">string</span> <span class="n">helperStr</span><span class="p">){</span>
 	<span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">Total_Item_Num</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>
 		<span class="k">if</span><span class="p">(</span><span class="sc">'1'</span> <span class="o">==</span> <span class="n">helperStr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 		<span class="n">cout</span><span class="o">&lt;&lt;</span><span class="n">Total</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;&lt;</span><span class="s">"  "</span><span class="p">;</span>
@@ -315,7 +315,7 @@
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

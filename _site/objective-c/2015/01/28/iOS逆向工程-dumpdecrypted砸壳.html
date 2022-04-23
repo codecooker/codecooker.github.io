@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>iOS逆向工程-dumpdecrypted砸壳 - Codecooker's blog</title>
 <meta name="description" content="近期想打开大门学习下同行们的iOS开发，于是想到了可以针对一些有特色的应用进行逆向工程，然后着重学习下该应用的设计架构。由于自己也是初学者，下来就把自己躺过的坑记录在这里方便后续查阅。逆向工程需要的工具  dumpdecrypteddumpdecrypted是一个砸壳工具。因为appstore安装包apple会为...">
-<link rel="canonical" href="http://localhost:4000/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/objective-c/2015/01/28/iOS%E9%80%86%E5%90%91%E5%B7%A5%E7%A8%8B-dumpdecrypted%E7%A0%B8%E5%A3%B3.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -255,20 +255,20 @@ iOS为了保证安全性，所有的应用都是在沙盒中运行。所以要�
 <figure class="highlight"><pre><code class="language-sh" data-lang="sh"><span class="c">#获取gcc编译器的路径</span>
 <span class="nv">GCC_BIN</span><span class="o">=</span><span class="sb">`</span>xcrun <span class="nt">--sdk</span> iphoneos <span class="nt">--find</span> gcc<span class="sb">`</span>      
 <span class="c"># 编译出得dumpdecrypted支持的CPU架构，可根据我们设备的CPU架构自行增减，一般情况下不需要修改</span>
-<span class="nv">GCC_UNIVERSAL</span><span class="o">=</span><span class="k">$(</span>GCC_BASE<span class="k">)</span> <span class="nt">-arch</span> armv7 <span class="nt">-arch</span> armv7s <span class="nt">-arch</span> arm64 
+<span class="nv">GCC_UNIVERSAL</span><span class="o">=</span><span class="si">$(</span>GCC_BASE<span class="si">)</span> <span class="nt">-arch</span> armv7 <span class="nt">-arch</span> armv7s <span class="nt">-arch</span> arm64 
 <span class="c">#获取SDK的路径</span>
 <span class="nv">SDK</span><span class="o">=</span><span class="sb">`</span>xcrun <span class="nt">--sdk</span> iphoneos <span class="nt">--show-sdk-path</span><span class="sb">`</span>
 
 CFLAGS <span class="o">=</span> 
-GCC_BASE <span class="o">=</span> <span class="k">$(</span>GCC_BIN<span class="k">)</span> <span class="nt">-Os</span> <span class="k">$(</span>CFLAGS<span class="k">)</span> <span class="nt">-Wimplicit</span> <span class="nt">-isysroot</span> <span class="k">$(</span>SDK<span class="k">)</span> <span class="nt">-F</span><span class="k">$(</span>SDK<span class="k">)</span>/System/Library/Frameworks <span class="nt">-F</span><span class="k">$(</span>SDK<span class="k">)</span>/System/Library/PrivateFrameworks
+GCC_BASE <span class="o">=</span> <span class="si">$(</span>GCC_BIN<span class="si">)</span> <span class="nt">-Os</span> <span class="si">$(</span>CFLAGS<span class="si">)</span> <span class="nt">-Wimplicit</span> <span class="nt">-isysroot</span> <span class="si">$(</span>SDK<span class="si">)</span> <span class="nt">-F</span><span class="si">$(</span>SDK<span class="si">)</span>/System/Library/Frameworks <span class="nt">-F</span><span class="si">$(</span>SDK<span class="si">)</span>/System/Library/PrivateFrameworks
 
 all: dumpdecrypted.dylib
 
 dumpdecrypted.dylib: dumpdecrypted.o 
-    <span class="k">$(</span>GCC_UNIVERSAL<span class="k">)</span> <span class="nt">-dynamiclib</span> <span class="nt">-o</span> <span class="nv">$@</span> <span class="nv">$^</span>
+    <span class="si">$(</span>GCC_UNIVERSAL<span class="si">)</span> <span class="nt">-dynamiclib</span> <span class="nt">-o</span> <span class="nv">$@</span> <span class="nv">$^</span>
 
 %.o: %.c
-    <span class="k">$(</span>GCC_UNIVERSAL<span class="k">)</span> <span class="nt">-c</span> <span class="nt">-o</span> <span class="nv">$@</span> <span class="nv">$&lt;</span> 
+    <span class="si">$(</span>GCC_UNIVERSAL<span class="si">)</span> <span class="nt">-c</span> <span class="nt">-o</span> <span class="nv">$@</span> <span class="nv">$&lt;</span> 
 
 clean:
     <span class="nb">rm</span> <span class="nt">-f</span> <span class="k">*</span>.o dumpdecrypted.dylib</code></pre></figure>
@@ -288,7 +288,7 @@ clean:
 <h4 id="开始工作">开始工作</h4>
 <ol>
   <li>将我们编译好的dumpdecrypted.dylib部署copy到手机<br />
-<code class="highlighter-rouge">scp $myDumpdecryptedDocument/dumpdecrypted.dylib root@xxx.xxx.xxx.xxx:/tmp</code>
+<code class="language-plaintext highlighter-rouge">scp $myDumpdecryptedDocument/dumpdecrypted.dylib root@xxx.xxx.xxx.xxx:/tmp</code>
  将上述命令中得$myDumpdecryptedDocument替换成dumpdecrypted.dylib所在的目录，xxx.xxx.xxx.xxx替换成设备的IP地址</li>
   <li>获取应用的路径和PID</li>
 </ol>
@@ -368,7 +368,7 @@ ps aux<span class="p">;</span> //输出正在运行的进程</code></pre></figur
 </div></div>
 				</footer>
 			</article>
-			<div class="article-previous-next clearfix"><div class="article-previous"><span>上篇</span><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">iOS特性修饰符(strong、weak...)</a></div><div class="article-next"><span>下篇</span><a href="/math/2015/01/23/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html">常用的图形变换</a></div></div></div>
+			<div class="article-previous-next clearfix"><div class="article-previous"><span>上篇</span><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak/.).html">iOS特性修饰符(strong、weak...)</a></div><div class="article-next"><span>下篇</span><a href="/math/2015/01/23/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9B%BE%E5%BD%A2%E5%8F%98%E6%8D%A2.html">常用的图形变换</a></div></div></div>
 	</div>
 </div></div>
       </div>
@@ -376,7 +376,7 @@ ps aux<span class="p">;</span> //输出正在运行的进程</code></pre></figur
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

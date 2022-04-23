@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
 <meta name="description" content="Codecooker's Blog
 ">
-<link rel="canonical" href="http://localhost:4000/blog/page4/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/blog/page4/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -204,7 +204,49 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">资源定位-页面管理器</a></h1>
+    <div class="m-post-list"><article><h1><a href="/ios/2015/10/12/iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.html">iOS屏蔽警告不常用方法</a></h1>
+          <div class="m-article-content">在iOS开发的过程中，我们经常会被一些恼人的warning影响心情，当然常用的屏蔽warning的方法相信大家也已经掌握了不少，现在这里列举几个不常用的仅供大家参考
+
+当使用cocoapods管理第三方库时，第三方库的的warning怎么办?
+
+这个警告，我们时常无能感到很无能为力，因为总不能去依次修改第三方库里的代码来消除警告吧。其实看过cocoapods手册的同学应该会有所了解，只需要在我们的Podfile文件里添加一句，只是一句就可以解决
+
+inhibit_all_warnings!
+
+当我们定义一个变量或者调用一个有返回值的方法却没有使用该值时怎么办？
+
+直接上代码吧
+
+//.h文件
+@interface ViewController : UIViewController {
+...</div><a href="/ios/2015/10/12/iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Warning">Warning</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月12日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html">iOS分享引擎</a></h1>
+          <div class="m-article-content">随着移动端社交因素的不断深入，通过分享来传播和为应用引流已经成为了一个惯用的做法。虽然现在各个平台已经对分享的操作做了高度的封装，但是如何如何快速方便的引入分享模块也是开发者需要考虑的问题之一。
+
+怎么样的分享比较理想？
+这个问题，即使千人千面，但是参与过项目的朋友们也应该有一个初步的共识，无外乎下述几个问题:
+
+  方便快捷，能方便的快捷的接入分享模块
+  UI可定制，分享模块的视觉部分可根据自身应用的特色进行定制
+  调用清晰，方便的获取分享状态
+  可定制分享到的平台
+  易扩展，可容易的扩展上不支持的分享平台，而不涉及核心功能 
+基本上满足上述要求的分享模块，即便算不上一个好的分享模块，也算是一个不错的分享引擎^_^
+
+
+如何实现
+我们将分享模块整理为一个插件的形式，每一个分享...</div><a href="/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月08日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/05/13/%E5%8A%A8%E6%89%8B%E5%AE%9E%E7%8E%B0%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E7%AE%A1%E7%90%86%E5%99%A8.html">资源定位-页面管理器</a></h1>
           <div class="m-article-content">页面管理器是一个用于触发和管理app内页面跳转展示的模块，通过该模块调用方可以很方便的触发页面的跳转并传递自定义的参数。将页面的切换操作抽象为一种URI触发机制，克服了不同页面对应不同VC（viewController）时跳转页面时的不灵活性。下面我们将页面跳转管理器统称为PM（Page Manager）
 
 为什么PM？
@@ -286,43 +328,7 @@ if (SYSTEM_VERSION_IS_OVER_IOS7){
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 04月01日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">Converting Your App to a 64-Bit Binary</a></h1>
-          <div class="m-article-content">这里概括一下，创建同时支持32-bit和64-bit运行时环境app步骤
-
-
-  安装Xcode 5.0.1
-  打开我们的工程.Xcode提示你升级你的工程，升级过程中，会产生一些新的错误和警告。这些错误和警告在我们编译64-bit的app是至关重要的
-  将工程的最低支持iOS版本升级至5.1.1.如果我们支持的系统版本低于5.1，我们将不能构建64-bit的工程
-  将build setting-&gt;Architectures改成“Standard Architectures (including 64-bit).”
-  升级应用支持64-bit运行时环境虽然编译错误和警告可以帮助我们简化这项工作，但是不能帮助我们全部解决所以问题，我们可以i这份文档提到的注意点针对我们的代码...</div><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Build">Build</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月24日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">Major 64-Bit Changes</a></h1>
-          <div class="m-article-content">数据类型的变化
-在C和Objective-C语言里，每个平台（编译器）都自己定义了内建数据类型的一些内存属性（大小，对齐方式）， 并没有一个统一的标准。这样做的好处是在于在语言标准的的严格定义下，每个平台可以让数值在操作系统和硬件下更好的适配。 iOS 64-bit 运行时也对很多内建数据类型的大小做了改变。在上层，很多 Cocoa Touch frameworks 使用的数据类型也做了改变。
-ILP32和LP64
-
-  32-bit运行时表示为ILP32
-其中，I表示整型；L表示长整型；P代表指针；ILP32表示在32-bit运行是里，整型、长整型、指针时32-bit长度
-同理LP64则表示在64-bit运行时里 整型是32-bit长度；长整型、指针为64-bit长度
-
-
-下表描述了...</div><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Build">Build</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月04日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
+</article></div><nav class="m-pagination"><p>共计 45 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page3">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -354,7 +360,7 @@ ILP32和LP64
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

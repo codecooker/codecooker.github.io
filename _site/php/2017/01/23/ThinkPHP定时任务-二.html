@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>ThinkPHP定时任务（二） - Codecooker's blog</title>
 <meta name="description" content="前面说了TP框架中定时任务实现，也对存在的问题和优势做了一个简单的分析。如果有兴趣看的朋友可以参看ThinkPHP定时任务（一）。这篇主要对基于传统定时任务crontab[守护进程]，外加TP框架支持实现的基于TP的定时任务动机用过TP的朋友都知道，TP框架是一个由国人开发的很优秀且轻量的PHP Web框架。由于...">
-<link rel="canonical" href="http://localhost:4000/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%BA%8C.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%BA%8C.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -251,7 +251,7 @@ TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">defined</span><span class="p">(</span><span class="s1">'APP_MODE'</span><span class="p">)</span>     <span class="k">or</span> <span class="nb">define</span><span class="p">(</span><span class="s1">'APP_MODE'</span><span class="p">,</span>       <span class="s1">'common'</span><span class="p">);</span> <span class="c1">// 应用模式 默认为普通模式   </span>
 </code></pre></div></div>
 
-<p>关于api模式的配置文件，可以参考<code class="highlighter-rouge">Think/mode/api.php</code>，里边有对内置api应用模式的基础配置，我们可以根据我们的需求进行改写，或者通过配置覆写系统配置。而我们常用的普通模式就是该目录下的common.php，大家可以对比进行学习</p>
+<p>关于api模式的配置文件，可以参考<code class="language-plaintext highlighter-rouge">Think/mode/api.php</code>，里边有对内置api应用模式的基础配置，我们可以根据我们的需求进行改写，或者通过配置覆写系统配置。而我们常用的普通模式就是该目录下的common.php，大家可以对比进行学习</p>
 
 <h3 id="兼容配置">兼容配置</h3>
 
@@ -263,26 +263,26 @@ TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常
 </code></pre></div></div>
 
 <h4 id="app_status-配置">APP_STATUS 配置</h4>
-<p>起先，本人以为截止上一步就完成了所有配置。但是在调试的过程中，发现数据库无法连接，最终定位到。APPS目录中的配置没有正常加载。这个过程是个比较长的调试过程，具体就不表了。查看源代码发现，common模式下的所有配置是在<code class="highlighter-rouge">Think/Libary/Think/Dispatcher.class.php</code>中进行引入的，其中有如下代码，是完成<code class="highlighter-rouge">MODULE</code>中配置的加载的，有兴趣的同学可以自己看看</p>
+<p>起先，本人以为截止上一步就完成了所有配置。但是在调试的过程中，发现数据库无法连接，最终定位到。APPS目录中的配置没有正常加载。这个过程是个比较长的调试过程，具体就不表了。查看源代码发现，common模式下的所有配置是在<code class="language-plaintext highlighter-rouge">Think/Libary/Think/Dispatcher.class.php</code>中进行引入的，其中有如下代码，是完成<code class="language-plaintext highlighter-rouge">MODULE</code>中配置的加载的，有兴趣的同学可以自己看看</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 当前应用状态对应的配置文件</span>
-<span class="k">if</span><span class="p">(</span><span class="nx">APP_STATUS</span> <span class="o">&amp;&amp;</span> <span class="nb">is_file</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/'</span><span class="o">.</span><span class="nx">APP_STATUS</span><span class="o">.</span><span class="nx">CONF_EXT</span><span class="p">))</span>
-    <span class="nx">C</span><span class="p">(</span><span class="nx">load_config</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/'</span><span class="o">.</span><span class="nx">APP_STATUS</span><span class="o">.</span><span class="nx">CONF_EXT</span><span class="p">));</span>
+<span class="k">if</span><span class="p">(</span><span class="no">APP_STATUS</span> <span class="o">&amp;&amp;</span> <span class="nb">is_file</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/'</span><span class="mf">.</span><span class="no">APP_STATUS</span><span class="mf">.</span><span class="no">CONF_EXT</span><span class="p">))</span>
+    <span class="nf">C</span><span class="p">(</span><span class="nf">load_config</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/'</span><span class="mf">.</span><span class="no">APP_STATUS</span><span class="mf">.</span><span class="no">CONF_EXT</span><span class="p">));</span>
 
     <span class="c1">// 加载模块别名定义</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/alias.php'</span><span class="p">))</span>
-        <span class="nx">Think</span><span class="o">::</span><span class="na">addMap</span><span class="p">(</span><span class="k">include</span> <span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/alias.php'</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/alias.php'</span><span class="p">))</span>
+        <span class="nc">Think</span><span class="o">::</span><span class="nf">addMap</span><span class="p">(</span><span class="k">include</span> <span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/alias.php'</span><span class="p">);</span>
     <span class="c1">// 加载模块tags文件定义</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/tags.php'</span><span class="p">))</span>
-        <span class="nx">Hook</span><span class="o">::</span><span class="na">import</span><span class="p">(</span><span class="k">include</span> <span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Conf/tags.php'</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/tags.php'</span><span class="p">))</span>
+        <span class="nc">Hook</span><span class="o">::</span><span class="nf">import</span><span class="p">(</span><span class="k">include</span> <span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Conf/tags.php'</span><span class="p">);</span>
     <span class="c1">// 加载模块函数文件</span>
-    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Common/function.php'</span><span class="p">))</span>
-        <span class="k">include</span> <span class="nx">MODULE_PATH</span><span class="o">.</span><span class="s1">'Common/function.php'</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Common/function.php'</span><span class="p">))</span>
+        <span class="k">include</span> <span class="no">MODULE_PATH</span><span class="mf">.</span><span class="s1">'Common/function.php'</span><span class="p">;</span>
     <span class="c1">// 加载模块的扩展配置文件</span>
-    <span class="nx">load_ext_file</span><span class="p">(</span><span class="nx">MODULE_PATH</span><span class="p">);</span>
+    <span class="nf">load_ext_file</span><span class="p">(</span><span class="no">MODULE_PATH</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>同样找到<code class="highlighter-rouge">Think/Mode/Api/Dispatcher.class.php</code>,在合适的时机添加上述加载代码(本人TP3.2是在146行开始加的)，这样后就可加载<code class="highlighter-rouge">MODULE</code>中配置。<br />
+<p>同样找到<code class="language-plaintext highlighter-rouge">Think/Mode/Api/Dispatcher.class.php</code>,在合适的时机添加上述加载代码(本人TP3.2是在146行开始加的)，这样后就可加载<code class="language-plaintext highlighter-rouge">MODULE</code>中配置。<br />
 至此，所有的配置均已完成，下来我们来看看怎么操作。</p>
 
 <h3 id="目录结构">目录结构</h3>
@@ -315,7 +315,7 @@ TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常
 <h3 id="如何执行">如何执行</h3>
 <p>有了上面的铺垫，启动脚本其实很简单，如下：</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">php</span> <span class="nb">exec</span><span class="o">.</span><span class="nx">php</span> <span class="nx">script_path</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">php</span> <span class="n">exec</span><span class="mf">.</span><span class="n">php</span> <span class="n">script_path</span>
 </code></pre></div></div>
 <p>这里做个简单的说明，比如我们之前的访问的URL如下：</p>
 
@@ -323,7 +323,7 @@ TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常
 </code></pre>
 <p>我们的script_path的值应该传:</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">abc</span><span class="o">/</span><span class="nx">controller</span><span class="o">/</span><span class="nx">action</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">abc</span><span class="o">/</span><span class="n">controller</span><span class="o">/</span><span class="n">action</span>
 </code></pre></div></div>
 
 <p>这样即可调用的我们的对应方法，完成后台执行</p>
@@ -338,33 +338,33 @@ TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常
 <span class="k">protected</span> <span class="nv">$interval</span> <span class="o">=</span> <span class="mi">60</span><span class="p">;</span>
 
 <span class="c1">// 检测是否有权限调用</span>
-<span class="k">private</span> <span class="k">function</span> <span class="nf">check</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">PHP_SAPI</span> <span class="o">!=</span> <span class="s1">'cli'</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nx">get_client_ip</span><span class="p">(),</span><span class="nx">C</span><span class="p">(</span><span class="s1">'CRONS_BIND_IP'</span><span class="p">)))</span> <span class="p">{</span>
+<span class="k">private</span> <span class="k">function</span> <span class="n">check</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kc">PHP_SAPI</span> <span class="o">!=</span> <span class="s1">'cli'</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nb">in_array</span><span class="p">(</span><span class="nf">get_client_ip</span><span class="p">(),</span><span class="nf">C</span><span class="p">(</span><span class="s1">'CRONS_BIND_IP'</span><span class="p">)))</span> <span class="p">{</span>
         <span class="k">exit</span><span class="p">(</span><span class="s1">'what a fucking day!'</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// 入口方法</span>
-<span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span> <span class="p">{</span>
+<span class="k">public</span> <span class="k">function</span> <span class="n">index</span><span class="p">()</span> <span class="p">{</span>
     <span class="nb">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-    <span class="nv">$exe_time</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cron_config</span><span class="p">(</span><span class="nx">CONTROLLER_NAME</span><span class="o">.</span><span class="nx">ACTION_NAME</span><span class="p">);</span>
+    <span class="nv">$exe_time</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">cron_config</span><span class="p">(</span><span class="no">CONTROLLER_NAME</span><span class="mf">.</span><span class="no">ACTION_NAME</span><span class="p">);</span>
     <span class="k">if</span> <span class="p">(</span><span class="nv">$exe_time</span> <span class="o">&lt;</span> <span class="nb">time</span><span class="p">())</span> <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update_cron_config</span><span class="p">(</span><span class="nx">CONTROLLER_NAME</span><span class="o">.</span><span class="nx">ACTION_NAME</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">interval</span> <span class="o">+</span> <span class="nb">time</span><span class="p">());</span>
-        <span class="nv">$lock_file</span> <span class="o">=</span> <span class="nx">RUNTIME_PATH</span><span class="o">.</span><span class="nb">md5</span><span class="p">(</span><span class="nx">CONTROLLER_NAME</span><span class="o">.</span><span class="nx">ACTION_NAME</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nx">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">)))</span> <span class="p">{</span>
-            <span class="nx">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">600</span><span class="p">);</span>
-            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
-            <span class="nx">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">,</span><span class="kc">null</span><span class="p">);</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">update_cron_config</span><span class="p">(</span><span class="no">CONTROLLER_NAME</span><span class="mf">.</span><span class="no">ACTION_NAME</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="n">interval</span> <span class="o">+</span> <span class="nb">time</span><span class="p">());</span>
+        <span class="nv">$lock_file</span> <span class="o">=</span> <span class="no">RUNTIME_PATH</span><span class="mf">.</span><span class="nb">md5</span><span class="p">(</span><span class="no">CONTROLLER_NAME</span><span class="mf">.</span><span class="no">ACTION_NAME</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">empty</span><span class="p">(</span><span class="nf">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">)))</span> <span class="p">{</span>
+            <span class="nf">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">600</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="nf">run</span><span class="p">();</span>
+            <span class="nf">S</span><span class="p">(</span><span class="nv">$lock_file</span><span class="p">,</span><span class="kc">null</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="c1">// 子类逻辑执行方法</span>
-<span class="k">protected</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span> <span class="p">{}</span>
+<span class="k">protected</span> <span class="k">function</span> <span class="n">run</span><span class="p">()</span> <span class="p">{}</span>
 </code></pre></div></div>
 
 <h3 id="runloop">runloop</h3>
-<p>runloop 其实很简单，就是一个死循环，然后去读取配置文件，通过<code class="highlighter-rouge">php exec.php xxx</code>去执行脚本任务。特别需要注意的<code class="highlighter-rouge">daemon.sh</code>脚本，是我们统一守护进程。crontab中需要进行配置如下：</p>
+<p>runloop 其实很简单，就是一个死循环，然后去读取配置文件，通过<code class="language-plaintext highlighter-rouge">php exec.php xxx</code>去执行脚本任务。特别需要注意的<code class="language-plaintext highlighter-rouge">daemon.sh</code>脚本，是我们统一守护进程。crontab中需要进行配置如下：</p>
 
 <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 守护进程守护runloop.sh进程，去执行release环境[APP_STATUS]</span>
 <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> daemon.sh runloop.sh release
@@ -399,7 +399,7 @@ Agreement/SynchronizeStatus
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

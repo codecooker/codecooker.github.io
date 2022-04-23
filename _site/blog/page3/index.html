@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
 <meta name="description" content="Codecooker's Blog
 ">
-<link rel="canonical" href="http://localhost:4000/blog/page3/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/blog/page3/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -204,7 +204,37 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/mysql/2016/01/03/MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A.html">MySQL对char和varchar长度的解释</a></h1>
+    <div class="m-post-list"><article><h1><a href="/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">C++11 Lambda表达式</a></h1>
+          <div class="m-article-content">今天学习了C++11引入的Lambda表达式，Lambda在使用上有很多的方便之处。我们可以将之用于函数的回调，操作的封装的等地方。如果我们有Objective-c的经验的话，其实我可以将Lambda表达式和Block进行对比学习，两者有很多的相似之处。
+
+优势
+根据对Lambda的了解，发现其用途和函数指针有太多的相似之处，甚至可以理解为功能重叠。那么为什么在C++11中还要引入Lambda表达式呢？
+
+1. 函数指针是类型不安全的
+C语言的函数指针就是一个地址变量，在赋值和调用的时候没有任何类型检查。任何一种函数指针都可以转型为其他类型的函数指针， 当转型回来时,与原函数指针相同。必须由开发者自己保证正确的类型。函数指针无法提前在编译器给出错误提示。
+
+2. bind能保证类型安全...</div><a href="/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=C%2B%2B+C%2B%2B11">C++ C++11</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 02月14日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/apache%20vhost%20web/2016/01/11/Apache-vhost.html">Apache vhost</a></h1>
+          <div class="m-article-content">刚开始开发web的时候，我总是将项目直接部署至Apache的DocumentRoot目录，这样我只需要将自己的域名指到localhost即可。但是随着项目开发的进行，我需要同时开发前端和后台时，一个致命的问题就暴露了出来，我需要在每次切换项目的时候，替换DocumentRoot下部署的文件，这样反而让我的开发效率降低了不少。于是乎，最终选择了Apache的vhost方式
+
+打开Apache对vhost的支持
+编辑Apache配置文件,在macos上的默认路径为
+
+sudo vim /etc/apache2/httpd.conf
+
+找到下面这行代码，将前边的注释去掉
+
+498 # Virtual hosts
+499 Include /private/etc/apache2/extra/h...</div><a href="/apache%20vhost%20web/2016/01/11/Apache-vhost.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=Apache">Apache</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 01月11日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/mysql/2016/01/03/MySQL%E5%AF%B9char%E5%92%8Cvarchar%E9%95%BF%E5%BA%A6%E7%9A%84%E8%A7%A3%E9%87%8A.html">MySQL对char和varchar长度的解释</a></h1>
           <div class="m-article-content">这篇文章纯属实践检验型的，没有技术分析的成分。这段时间在建表的时候，对字符串存取时设置预置大小时产生了一些小得疑问，所以就自己检验了下。要是平时不太注意的同学也可以参考下。
 
 实验
@@ -291,49 +321,7 @@ apache的DocumentRoot是我们服务器的根目录，只有将代码部署到�
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月18日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/ios/2015/10/12/iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.html">iOS屏蔽警告不常用方法</a></h1>
-          <div class="m-article-content">在iOS开发的过程中，我们经常会被一些恼人的warning影响心情，当然常用的屏蔽warning的方法相信大家也已经掌握了不少，现在这里列举几个不常用的仅供大家参考
-
-当使用cocoapods管理第三方库时，第三方库的的warning怎么办?
-
-这个警告，我们时常无能感到很无能为力，因为总不能去依次修改第三方库里的代码来消除警告吧。其实看过cocoapods手册的同学应该会有所了解，只需要在我们的Podfile文件里添加一句，只是一句就可以解决
-
-inhibit_all_warnings!
-
-当我们定义一个变量或者调用一个有返回值的方法却没有使用该值时怎么办？
-
-直接上代码吧
-
-//.h文件
-@interface ViewController : UIViewController {
-...</div><a href="/ios/2015/10/12/iOS%E5%B1%8F%E8%94%BD%E8%AD%A6%E5%91%8A%E4%B8%8D%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=Warning">Warning</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月12日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html">iOS分享引擎</a></h1>
-          <div class="m-article-content">随着移动端社交因素的不断深入，通过分享来传播和为应用引流已经成为了一个惯用的做法。虽然现在各个平台已经对分享的操作做了高度的封装，但是如何如何快速方便的引入分享模块也是开发者需要考虑的问题之一。
-
-怎么样的分享比较理想？
-这个问题，即使千人千面，但是参与过项目的朋友们也应该有一个初步的共识，无外乎下述几个问题:
-
-  方便快捷，能方便的快捷的接入分享模块
-  UI可定制，分享模块的视觉部分可根据自身应用的特色进行定制
-  调用清晰，方便的获取分享状态
-  可定制分享到的平台
-  易扩展，可容易的扩展上不支持的分享平台，而不涉及核心功能 
-基本上满足上述要求的分享模块，即便算不上一个好的分享模块，也算是一个不错的分享引擎^_^
-
-
-如何实现
-我们将分享模块整理为一个插件的形式，每一个分享...</div><a href="/ios/2015/10/08/iOS%E5%88%86%E4%BA%AB%E5%BC%95%E6%93%8E.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 10月08日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
+</article></div><nav class="m-pagination"><p>共计 45 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page2">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -365,7 +353,7 @@ inhibit_all_warnings!
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

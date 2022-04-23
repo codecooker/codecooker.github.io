@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>ThinkPHP定时任务（一） - Codecooker's blog</title>
 <meta name="description" content="后台开发的过程中，免不了和定时任务打交道。每天定时的发短信给用户，定时的计算收益、利息，固定间隔的去执行某项大型任务（不适宜同步执行）等等，等等常用的定时任务都是基于linux中的crontab进行，不过今天我们主要做TP框架内的定时任务实现解析，分析其实现原理和缺陷。在下一部分，会介绍一个新的方案行为扩展细心的...">
-<link rel="canonical" href="http://localhost:4000/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%B8%80.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%B8%80.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -239,15 +239,15 @@
   <p>Common/Conf/tags.php 文件用于快速的注册行为扩展，跟HOOK有异曲同工之处。由于这个方法比较简洁方便，且对于框架代码无嵌入，值得使用</p>
 </blockquote>
 
-<p>这个注册的意思是在程序启动的时候，直接调用<code class="highlighter-rouge">Behavior\CronRunBehavior</code>脚本，而<code class="highlighter-rouge">Behavior\CronRunBehavior</code>脚本的任务既是对定时任务的调用</p>
+<p>这个注册的意思是在程序启动的时候，直接调用<code class="language-plaintext highlighter-rouge">Behavior\CronRunBehavior</code>脚本，而<code class="language-plaintext highlighter-rouge">Behavior\CronRunBehavior</code>脚本的任务既是对定时任务的调用</p>
 
 <h3 id="时间间隔">时间间隔</h3>
-<p>做定时任务，肯定要关心调用频次，这里我们看下<code class="highlighter-rouge">CronRunBehaviorController</code>的实现代码来简单的分析下这个定时任务的实现逻辑<br />
+<p>做定时任务，肯定要关心调用频次，这里我们看下<code class="language-plaintext highlighter-rouge">CronRunBehaviorController</code>的实现代码来简单的分析下这个定时任务的实现逻辑<br />
 如下代码:</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1">// 锁定自动执行</span>
- <span class="nv">$lockfile</span>    <span class="o">=</span>   <span class="nx">RUNTIME_PATH</span><span class="o">.</span><span class="s1">'cron.lock'</span><span class="p">;</span>
- <span class="k">if</span><span class="p">(</span><span class="nb">is_writable</span><span class="p">(</span><span class="nv">$lockfile</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">filemtime</span><span class="p">(</span><span class="nv">$lockfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REQUEST_TIME'</span><span class="p">]</span> <span class="o">-</span> <span class="nx">C</span><span class="p">(</span><span class="s1">'CRON_MAX_TIME'</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="mi">60</span><span class="p">))</span> <span class="p">{</span>
+ <span class="nv">$lockfile</span>    <span class="o">=</span>   <span class="no">RUNTIME_PATH</span><span class="mf">.</span><span class="s1">'cron.lock'</span><span class="p">;</span>
+ <span class="k">if</span><span class="p">(</span><span class="nb">is_writable</span><span class="p">(</span><span class="nv">$lockfile</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">filemtime</span><span class="p">(</span><span class="nv">$lockfile</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">'REQUEST_TIME'</span><span class="p">]</span> <span class="o">-</span> <span class="nf">C</span><span class="p">(</span><span class="s1">'CRON_MAX_TIME'</span><span class="p">,</span><span class="kc">null</span><span class="p">,</span><span class="mi">60</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">return</span> <span class="p">;</span>
  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
             <span class="nb">touch</span><span class="p">(</span><span class="nv">$lockfile</span><span class="p">);</span>
@@ -257,23 +257,23 @@
  <span class="nb">ignore_user_abort</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
 </code></pre></div></div>
 
-<p>这段代码的意思是，在执行<code class="highlighter-rouge">CronRunBehaviorController</code>前，大概分为如下流程:</p>
+<p>这段代码的意思是，在执行<code class="language-plaintext highlighter-rouge">CronRunBehaviorController</code>前，大概分为如下流程:</p>
 
 <ol>
   <li>判断是否有锁文件，如果没有则创建锁文件，进行下一步，如有进行第2步</li>
-  <li>判断所文件的创建时间是否和当前时间间隔超过我们设置的时间间隔<code class="highlighter-rouge">CRON_MAX_TIME</code>，默认为60s，如果超过则进行下一步，反之不执行，直接退出</li>
+  <li>判断所文件的创建时间是否和当前时间间隔超过我们设置的时间间隔<code class="language-plaintext highlighter-rouge">CRON_MAX_TIME</code>，默认为60s，如果超过则进行下一步，反之不执行，直接退出</li>
 </ol>
 
 <p>再看下面代码：</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="nx">RUNTIME_PATH</span><span class="o">.</span><span class="s1">'~crons.php'</span><span class="p">))</span> <span class="p">{</span>
-    <span class="nv">$crons</span>  <span class="o">=</span>   <span class="k">include</span> <span class="nx">RUNTIME_PATH</span><span class="o">.</span><span class="s1">'~crons.php'</span><span class="p">;</span>
-<span class="p">}</span><span class="k">elseif</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="nx">COMMON_PATH</span><span class="o">.</span><span class="s1">'Conf/crons.php'</span><span class="p">)){</span>
-    <span class="nv">$crons</span>  <span class="o">=</span>   <span class="k">include</span> <span class="nx">COMMON_PATH</span><span class="o">.</span><span class="s1">'Conf/crons.php'</span><span class="p">;</span>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="no">RUNTIME_PATH</span><span class="mf">.</span><span class="s1">'~crons.php'</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nv">$crons</span>  <span class="o">=</span>   <span class="k">include</span> <span class="no">RUNTIME_PATH</span><span class="mf">.</span><span class="s1">'~crons.php'</span><span class="p">;</span>
+<span class="p">}</span><span class="k">elseif</span><span class="p">(</span><span class="nb">is_file</span><span class="p">(</span><span class="no">COMMON_PATH</span><span class="mf">.</span><span class="s1">'Conf/crons.php'</span><span class="p">)){</span>
+    <span class="nv">$crons</span>  <span class="o">=</span>   <span class="k">include</span> <span class="no">COMMON_PATH</span><span class="mf">.</span><span class="s1">'Conf/crons.php'</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div></div>
 
-<p>这块代码可以看出来我们的定时任务配置是在<code class="highlighter-rouge">Conf/crons.php</code>路径下，有runtime缓存，每次修改需要清除缓存，这里比较简单，我来贴上<code class="highlighter-rouge">Conf/crons.php</code>的配置即可</p>
+<p>这块代码可以看出来我们的定时任务配置是在<code class="language-plaintext highlighter-rouge">Conf/crons.php</code>路径下，有runtime缓存，每次修改需要清除缓存，这里比较简单，我来贴上<code class="language-plaintext highlighter-rouge">Conf/crons.php</code>的配置即可</p>
 
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">return</span> <span class="p">[</span>
     <span class="s1">'callback'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Agreement/Cron/call_back.php'</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span>
@@ -281,8 +281,8 @@
 </code></pre></div></div>
 
 <ol>
-  <li>其中<code class="highlighter-rouge">callback</code>是任务脚本名称，而对于的value则是任务脚本的配置</li>
-  <li><code class="highlighter-rouge">'Agreement/Cron/call_back.php'</code>为具体执行脚本，依次为间隔时间，上次执行时间</li>
+  <li>其中<code class="language-plaintext highlighter-rouge">callback</code>是任务脚本名称，而对于的value则是任务脚本的配置</li>
+  <li><code class="language-plaintext highlighter-rouge">'Agreement/Cron/call_back.php'</code>为具体执行脚本，依次为间隔时间，上次执行时间</li>
 </ol>
 
 <p>至此，我们的基于TP的定时任务已经全部准备就绪。</p>
@@ -330,7 +330,7 @@
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
 <meta name="description" content="Codecooker's Blog
 ">
-<link rel="canonical" href="http://localhost:4000/blog/page5/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/blog/page5/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -204,7 +204,43 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">About 64-Bit Cocoa Touch Apps</a></h1>
+    <div class="m-post-list"><article><h1><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">Converting Your App to a 64-Bit Binary</a></h1>
+          <div class="m-article-content">这里概括一下，创建同时支持32-bit和64-bit运行时环境app步骤
+
+
+  安装Xcode 5.0.1
+  打开我们的工程.Xcode提示你升级你的工程，升级过程中，会产生一些新的错误和警告。这些错误和警告在我们编译64-bit的app是至关重要的
+  将工程的最低支持iOS版本升级至5.1.1.如果我们支持的系统版本低于5.1，我们将不能构建64-bit的工程
+  将build setting-&gt;Architectures改成“Standard Architectures (including 64-bit).”
+  升级应用支持64-bit运行时环境虽然编译错误和警告可以帮助我们简化这项工作，但是不能帮助我们全部解决所以问题，我们可以i这份文档提到的注意点针对我们的代码...</div><a href="/ios/2015/03/24/Converting-Your-App-to-a-64-Bit-Binary.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月24日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">Major 64-Bit Changes</a></h1>
+          <div class="m-article-content">数据类型的变化
+在C和Objective-C语言里，每个平台（编译器）都自己定义了内建数据类型的一些内存属性（大小，对齐方式）， 并没有一个统一的标准。这样做的好处是在于在语言标准的的严格定义下，每个平台可以让数值在操作系统和硬件下更好的适配。 iOS 64-bit 运行时也对很多内建数据类型的大小做了改变。在上层，很多 Cocoa Touch frameworks 使用的数据类型也做了改变。
+ILP32和LP64
+
+  32-bit运行时表示为ILP32
+其中，I表示整型；L表示长整型；P代表指针；ILP32表示在32-bit运行是里，整型、长整型、指针时32-bit长度
+同理LP64则表示在64-bit运行时里 整型是32-bit长度；长整型、指针为64-bit长度
+
+
+下表描述了...</div><a href="/ios/2015/03/04/Major-64-Bit-Changes.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=Build">Build</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=64-bit">64-bit</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月04日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/ios/2015/03/02/About-64-Bit-Cocoa-Touch-Apps.html">About 64-Bit Cocoa Touch Apps</a></h1>
           <div class="m-article-content">随着桌面操作系统由32-bit到64-bit的过渡，64-bit的app的出现也在被OS的发展驱动着。现在，iOS的系统架构和桌面系统的架构也有很多相同的地方。从iOS7的A7处理器开始，我们就可以build支持64-bit处理器的app了。当app支持了64bit后在同样的机型上可以获取更高的性能
 
 简介
@@ -217,7 +253,7 @@ apple 的A7处理器支持两个不同的指令集。一个是由apple早前处�
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 03月02日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">iOS特性修饰符(strong、weak...)</a></h1>
+</article><article><h1><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak/.).html">iOS特性修饰符(strong、weak...)</a></h1>
           <div class="m-article-content">iOS特性在修饰的时候我们经常会和下面几个修饰符打交道
 
 strong、retain、assign、unsafe_unretained、weak、nonatomic、atomic、copy
@@ -230,7 +266,7 @@ __strong id a = nil;
 __unsafe_unretained id b = nil;
 __weak              id c = nil;
 //修饰特性我们用不带下划线的，表示一样
-@property (nonato...</div><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak...).html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+@property (nonato...</div><a href="/objective-c/2015/01/29/iOS%E7%89%B9%E6%80%A7%E4%BF%AE%E9%A5%B0%E7%AC%A6(strong-weak/.).html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
           <a class="pill-button" href="/all.html?tag=objective-c">objective-c</a>
         </li><li>
           <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
@@ -309,50 +345,7 @@ X饭方向缩放a倍，Y方向缩放b倍，则有
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2015年 01月16日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html">iOS测量代码执行时间</a></h1>
-          <div class="m-article-content">iOS准确的测量系统执行时间:在iOS的开发过程中，经常会为了满足严苛的用户体验要求，需要对某些功能和模块的执行时间进行控制，那么问题来了，如何高效的检测代码的执行时间
-
-涉及的API
-先来认识几个API，他们被包含在
-&lt;mach/mach_time.h&gt;
-在使用前我们需要先
-
-#import &lt;mach/mach_time.h&gt;  
-
-进入mach_time.h文件，我们可以看到如下内容
-
-struct mach_timebase_info {
-uint32_t    numer;
-uint32_t    denom;
-};
-typedef struct mach_timebase_info   *mach_timebase_info_t;
-typedef s...</div><a href="/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%81%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=time">time</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2014年 12月26日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/cocoapods/2014/10/28/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html">CocoaPods问题总结</a></h1>
-          <div class="m-article-content">在项目接入cocoapods后，打包机器打包方面暴漏和很多问题。总会莫名其妙的发生错误，让大家手足无措。
-这里我来总结下常见的一些问题的处理方案，方便大家在日后的项目测试中做到有的放矢。
-
-1.找不到相应的库
-找不到相应的库的问题，我碰到的有两个原因
-1.打包机器没有添加framework对应的源（如何添加源，请继续往下看）
-2.本地cocoapods的版本与打包机器上cocoapods的版本不一致，这个问题通常是由于本地的版本高于MTL版本造成的
-
-2.找不到相应的target
-由于工程的迁移，或者开发人员的误操作，会造成本地target的丢失。这样在命令行打包过程中，会暴找不到target的错误，这时我们只需要将针对与个人的target设置成shared即可，如下:
-
-重要:这里需...</div><a href="/cocoapods/2014/10/28/CocoaPods%E9%97%AE%E9%A2%98%E6%80%BB%E7%BB%93.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=cocoaPods">cocoaPods</a>
-        </li><li>
-          <a class="pill-button" href="/all.html?tag=iOS">iOS</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2014年 10月28日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
+</article></div><nav class="m-pagination"><p>共计 45 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/blog/page4">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -384,7 +377,7 @@ typedef s...</div><a href="/ios/2014/12/26/iOS%E6%B5%8B%E9%87%8F%E4%BB%A3%E7%A0%
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

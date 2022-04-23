@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>PhpStorm 代码审查 - Codecooker's blog</title>
 <meta name="description" content="PHP的自动类型转换(弱类型)使我们在开发过程中确实尝到了不少甜头，然后由于语言的松散性(个人杜撰用词，PHP是全宇宙最牛逼的语言)，也使我们在开发过程中碰到不少让人追悔莫及的问题，这篇文字旨在帮助自己总结IDE是如何帮助自己避免一些潜在问题的手抖问题先看下面代码if ($condition = 'ok') { ...">
-<link rel="canonical" href="http://localhost:4000/php/2016/08/30/PhpStorm-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/php/2016/08/30/PhpStorm-%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -246,7 +246,7 @@
 <p>再看下面的代码</p>
 
 <figure class="highlight"><pre><code class="language-php" data-lang="php"><span class="nv">$name</span> <span class="o">=</span> <span class="nv">$_REQUEST</span><span class="p">[</span><span class="s1">'name'</span><span class="p">];</span>
-<span class="k">if</span> <span class="p">(</span><span class="k">empty</span><span class="p">(</span><span class="nv">$nam</span><span class="p">))</span> <span class="p">{</span>
+<span class="k">if</span> <span class="p">(</span><span class="nb">empty</span><span class="p">(</span><span class="nv">$nam</span><span class="p">))</span> <span class="p">{</span>
     <span class="c1">//do something</span>
 <span class="p">}</span></code></pre></figure>
 
@@ -285,7 +285,7 @@
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

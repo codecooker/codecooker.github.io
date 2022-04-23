@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>博客 - Codecooker's blog</title>
 <meta name="description" content="Codecooker's Blog
 ">
-<link rel="canonical" href="http://localhost:4000/blog/page2/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/blog/page2/"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -204,7 +204,36 @@
 </header>
 <div class="m-page-main"><div class="m-home">
   <div class="main">
-    <div class="m-post-list"><article><h1><a href="/%E6%84%9F%E6%82%9F/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html">2016年终总结</a></h1>
+    <div class="m-post-list"><article><h1><a href="/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%BA%8C.html">ThinkPHP定时任务（二）</a></h1>
+          <div class="m-article-content">前面说了TP框架中定时任务实现，也对存在的问题和优势做了一个简单的分析。如果有兴趣看的朋友可以参看ThinkPHP定时任务（一）。这篇主要对基于传统定时任务crontab[守护进程]，外加TP框架支持实现的基于TP的定时任务
+
+动机
+用过TP的朋友都知道，TP框架是一个由国人开发的很优秀且轻量的PHP Web框架。由于其丰富的文档和强大的用户群体，在国内有不错的保有量。记得之前项目之初选择框架的时候，朋友建议选择TP，给的建议就是用户群体大，便于招人。
+TP在Web模式下获得除了不俗的成绩，但是在非CGI模式下，通常（CLI），缺罕有人用。究其原因，个人觉得，无外乎以下几点：
+
+
+  文档解释的比较少
+  对CLI模式本身支持的比较简单
+  有这样前后台执行需求的用户大多选择了lara...</div><a href="/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%BA%8C.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=PHP">PHP</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=ThinkPHP">ThinkPHP</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 01月23日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%B8%80.html">ThinkPHP定时任务（一）</a></h1>
+          <div class="m-article-content">后台开发的过程中，免不了和定时任务打交道。每天定时的发短信给用户，定时的计算收益、利息，固定间隔的去执行某项大型任务（不适宜同步执行）等等，等等
+常用的定时任务都是基于linux中的crontab进行，不过今天我们主要做TP框架内的定时任务实现解析，分析其实现原理和缺陷。在下一部分，会介绍一个新的方案
+
+行为扩展
+细心的朋友应该知道TP框架中有一个名叫行为扩展的东西。其实简单的概括起来就是HOOK,可以实现在某个时机进行HOOK，然后注册监听(Listen),实现代码和功能的无侵入式嵌入。行为扩展在我们的项目中使用的比较多，静态资源替换、错误模板替换（这个只有经历过才知道为什么）、自动初始化，太多的地方。总体来说，由于TP暴露了很多关键点的HOOK，我们在使用的时候，只需要去监听即可，...</div><a href="/php/2017/01/23/ThinkPHP%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-%E4%B8%80.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
+          <a class="pill-button" href="/all.html?tag=PHP">PHP</a>
+        </li><li>
+          <a class="pill-button" href="/all.html?tag=ThinkPHP">ThinkPHP</a>
+        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2017年 01月23日</span></div>
+  </div>
+</div>
+</article><article><h1><a href="/%E6%84%9F%E6%82%9F/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html">2016年终总结</a></h1>
           <div class="m-article-content">不忘初心，以己为镜，继续努力！
 </div><a href="/%E6%84%9F%E6%82%9F/2016/12/31/2016%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
           <a class="pill-button" href="/all.html?tag=%E5%BF%83%E5%BE%97">心得</a>
@@ -287,37 +316,7 @@ server {
         </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 03月10日</span></div>
   </div>
 </div>
-</article><article><h1><a href="/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">C++11 Lambda表达式</a></h1>
-          <div class="m-article-content">今天学习了C++11引入的Lambda表达式，Lambda在使用上有很多的方便之处。我们可以将之用于函数的回调，操作的封装的等地方。如果我们有Objective-c的经验的话，其实我可以将Lambda表达式和Block进行对比学习，两者有很多的相似之处。
-
-优势
-根据对Lambda的了解，发现其用途和函数指针有太多的相似之处，甚至可以理解为功能重叠。那么为什么在C++11中还要引入Lambda表达式呢？
-
-1. 函数指针是类型不安全的
-C语言的函数指针就是一个地址变量，在赋值和调用的时候没有任何类型检查。任何一种函数指针都可以转型为其他类型的函数指针， 当转型回来时,与原函数指针相同。必须由开发者自己保证正确的类型。函数指针无法提前在编译器给出错误提示。
-
-2. bind能保证类型安全...</div><a href="/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=C%2B%2B+C%2B%2B11">C++ C++11</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 02月14日</span></div>
-  </div>
-</div>
-</article><article><h1><a href="/apache%20vhost%20web/2016/01/11/Apache-vhost.html">Apache vhost</a></h1>
-          <div class="m-article-content">刚开始开发web的时候，我总是将项目直接部署至Apache的DocumentRoot目录，这样我只需要将自己的域名指到localhost即可。但是随着项目开发的进行，我需要同时开发前端和后台时，一个致命的问题就暴露了出来，我需要在每次切换项目的时候，替换DocumentRoot下部署的文件，这样反而让我的开发效率降低了不少。于是乎，最终选择了Apache的vhost方式
-
-打开Apache对vhost的支持
-编辑Apache配置文件,在macos上的默认路径为
-
-sudo vim /etc/apache2/httpd.conf
-
-找到下面这行代码，将前边的注释去掉
-
-498 # Virtual hosts
-499 Include /private/etc/apache2/extra/h...</div><a href="/apache%20vhost%20web/2016/01/11/Apache-vhost.html">点我阅读更多...</a><div class="m-article-data clearfix"><meta itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="codecooker"/></meta><ul class="tag-wrapper"><li>
-          <a class="pill-button" href="/all.html?tag=Apache">Apache</a>
-        </li></ul><div class="other-wrapper"><div class="date-wrapper"><span class="article-meta">2016年 01月11日</span></div>
-  </div>
-</div>
-</article></div><nav class="m-pagination"><p>共计 43 篇文章，7 页。</p>
+</article></div><nav class="m-pagination"><p>共计 45 篇文章，7 页。</p>
           <ul><li><a class="round-button" href="/">
                 <div class="icon icon--previous"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
@@ -349,7 +348,7 @@ sudo vim /etc/apache2/httpd.conf
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

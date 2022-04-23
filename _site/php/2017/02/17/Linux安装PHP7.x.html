@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>Linux安装PHP7.x - Codecooker's blog</title>
 <meta name="description" content="众所周知，PHP7的性能和执行速度都有了很大的改进。恰逢最近公司的一些项目也在尝试着迁移到PHP7的环境，由于本人平时开发使用MAC和Linux，而且不愿意使用现成的批量部署工具（不是愿意重复造轮子，而是想知道到底安装了哪些东西）。所以就选择自己编译安装环境。获取源代码PHP源代码是开源的，我们可以在PHP的官方...">
-<link rel="canonical" href="http://localhost:4000/php/2017/02/17/Linux%E5%AE%89%E8%A3%85PHP7.x.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/php/2017/02/17/Linux%E5%AE%89%E8%A3%85PHP7.x.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -349,7 +349,7 @@ Zend Engine v3.1.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
 <h3 id="常见错误处理">常见错误处理</h3>
 <h4 id="centos7-安装报如下错误">Centos7 安装报如下错误</h4>
 <ul>
-  <li><code class="highlighter-rouge">libmcrypt libmcrypt-devel</code>未找到，需要下载源码进行安装。默认安装在 /usr/local/lib</li>
+  <li><code class="language-plaintext highlighter-rouge">libmcrypt libmcrypt-devel</code>未找到，需要下载源码进行安装。默认安装在 /usr/local/lib</li>
   <li>编辑文件/etc/ld.so.conf，添加/usr/local/lib到最后，执行ldconfig</li>
 </ul>
 </div>
@@ -368,7 +368,7 @@ Zend Engine v3.1.0, Copyright <span class="o">(</span>c<span class="o">)</span> 
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">

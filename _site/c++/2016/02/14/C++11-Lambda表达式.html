@@ -3,7 +3,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>C++11 Lambda表达式 - Codecooker's blog</title>
 <meta name="description" content="今天学习了C++11引入的Lambda表达式，Lambda在使用上有很多的方便之处。我们可以将之用于函数的回调，操作的封装的等地方。如果我们有Objective-c的经验的话，其实我可以将Lambda表达式和Block进行对比学习，两者有很多的相似之处。优势根据对Lambda的了解，发现其用途和函数指针有太多的相...">
-<link rel="canonical" href="http://localhost:4000/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://localhost:4000/feed.xml">
+<link rel="canonical" href="http://0.0.0.0:8080/c++/2016/02/14/C++11-Lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"><link rel="alternate" type="application/rss+xml" title="Codecooker's blog" href="http://0.0.0.0:8080/feed.xml">
 <!-- for Safari on iOS https://developer.apple.com/ios/human-interface-guidelines/icons-and-images/app-icon/ --><link rel="apple-touch-icon" sizes="180x180" href="/assets/images/logo/icon-180x180.png"><link rel="apple-touch-icon" sizes="167x167" href="/assets/images/logo/icon-167x167.png"><link rel="apple-touch-icon" sizes="152x152" href="/assets/images/logo/icon-152x152.png"><link rel="apple-touch-icon" sizes="120x120" href="/assets/images/logo/icon-120x120.png"><link rel="shortcut icon" href="/assets/images/logo/icon-120x120.png">
 <!-- for Chrome on Android https://developer.chrome.com/multidevice/android/installtohomescreen -->
 <meta name="mobile-web-app-capable" content="yes"><link rel="icon" sizes="192x192" href="/assets/images/logo/icon-192x192.png">
@@ -365,15 +365,15 @@ my age is 27</code></pre></figure>
 <h4 id="lambda表达式作为参数">Lambda表达式作为参数</h4>
 <p>前面已经说过Lambda表达式是std::function类型的变量，既然是变量那么必须可以作为参数进行传递，有了上边的描述，直接上代码</p>
 
-<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;functional&gt;
+<figure class="highlight"><pre><code class="language-c--" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;functional&gt;</span><span class="cp">
 </span>
 <span class="k">using</span>  <span class="n">std</span><span class="o">::</span><span class="n">function</span><span class="p">;</span>
 <span class="k">using</span>  <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">;</span>
 
 
-<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">lambda</span><span class="p">);</span>
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="n">function</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">lambda</span><span class="p">);</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
 <span class="p">{</span>
@@ -418,7 +418,7 @@ result is 1</code></pre></figure>
   <div class="main">
     <aside><div class="follow-me"><ul itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="codecooker">
-    <link itemprop="url" href="http://localhost:4000/"><li title="在 Github 上关注我。">
+    <link itemprop="url" href="http://0.0.0.0:8080/"><li title="在 Github 上关注我。">
         <div class="floating-action-round-button github">
           <a itemprop="sameAs" href="https://github.com/codecooker" target="_blank">
             <div class="icon"><svg fill="#000000" width="24px" height="24px" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
