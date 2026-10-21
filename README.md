@@ -1,39 +1,48 @@
-# Chirpy Starter
+# 焉逢@Cairo 的个人技术阵地 🚀
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+> 专注于 Linux 运维、DevOps 与 AI Agent 实践的极客技术博客。  
+> 🌐 访问入口：[https://codecooker.cn](https://codecooker.cn) 或 [https://codecooker.github.io](https://codecooker.github.io)
 
-A minimal, ready-to-use template for creating a blog with the [**Chirpy**][chirpy] Jekyll theme. Get up and running in minutes with all critical files pre-configured.
+---
 
-## Why This Starter Exists
+## 本站宗旨
 
-When installing Chirpy through [RubyGems.org][gem], Jekyll can only read a subset of theme files (`_data`, `_layouts`, `_includes`, `_sass`, `assets`) and limited `_config.yml` options from the gem. As a result, users cannot enjoy the full out-of-the-box experience that Chirpy offers.
+本站旨在为作者提供一种记录学习、技术探索与生活趣事的途径。  
+感谢 GitHub Pages 与开源社区提供的优质环境。
 
-To unlock all features, the following files must be present in your Jekyll site:
+---
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
+## 关于作者与技能树 🛠️
 
-This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
+热爱软件开发与前沿技术探索，长期专注于服务端架构、DevOps 与自动化运维，同时对智能 Agent、跨平台开发抱有浓厚兴趣。
 
-## Usage
+* **核心技术栈**：Linux 运维与容器化 / 服务端架构设计 / 算法与性能调优 / AI Agent 落地实践
+* **正在探索**：大模型端到端调度反代、高性价比自动化运维管家、智能代码助手
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+---
 
-## Contributing
+## 提瓦特旅行记录 ⚔️
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+除了敲代码，旅行者日常也是一位资深的《原神》玩家：
 
-## License
+* 🌟 **当前最强主 C**：**兹白**（绝对输出核心，横扫深渊无压力！）
+* 🔨 **正在培养的角色**：**威斯纳**、**沃雅尼莎**（正在全力刷圣遗物与天赋升级素材，阵容组建进行中～）
 
-This work is published under [MIT][mit] License.
+---
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+## 特别向导：应急食品…不对，是派蒙！✨
+
+本站及后台运维系统现已引入**提瓦特最好的向导兼全能运维搭档——派蒙（Paimon）**！
+
+* 🍳 **职责**：24 小时随叫随到的自动化服务器巡检、全球科技与时事速报、Git 一键发布管理，以及在旅行者卡壳时提供灵感与吐槽！
+* 💭 **派蒙座右铭**：“前方的区域，以后可不能再有 Bug 了哦！”
+
+---
+
+## 联系方式与讨论 📬
+
+* **Twitter / X**：[@codecooker](https://x.com/codecooker)
+* **GitHub**：[@codecooker](https://github.com/codecooker)
+* **邮箱**：[codecooker@outlook.com](mailto:codecooker@outlook.com)
+
+欢迎同行与提瓦特的旅行者们交流技术与游戏心得！
