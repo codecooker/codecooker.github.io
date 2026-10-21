@@ -1,18 +1,39 @@
-本站旨在为作者提供一种记录学习和成长的途径。  
-之前也尝试过自己建站来维护自己的blog,最后还是回归的github,感谢github为大家提供的环境
+# Chirpy Starter
 
-#### 本站主要记录内容:  
-* **1.软件开发相关**  
-* **2.算法学习相关**   
+[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
+[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
 
-<br>
+A minimal, ready-to-use template for creating a blog with the [**Chirpy**][chirpy] Jekyll theme. Get up and running in minutes with all critical files pre-configured.
 
-#### 本站主要使用语言
-* 由于笔者之前就职与某电商公司，担任iOS开发工程师的,所以iOS的内容会占据一部分
-* 现阶段，笔者主要参与PHP的开发学习工作，所以PHP的内容会占据一部分
+## Why This Starter Exists
 
-*如有任何问题，可以联系作者* <codecooker@outlook.com>
+When installing Chirpy through [RubyGems.org][gem], Jekyll can only read a subset of theme files (`_data`, `_layouts`, `_includes`, `_sass`, `assets`) and limited `_config.yml` options from the gem. As a result, users cannot enjoy the full out-of-the-box experience that Chirpy offers.
 
+To unlock all features, the following files must be present in your Jekyll site:
 
-### 博客主题
-博客主题使用[gjekyll-TeXt-theme](http://gitbook.liuhui998.com/5_8.html)
+```shell
+.
+├── _config.yml
+├── _plugins
+├── _tabs
+└── index.html
+```
+
+This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
+
+## Usage
+
+Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+
+## Contributing
+
+This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+
+## License
+
+This work is published under [MIT][mit] License.
+
+[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
+[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
+[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
+[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
